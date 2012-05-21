@@ -1,0 +1,136 @@
+%=================================================================
+% This template is based on IMRT Latex template by Eric A. Mueller
+%================================================================= 
+
+\documentclass[10pt,twoside,a4paper]{report}
+
+ \usepackage[bt,fs,english]{ethasl}   % New styles and commands
+                                      % Options: 	bt/mt: Bachelorthesis/Masterthesis
+                                      %						fs/hs: Frühlingssemester/Herbstsemester
+                                      %						german/english: Deutsch/English
+
+% \includeonly{}                      % Quick formatting
+% \usepackage[draft]{graphicx}        % Quick formatting
+
+ \usepackage{a4}                      % Paper size
+ \usepackage[latin1]{inputenc}        % Keybord settings
+ \usepackage{amsmath}                 % Additional math functionality
+ \usepackage{amssymb}                 % Additional math functionality
+ \usepackage{graphicx}                % EPS figures
+ \usepackage[dvips]{epsfig}           % EPS figures
+ \usepackage{float}                   % Placement of floating objects
+ \usepackage{fancyhdr}                % Headings
+ \usepackage{rotating}
+ \usepackage{multirow}
+ \usepackage{url}
+ \usepackage{colortbl}
+ \usepackage{ifpdf}
+ 
+
+ \usepackage{hyperref}
+ \usepackage{color}
+ \definecolor{black}{rgb}{0,0,0}
+ \definecolor{white}{rgb}{1,1,1}
+
+ \definecolor{darkred}{rgb}{0.5,0,0}
+ \definecolor{darkgreen}{rgb}{0,0.5,0}
+ \definecolor{darkblue}{rgb}{0,0,0.5}
+
+ \hypersetup{colorlinks
+	,linkcolor=black
+	,filecolor=black
+	,urlcolor=black
+	,citecolor=black
+ }
+
+
+ \ifpdf
+	\usepackage[update]{epstopdf}
+ \else
+ \fi
+
+% \usepackage{german}                  % German language "o, "a, use.
+%\usepackage{ae}                      % German specials
+
+%---------------------------------------------------------------------------
+
+ \setlength{\parindent}{0em}                   % Disable parindent
+ \rhead[\thepage]{\nouppercase{\rightmark}}    % Special headings
+ \lhead[\nouppercase{\leftmark}]{\thepage}     % Special headings
+ \cfoot{}                                      % Special headings
+
+%---------------------------------------------------------------------------
+
+ \title{Human-Machine Interface for Operating a Blimb}
+ %\subtitle{bla bla bla}
+
+ 
+ \studentA{Krebs Matthias}
+ \studentB{Ledergerber Anton}
+% \studentC{Student 3}
+ 
+ 
+
+\supervisionA{Konrad Rudin}
+\supervisionB{Mora Javier Alonso}
+\supervisionC{Paul Beardsley XXXXX}
+ 
+
+%===========================================================================
+\begin{document}
+
+%---------------------------------------------------------------------------
+% Title page
+
+ \maketitle
+ \pagestyle{plain}
+ \pagenumbering{roman}
+
+%---------------------------------------------------------------------------
+% Declaration of Originality
+
+\pagestyle{empty}
+% TODO Modify placeholders in declaration.tex
+\include{declaration}
+
+%---------------------------------------------------------------------------
+% Preamble
+
+ \include{preamble}
+
+ \pagestyle{headings}                 % Default headings
+ \pagestyle{fancy}                   % Special headings
+ \pagenumbering{arabic}
+
+%---------------------------------------------------------------------------
+% Chapters
+
+ \include{introduction}
+ \cleardoublepage
+ \include{chapter}
+ \cleardoublepage
+ \include{SofHarSolution}
+ \cleardoublepage
+ \include{DifferentControlModes}
+ \cleardoublepage
+ \include{Realization}
+ \cleardoublepage
+ \include{Trajectory}
+ \cleardoublepage
+% ...
+%
+%---------------------------------------------------------------------------
+% Appendix
+
+ \appendix
+ \include{appendix}
+%
+%---------------------------------------------------------------------------
+% Literature
+
+ \include{bibliography}
+
+%---------------------------------------------------------------------------
+
+\end{document}
+%===========================================================================
