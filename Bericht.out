@@ -28,4 +28,20 @@
 \BOOKMARK [1][-]{section.6.5}{System Constraints for Trajectory}{chapter.6}
 \BOOKMARK [2][-]{subsection.6.5.1}{Maximum Velocities and Accelerations}{section.6.5}
 \BOOKMARK [2][-]{subsection.6.5.2}{Continuity}{section.6.5}
-\BOOKMARK [0][-]{appendix*.9}{Bibliography}{}
+\BOOKMARK [1][-]{section.6.6}{Definition}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.6.1}{Paths and Trajectories}{section.6.6}
+\BOOKMARK [2][-]{subsection.6.6.2}{Interpolation and Approximation}{section.6.6}
+\BOOKMARK [2][-]{subsection.6.6.3}{Parametrization}{section.6.6}
+\BOOKMARK [2][-]{subsection.6.6.4}{Experimental Design}{section.6.6}
+\BOOKMARK [1][-]{section.6.7}{Spline Theory}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.7.1}{Piecewise Polynomial Interpolating Splines}{section.6.7}
+\BOOKMARK [2][-]{subsection.6.7.2}{B-Splines}{section.6.7}
+\BOOKMARK [1][-]{section.6.8}{Trajectory Generation}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.8.1}{System Constraints}{section.6.8}
+\BOOKMARK [2][-]{subsection.6.8.2}{Time Parametrization}{section.6.8}
+\BOOKMARK [1][-]{section.6.9}{Controller Implementation}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.9.1}{Trajectory Controller}{section.6.9}
+\BOOKMARK [2][-]{subsection.6.9.2}{Pure Pursuit Position Controller}{section.6.9}
+\BOOKMARK [2][-]{subsection.6.9.3}{Cross Track Error Controller}{section.6.9}
+\BOOKMARK [1][-]{section.6.10}{Discussion}{chapter.6}
+\BOOKMARK [0][-]{appendix*.15}{Bibliography}{}
