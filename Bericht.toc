@@ -24,10 +24,8 @@
 \contentsline {subsection}{\numberline {6.1.2}Our Approach}{13}{subsection.6.1.2}
 \contentsline {section}{\numberline {6.2}Vorschlag: Geometric Parameterized Paths}{13}{section.6.2}
 \contentsline {section}{\numberline {6.3}Vorschlag: Time Parameterized Trajectories}{13}{section.6.3}
-\contentsline {section}{\numberline {6.4}Vorschlag: Trajectory Controller}{13}{section.6.4}
+\contentsline {section}{\numberline {6.4}Vorschlag: Trajectory Tracking}{13}{section.6.4}
 \contentsline {section}{\numberline {6.5}System Constraints for Trajectory}{14}{section.6.5}
 \contentsline {subsection}{\numberline {6.5.1}Maximum Velocities and Accelerations}{14}{subsection.6.5.1}
 \contentsline {subsection}{\numberline {6.5.2}Continuity}{14}{subsection.6.5.2}
-\contentsline {chapter}{\numberline {A}Irgendwas}{15}{appendix.A}
-\contentsline {chapter}{\numberline {B}Nochmals irgendwas}{17}{appendix.B}
-\contentsline {chapter}{Bibliography}{19}{appendix*.9}
+\contentsline {chapter}{Bibliography}{15}{appendix*.9}
