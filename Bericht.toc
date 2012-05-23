@@ -16,38 +16,49 @@
 \contentsline {section}{\numberline {2.6}Mathematische Formeln}{5}{section.2.6}
 \contentsline {section}{\numberline {2.7}Weitere n\"utzliche Befehle}{6}{section.2.7}
 \contentsline {chapter}{\numberline {3}Finding a Hardware and Software Solution}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Requirements}{7}{section.3.1}
+\contentsline {section}{\numberline {3.2}Existing Solutions}{7}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Hardware}{7}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Software}{7}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Realization}{7}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Compact and Convenient Solution}{7}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}QGroundControl}{7}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Mavlink}{7}{subsection.3.3.3}
 \contentsline {chapter}{\numberline {4}The different Control Modes}{9}{chapter.4}
-\contentsline {chapter}{\numberline {5}Realization of the HMI as a whole and for each Control Mode}{11}{chapter.5}
-\contentsline {chapter}{\numberline {6}Trajectory Planning}{13}{chapter.6}
-\contentsline {section}{\numberline {6.1}Introduction}{13}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Definition}{13}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}Our Approach}{13}{subsection.6.1.2}
-\contentsline {section}{\numberline {6.2}Vorschlag: Geometric Parameterized Paths}{13}{section.6.2}
-\contentsline {section}{\numberline {6.3}Vorschlag: Time Parameterized Trajectories}{13}{section.6.3}
-\contentsline {section}{\numberline {6.4}Vorschlag: Trajectory Tracking}{13}{section.6.4}
-\contentsline {section}{\numberline {6.5}System Constraints for Trajectory}{14}{section.6.5}
-\contentsline {subsection}{\numberline {6.5.1}Maximum Velocities and Accelerations}{14}{subsection.6.5.1}
-\contentsline {subsection}{\numberline {6.5.2}Continuity}{14}{subsection.6.5.2}
-\contentsline {section}{\numberline {6.6}Definition}{14}{section.6.6}
-\contentsline {subsection}{\numberline {6.6.1}Paths and Trajectories}{14}{subsection.6.6.1}
-\contentsline {subsection}{\numberline {6.6.2}Interpolation and Approximation}{14}{subsection.6.6.2}
-\contentsline {subsection}{\numberline {6.6.3}Parametrization}{14}{subsection.6.6.3}
-\contentsline {subsection}{\numberline {6.6.4}Experimental Design}{14}{subsection.6.6.4}
-\contentsline {section}{\numberline {6.7}Spline Theory}{14}{section.6.7}
-\contentsline {subsection}{\numberline {6.7.1}Piecewise Polynomial Interpolating Splines}{15}{subsection.6.7.1}
-\contentsline {subsubsection}{Boundary Conditions}{15}{section*.9}
-\contentsline {subsubsection}{Polynomial Order}{15}{section*.10}
-\contentsline {subsubsection}{Parametrization}{15}{section*.11}
-\contentsline {subsection}{\numberline {6.7.2}B-Splines}{15}{subsection.6.7.2}
-\contentsline {subsubsection}{Boundary Conditions}{15}{section*.12}
-\contentsline {subsubsection}{Polynomial Order}{15}{section*.13}
-\contentsline {subsubsection}{Parametrization}{15}{section*.14}
-\contentsline {section}{\numberline {6.8}Trajectory Generation}{15}{section.6.8}
-\contentsline {subsection}{\numberline {6.8.1}System Constraints}{15}{subsection.6.8.1}
-\contentsline {subsection}{\numberline {6.8.2}Time Parametrization}{15}{subsection.6.8.2}
-\contentsline {section}{\numberline {6.9}Controller Implementation}{15}{section.6.9}
-\contentsline {subsection}{\numberline {6.9.1}Trajectory Controller}{15}{subsection.6.9.1}
-\contentsline {subsection}{\numberline {6.9.2}Pure Pursuit Position Controller}{15}{subsection.6.9.2}
-\contentsline {subsection}{\numberline {6.9.3}Cross Track Error Controller}{15}{subsection.6.9.3}
-\contentsline {section}{\numberline {6.10}Discussion}{15}{section.6.10}
-\contentsline {chapter}{Bibliography}{17}{appendix*.15}
+\contentsline {section}{\numberline {4.1}Evaluation}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Manual Control Modes}{9}{section.4.2}
+\contentsline {section}{\numberline {4.3}Automatic Control Modes}{9}{section.4.3}
+\contentsline {chapter}{\numberline {5}Trajectory Planning}{11}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{11}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Definition}{11}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Our Approach}{11}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Vorschlag: Geometric Parameterized Paths}{11}{section.5.2}
+\contentsline {section}{\numberline {5.3}Vorschlag: Time Parameterized Trajectories}{11}{section.5.3}
+\contentsline {section}{\numberline {5.4}Vorschlag: Trajectory Tracking}{11}{section.5.4}
+\contentsline {section}{\numberline {5.5}System Constraints for Trajectory}{12}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Maximum Velocities and Accelerations}{12}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Continuity}{12}{subsection.5.5.2}
+\contentsline {section}{\numberline {5.6}Definition}{12}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Paths and Trajectories}{12}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {5.6.2}Interpolation and Approximation}{12}{subsection.5.6.2}
+\contentsline {subsection}{\numberline {5.6.3}Parametrization}{12}{subsection.5.6.3}
+\contentsline {subsection}{\numberline {5.6.4}Experimental Design}{12}{subsection.5.6.4}
+\contentsline {section}{\numberline {5.7}Spline Theory}{12}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Piecewise Polynomial Interpolating Splines}{13}{subsection.5.7.1}
+\contentsline {subsubsection}{Boundary Conditions}{13}{section*.9}
+\contentsline {subsubsection}{Polynomial Order}{13}{section*.10}
+\contentsline {subsubsection}{Parametrization}{13}{section*.11}
+\contentsline {subsection}{\numberline {5.7.2}B-Splines}{13}{subsection.5.7.2}
+\contentsline {subsubsection}{Boundary Conditions}{13}{section*.12}
+\contentsline {subsubsection}{Polynomial Order}{13}{section*.13}
+\contentsline {subsubsection}{Parametrization}{13}{section*.14}
+\contentsline {section}{\numberline {5.8}Trajectory Generation}{13}{section.5.8}
+\contentsline {subsection}{\numberline {5.8.1}System Constraints}{13}{subsection.5.8.1}
+\contentsline {subsection}{\numberline {5.8.2}Time Parametrization}{13}{subsection.5.8.2}
+\contentsline {section}{\numberline {5.9}Controller Implementation}{13}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Trajectory Controller}{13}{subsection.5.9.1}
+\contentsline {subsection}{\numberline {5.9.2}Pure Pursuit Position Controller}{13}{subsection.5.9.2}
+\contentsline {subsection}{\numberline {5.9.3}Cross Track Error Controller}{13}{subsection.5.9.3}
+\contentsline {section}{\numberline {5.10}Discussion}{13}{section.5.10}
+\contentsline {chapter}{\numberline {6}Conclusion}{15}{chapter.6}
+\contentsline {chapter}{Bibliography}{16}{appendix*.15}
