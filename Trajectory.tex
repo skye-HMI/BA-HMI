@@ -1,30 +1,42 @@
 \chapter{Trajectory Planning}
 \label{cha:trajectory}
-For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for skye are elaborated.
+For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated.
 
-\section{Introduction}
+%\subsection{Our Approach}
+%From the GUI it was given that the goal trajectory would be a multipoint-interpolating %trajectory. The user is able to define waypoints on a map which afterwards should be %connected with a reasonable and realizable trajectory. Beside interpolating trajectories %there exist also approximating trajectories but they were not taken into consideration, since %usually the user wants skye fly directly through a waypoint.
 
-\subsection{Definition}
-What is a trajectory...(notation, parameter, time...)
-How do we intend to realize our idea... 
+%In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
 
-\subsection{Our Approach}
-From the GUI it was given that the goal trajectory would be a multipoint-interpolating trajectory. The user is able to define waypoints on a map which afterwards should be connected with a reasonable and realizable trajectory. Beside interpolating trajectories there exist also approximating trajectories but they were not taken into consideration, since usually the user wants skye fly directly through a waypoint.
 
-In another Bsc Thesis elaborated in this project a controller for waypoint following was designed. So it was convenient in the scope of this Thesis to use this controller instead of a specialized trajectory controller.
 
-\section{Vorschlag: Geometric Parameterized Paths}
-BLA: Everything considering generating splines, boundery conditions, order, and comparision and evaluation (skye independent)
-\section{Vorschlag: Time Parameterized Trajectories}
-BLA: System constraints, time parametrization
-\section{Vorschlag: Trajectory Tracking}
-BLA: Feeding the trajectories into skye, controller appoach, evaluation (comparision trajectory and trace) \\
-\textsc{Unsch"on:} Hier muss alles was oben theoretisch beschrieben wird repetiert werden (BC, Order, Constraints?, different time parametrization) \\
-The goal of tracking is
+\section{Definition}
+\label{sec:definition}
+\subsection{Paths and Trajectories}
+\subsection{Interpolation and Approximation}
+\subsection{Parametrization}
+\subsection{Experimental Design}
 
-\section{System Constraints for Trajectory}
+\section{Spline Theory}
+\label{sec:splineTheory}
+references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
+\subsection{Splines}
+\subsubsection{Continuity}
+\subsubsection{Boundary Conditions}
+\subsubsection{Polynomial Order}
+\subsubsection{Parametrization}
+\subsection{Piecewise Polynomial Interpolating Splines}
+\subsubsection{Boundary Conditions}
+\subsubsection{Polynomial Order}
+\subsubsection{Parametrization}
+\subsection{B-Splines}
+\subsubsection{Boundary Conditions}
+\subsubsection{Polynomial Order}
+\subsubsection{Parametrization}
 
-\subsection{Maximum Velocities and Accelerations}
+\section{Trajectory Generation}
+\label{sec:trajectoryGeneration}
+\subsection{System Constraints}
+\subsubsection{Maximum Velocities and Accelerations}
 In order to plan a feasible trajectory one has to know the capabilities of the system. Here just a basic derivation for the velocities and accelerations is given, for more details refer to (!!!!Bsc Thesis Joe, Bsc Thesis Andy)\\
 
 The maximum feasible acceleration in any direction is calculated to be:
@@ -54,35 +66,6 @@ which is quite conservative because it is assumed that worst axis for turning is
 
 Since the system is almost undamped for rotations, the rotational velocities will never be the limiting factor.
 
-
-
-
-
-\subsection{Continuity}
-
-
-\section{Definition}
-\label{sec:definition}
-\subsection{Paths and Trajectories}
-\subsection{Interpolation and Approximation}
-\subsection{Parametrization}
-\subsection{Experimental Design}
-
-\section{Spline Theory}
-\label{sec:splineTheory}
-references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
-\subsection{Piecewise Polynomial Interpolating Splines}
-\subsubsection{Boundary Conditions}
-\subsubsection{Polynomial Order}
-\subsubsection{Parametrization}
-\subsection{B-Splines}
-\subsubsection{Boundary Conditions}
-\subsubsection{Polynomial Order}
-\subsubsection{Parametrization}
-
-\section{Trajectory Generation}
-\label{sec:trajectoryGeneration}
-\subsection{System Constraints}
 \subsection{Time Parametrization}
 
 \section{Controller Implementation}

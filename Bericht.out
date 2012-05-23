@@ -29,30 +29,22 @@
 \BOOKMARK [1][-]{section.4.2}{Manual Control Modes}{chapter.4}
 \BOOKMARK [1][-]{section.4.3}{Automatic Control Modes}{chapter.4}
 \BOOKMARK [0][-]{chapter.5}{Trajectory Planning}{}
-\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{Definition}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Our Approach}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Vorschlag: Geometric Parameterized Paths}{chapter.5}
-\BOOKMARK [1][-]{section.5.3}{Vorschlag: Time Parameterized Trajectories}{chapter.5}
-\BOOKMARK [1][-]{section.5.4}{Vorschlag: Trajectory Tracking}{chapter.5}
-\BOOKMARK [1][-]{section.5.5}{System Constraints for Trajectory}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.5.1}{Maximum Velocities and Accelerations}{section.5.5}
-\BOOKMARK [2][-]{subsection.5.5.2}{Continuity}{section.5.5}
-\BOOKMARK [1][-]{section.5.6}{Definition}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.6.1}{Paths and Trajectories}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.2}{Interpolation and Approximation}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.3}{Parametrization}{section.5.6}
-\BOOKMARK [2][-]{subsection.5.6.4}{Experimental Design}{section.5.6}
-\BOOKMARK [1][-]{section.5.7}{Spline Theory}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.7.1}{Piecewise Polynomial Interpolating Splines}{section.5.7}
-\BOOKMARK [2][-]{subsection.5.7.2}{B-Splines}{section.5.7}
-\BOOKMARK [1][-]{section.5.8}{Trajectory Generation}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.8.1}{System Constraints}{section.5.8}
-\BOOKMARK [2][-]{subsection.5.8.2}{Time Parametrization}{section.5.8}
-\BOOKMARK [1][-]{section.5.9}{Controller Implementation}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.9.1}{Trajectory Controller}{section.5.9}
-\BOOKMARK [2][-]{subsection.5.9.2}{Pure Pursuit Position Controller}{section.5.9}
-\BOOKMARK [2][-]{subsection.5.9.3}{Cross Track Error Controller}{section.5.9}
-\BOOKMARK [1][-]{section.5.10}{Discussion}{chapter.5}
+\BOOKMARK [1][-]{section.5.1}{Definition}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Paths and Trajectories}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Interpolation and Approximation}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Parametrization}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Experimental Design}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Spline Theory}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{Splines}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{Piecewise Polynomial Interpolating Splines}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{B-Splines}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{Trajectory Generation}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{System Constraints}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.2}{Time Parametrization}{section.5.3}
+\BOOKMARK [1][-]{section.5.4}{Controller Implementation}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Trajectory Controller}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Pure Pursuit Position Controller}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.3}{Cross Track Error Controller}{section.5.4}
+\BOOKMARK [1][-]{section.5.5}{Discussion}{chapter.5}
 \BOOKMARK [0][-]{chapter.6}{Conclusion}{}
-\BOOKMARK [0][-]{appendix*.15}{Bibliography}{}
+\BOOKMARK [0][-]{appendix*.20}{Bibliography}{}
