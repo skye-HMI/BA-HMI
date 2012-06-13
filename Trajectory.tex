@@ -69,11 +69,33 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \subsection{Time Parametrization}
 
 \section{Controller Implementation}
+Some common trajectory controllers are tested to follow the defined trajectories. \textit{Trajectory following} supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking fails if disturbances occure. The \textit{pure pursuit} and \textit{cross track error} controller include an outer feedback loop and are therfore more robust. The \textit{pure pursuit} contoller bases on a path only and therefore yields to worse results compared to the trajectory based \textit{cross track error} controller.
+\\ XXXX see \cite{snider} and \cite{deluca}
 \label{sec:controllerImplementation}
-\subsection{Trajectory Controller}
-see \cite{snider} and \cite{deluca}
-\subsection{Pure Pursuit Position Controller}
-see also \cite{snider}
+\subsection{Trajectory Following}
+Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives.}, the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields accurate tracking in a safe environment \cite{doesegger}.
+
+\begin{equation}
+  [r_{ref}(t), \; \dot{r}_{ref}(t), \; \ddot{r}_{ref}(t)]^T = [\tilde{p}(t), \; \dot{\tilde{p}}(t), \; \ddot{\tilde{p}}(t)]^T
+\end{equation}
+
+Testing the controller yields good performance.. BLA BLA Graphic figure \ref{fig:trajectoryfollowing}
+\begin{figure}[h]
+  \begin{minipage}[t]{0.48\textwidth}
+%    \includegraphics[width = \textwidth]{graphics/a.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+%    \includegraphics[width = \textwidth]{graphics/b.eps}
+  \end{minipage}
+  \caption{Trajectory following yields to extremly awesome tracking.}
+  \label{fig:trajectoryfollowing}
+\end{figure}
+
+
+
+\subsection{Pure Pursuit Controller}
+Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl+\Delta T}) = \tilde{p}(t_{cl}) + \dot{\tilde{p}}(t_{cl})\Delta T + \ddot{\tilde{p}}(t_{cl}) + ORDNUNG$.
 \subsection{Cross Track Error Controller}
 see \cite{williams}
 
