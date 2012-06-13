@@ -1,50 +1,48 @@
-\BOOKMARK [0][-]{chapter*.3}{Abstract}{}
-\BOOKMARK [0][-]{chapter*.4}{Acknowledgements}{}
-\BOOKMARK [0][-]{chapter*.5}{Symbols}{}
-\BOOKMARK [0][-]{chapter.1}{Introduction}{}
-\BOOKMARK [1][-]{section.1.1}{Context}{chapter.1}
-\BOOKMARK [1][-]{section.1.2}{Goals}{chapter.1}
-\BOOKMARK [1][-]{section.1.3}{System Overview}{chapter.1}
-\BOOKMARK [1][-]{section.1.4}{Similar Systems and their HMI}{chapter.1}
-\BOOKMARK [1][-]{section.1.5}{Structure of the Report}{chapter.1}
-\BOOKMARK [0][-]{chapter.2}{Einige wichtige Hinweise zum Arbeiten mit LaTeX }{}
-\BOOKMARK [1][-]{section.2.1}{Gliederungen}{chapter.2}
-\BOOKMARK [1][-]{section.2.2}{Referenzen und Verweise}{chapter.2}
-\BOOKMARK [1][-]{section.2.3}{Aufz\344hlungen}{chapter.2}
-\BOOKMARK [1][-]{section.2.4}{Erstellen einer Tabelle}{chapter.2}
-\BOOKMARK [1][-]{section.2.5}{Einbinden einer EPS-Graphik}{chapter.2}
-\BOOKMARK [1][-]{section.2.6}{Mathematische Formeln}{chapter.2}
-\BOOKMARK [1][-]{section.2.7}{Weitere n\374tzliche Befehle}{chapter.2}
-\BOOKMARK [0][-]{chapter.3}{Finding a Hardware and Software Solution}{}
-\BOOKMARK [1][-]{section.3.1}{Requirements}{chapter.3}
-\BOOKMARK [1][-]{section.3.2}{Existing Solutions}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.2.1}{Hardware}{section.3.2}
-\BOOKMARK [2][-]{subsection.3.2.2}{Software}{section.3.2}
-\BOOKMARK [1][-]{section.3.3}{Realization}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.3.1}{Compact and Convenient Solution}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.2}{QGroundControl}{section.3.3}
-\BOOKMARK [2][-]{subsection.3.3.3}{Mavlink}{section.3.3}
-\BOOKMARK [0][-]{chapter.4}{The different Control Modes}{}
-\BOOKMARK [1][-]{section.4.1}{Evaluation}{chapter.4}
-\BOOKMARK [1][-]{section.4.2}{Manual Control Modes}{chapter.4}
-\BOOKMARK [1][-]{section.4.3}{Automatic Control Modes}{chapter.4}
-\BOOKMARK [0][-]{chapter.5}{Trajectory Planning}{}
-\BOOKMARK [1][-]{section.5.1}{Definition}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.1.1}{Paths and Trajectories}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.2}{Interpolation and Approximation}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.3}{Parametrization}{section.5.1}
-\BOOKMARK [2][-]{subsection.5.1.4}{Experimental Design}{section.5.1}
-\BOOKMARK [1][-]{section.5.2}{Spline Theory}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.2.1}{Splines}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{Piecewise Polynomial Interpolating Splines}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{B-Splines}{section.5.2}
-\BOOKMARK [1][-]{section.5.3}{Trajectory Generation}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.3.1}{System Constraints}{section.5.3}
-\BOOKMARK [2][-]{subsection.5.3.2}{Time Parametrization}{section.5.3}
-\BOOKMARK [1][-]{section.5.4}{Controller Implementation}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.4.1}{Trajectory Controller}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.2}{Pure Pursuit Position Controller}{section.5.4}
-\BOOKMARK [2][-]{subsection.5.4.3}{Cross Track Error Controller}{section.5.4}
-\BOOKMARK [1][-]{section.5.5}{Discussion}{chapter.5}
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}
-\BOOKMARK [0][-]{appendix*.20}{Bibliography}{}
+\BOOKMARK [0][-]{chapter*.3}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.4}{Acknowledgements}{}% 2
+\BOOKMARK [0][-]{chapter*.5}{Symbols}{}% 3
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 4
+\BOOKMARK [1][-]{section.1.1}{Context}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.2}{Goals}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.3}{System Overview}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.4}{Similar Systems and their HMI}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.5}{Structure of the Report}{chapter.1}% 9
+\BOOKMARK [0][-]{chapter.2}{Einige wichtige Hinweise zum Arbeiten mit LaTeX }{}% 10
+\BOOKMARK [1][-]{section.2.1}{Gliederungen}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.2}{Referenzen und Verweise}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.3}{Aufz\344hlungen}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.4}{Erstellen einer Tabelle}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.5}{Einbinden einer EPS-Graphik}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.6}{Mathematische Formeln}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.7}{Weitere n\374tzliche Befehle}{chapter.2}% 17
+\BOOKMARK [0][-]{chapter.3}{Finding a Hardware and Software Solution}{}% 18
+\BOOKMARK [1][-]{section.3.1}{Requirements}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.2}{Existing Solutions}{chapter.3}% 20
+\BOOKMARK [2][-]{subsection.3.2.1}{Hardware}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.2}{Software}{section.3.2}% 22
+\BOOKMARK [1][-]{section.3.3}{Realization}{chapter.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.1}{Compact and Convenient Solution}{section.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.3.2}{QGroundControl}{section.3.3}% 25
+\BOOKMARK [2][-]{subsection.3.3.3}{Mavlink}{section.3.3}% 26
+\BOOKMARK [0][-]{chapter.4}{The different Control Modes}{}% 27
+\BOOKMARK [1][-]{section.4.1}{Evaluation}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.2}{Manual Control Modes}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.3}{Automatic Control Modes}{chapter.4}% 30
+\BOOKMARK [0][-]{chapter.5}{Trajectory Planning}{}% 31
+\BOOKMARK [1][-]{section.5.1}{Experimental Design}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.2}{Definition of Trajectories}{chapter.5}% 33
+\BOOKMARK [2][-]{subsection.5.2.1}{Paths and Trajectories}{section.5.2}% 34
+\BOOKMARK [2][-]{subsection.5.2.2}{Interpolation and Approximation}{section.5.2}% 35
+\BOOKMARK [1][-]{section.5.3}{Spline Theory}{chapter.5}% 36
+\BOOKMARK [2][-]{subsection.5.3.1}{Piecewise Polynomial Interpolating Splines}{section.5.3}% 37
+\BOOKMARK [2][-]{subsection.5.3.2}{B-Splines}{section.5.3}% 38
+\BOOKMARK [1][-]{section.5.4}{Trajectory Generation}{chapter.5}% 39
+\BOOKMARK [2][-]{subsection.5.4.1}{System Constraints}{section.5.4}% 40
+\BOOKMARK [2][-]{subsection.5.4.2}{Time Parametrization}{section.5.4}% 41
+\BOOKMARK [1][-]{section.5.5}{Controller Implementation}{chapter.5}% 42
+\BOOKMARK [2][-]{subsection.5.5.1}{Trajectory Controller}{section.5.5}% 43
+\BOOKMARK [2][-]{subsection.5.5.2}{Pure Pursuit Position Controller}{section.5.5}% 44
+\BOOKMARK [2][-]{subsection.5.5.3}{Cross Track Error Controller}{section.5.5}% 45
+\BOOKMARK [1][-]{section.5.6}{Discussion}{chapter.5}% 46
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 47
+\BOOKMARK [0][-]{appendix*.20}{Bibliography}{}% 48

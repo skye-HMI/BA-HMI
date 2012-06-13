@@ -7,19 +7,24 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 
 %In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
 
+\section{Experimental Design}
 
-
-\section{Definition}
+\section{Definition of Trajectories}
 \label{sec:definition}
 \subsection{Paths and Trajectories}
+
+
+
 \subsection{Interpolation and Approximation}
-\subsection{Parametrization}
-\subsection{Experimental Design}
+If one wants to draw a line through a set of data points, there exists two ways to do this. On the one hand the line must pass all data points no matter how many bends it will have, on the other hand the line tries to best fit the data, i.e. a function of a  certain order is adopted to best fit the date. E.g. this can be done with least-squares. If the pilot  defines the trajectory with a set of waypoints, i.e. data points, he usually wants the (UAV already defined?!!!!) to pass through all of them. Therefore the waypoints must be interpolated and not approximated with a suitable curve.
+
+\textbf{(!!!Bsp Plot von interpolierenden und approximierenden funktionen!!!)}
+
 
 \section{Spline Theory}
+A set of data points can be interpolated with one single curve or with a set of curves defined over a certain interval.  For a 
 \label{sec:splineTheory}
 references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
-\subsection{Splines}
 \subsubsection{Continuity}
 \subsubsection{Boundary Conditions}
 \subsubsection{Polynomial Order}
@@ -27,7 +32,7 @@ references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
 \subsection{Piecewise Polynomial Interpolating Splines}
 \subsubsection{Boundary Conditions}
 \subsubsection{Polynomial Order}
-\subsubsection{Parametrization}
+\subsubsection{Parameterization}
 \subsection{B-Splines}
 \subsubsection{Boundary Conditions}
 \subsubsection{Polynomial Order}
@@ -51,7 +56,7 @@ Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated 
 The maximum feasible velocity in any direction is calculated to be:
 
 \begin{equation}
-\left|v_{max} \right| = \sqrt{\frac{\left|F_{res,w} \right|}{\frac{1}{2}c_d \rho \pi r^2}}=4.7 m/s
+\left|v_{max} \right| = \sqrt{\frac{\left|F_{res,w} \right|}{\frac{1}{2}c_d \rho \pi r^2}}=2.9 m/s
 \end{equation}
 
 which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
@@ -59,7 +64,7 @@ which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
 For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
 
 \begin{equation}
-  \left|\Psi_{max} \right| =  \frac{\left|M_{res,w}\right|}{\left| \lambda_{max, J_{B}} \right|} = 2.82 rad/s^2 
+  \left|\Psi_{max} \right| =  \frac{\left|M_{res,w}\right|}{\left| \lambda_{max, J_{B}} \right|} = 2.06 rad/s^2 
 \end{equation}
 
 which is quite conservative because it is assumed that worst axis for turning is also the principle axis of the inertia tensor with the highest inertia.\\
