@@ -8,12 +8,27 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 %In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
 
 \section{Experimental Design}
-The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:XXX_some_sample_nodes}. Indeed, to verify the conclusions, some more situations were considered.
+The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. Indeed, to verify the conclusions, some more situations had to be considered.
 
-% HERE PICTURE
+\begin{figure}[h]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{graphics/sampleNodeRoad}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{graphics/sampleNodeHelix}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{graphics/sampleNodeAgile}
+  \end{minipage}
+  \caption{The experimental environment based on three samples. The \textit{road} waypoints (left) represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. The \textit{agile} waypoints include both straight sections as high curvatures.}
+  \label{fig:sampleNodes}
+\end{figure}
 
-Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria \ref{item:static_deviation} to \ref{item:static_acceleration} are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller.
-\begin{enumerate}
+Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller.
+\begin{enumerate}[i)]
+
 \item DEVIATION BETWEEN CHORD CONNECTION AND PATH
 \label{item:static_deviation}
 \item CURVATURES OF PATH
@@ -26,8 +41,6 @@ Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tild
 \label{item:dynamic_acceleration}
 \item TIME SYNCHRONITY
 \label{item:dynamic_synchronity}
-
-
 
 \end{enumerate}
 
@@ -113,7 +126,7 @@ Assuming a perfect model and a trajectory considering all system constraints\foo
 Testing the controller yields good performance.. BLA BLA Graphic figure \ref{fig:trajectoryfollowing}
 \begin{figure}[h]
   \begin{minipage}[t]{0.48\textwidth}
-    \includegraphics[width = \textwidth]{graphics/a}
+%    \includegraphics[width = \textwidth]{graphics/a}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.48\textwidth}
