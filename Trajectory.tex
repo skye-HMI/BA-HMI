@@ -24,7 +24,7 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{graphics/sampleNodeAgile}
   \end{minipage}
-  \caption{The experimental environment based on three samples. The \textit{road} waypoints (left) represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. The \textit{agile} waypoints include both straight sections as high curvatures.}
+  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as high curvatures.}
   \label{fig:sampleNodes}
 \end{figure}
 
@@ -34,22 +34,53 @@ The main application fields of the system \textsc{Skye} are image capturing and 
 \input{graphics/drawing.pdf_tex}
 \end{figure}
 
+Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}}.
+\\
+Being $L_p$ the length of the path ${\bf p}(u)$ and $T_p$ the time of the trajectory $\tilde{\bf p}(t)$
+\begin{equation}
+L_p = \int_{u_{min}}^{u_{max}} du \qquad T_p = \int_{t_{min}}^{t_{max}} dt
+\label{eq:length_of_path}
+\end{equation}
+the criteria are:
 
-Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller.
-\begin{enumerate}[i)]
-
-\item DEVIATION BETWEEN CHORD CONNECTION AND PATH
+\begin{enumerate}[i)] 
+\item Average deviation between actual path and chord connection between waypoints
 \label{item:static_deviation}
-\item CURVATURES OF PATH
+\begin{equation}
+J_1 = \int_{u_{min}}^{u_{max}} \|{\bf p}(u)- {\bf p}_2(u)\| du \cdot L_p^{-1} \label{eq:static_deviation}
+\end{equation}
+
+\item Average curvature of path\footnote{For a derivation of curvature see any vetor analysis book, e.g. \cite{stammbach} chapter II, page 71.}
 \label{item:static_curvature}
-\item ACELLERATION OF TRAJECT
+\begin{equation}
+J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \dot{\bf p}(u) \times \ddot{\bf p}(u) \|}{\| \dot{\bf p}(u) \|^3}du \cdot L_p^{-1} 
+\label{eq:static_curvature}
+\end{equation}
+
+\item Average acceleration of the trajectory
 \label{item:static_acceleration}
-\item DEVIATION BET TRAJ AND TRACE
+\begin{equation}
+J_3 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{\tilde{p}}}(t)\| dt \cdot T_p^{-1} \label{eq:static_acceleration}
+\end{equation}
+
+\item Deviation between trajectory and trace of the system\footnote{The deviation vector between trace and its closest point on the trajectory is always normal to the later.}
 \label{item:dynamic_deviation}
-\item ACCELERATION OF TRACE
+\begin{equation}
+J_4 = \int_{t_{min}}^{t_{max}} \| {\bf \tilde{p}}(t_{cl}) - {\bf r}(t) \| dt \cdot T_p^{-1} 
+\label{eq:dynamic_deviation}
+\end{equation}
+
+\item Average acceleration of the system
 \label{item:dynamic_acceleration}
-\item TIME SYNCHRONITY
+\begin{equation}
+J_5 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{r}}(u)\| dt \cdot T_p^{-1}
+\end{equation}
+
+\item Time synchronity\footnote{Time synchronity should be warranted for accurate \textit{trajectory} following. In our task for caputuring time independent imagery, it was only considered as a secondary aspect.}
 \label{item:dynamic_synchronity}
+\begin{equation}
+J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \label{eq:dynamic_synchronity}
+\end{equation}
 
 \end{enumerate}
 
