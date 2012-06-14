@@ -79,7 +79,7 @@ J_5 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{r}}(u)\| dt \cdot T_p^{-1}
 \item Time synchronity\footnote{Time synchronity should be warranted for accurate \textit{trajectory} following. In our task for caputuring time independent imagery, it was only considered as a secondary aspect.}
 \label{item:dynamic_synchronity}
 \begin{equation}
-J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \label{eq:dynamic_synchronity}
+J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq:dynamic_synchronity}
 \end{equation}
 
 \end{enumerate}
@@ -176,31 +176,78 @@ BLA BLA introduce notation.. $r(t)$ bla.
  XXXX see \cite{snider} and \cite{deluca}
 \label{sec:controllerImplementation}
 \subsection{Trajectory Following}
-Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives.}, the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields accurate tracking in a safe environment \cite{doesegger}.
+Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives.}, the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields to accurate tracking in a safe environment \cite{doesegger}.
+\\
+A position controller with feedforward terms for velocity and acceleration as described in \cite{meiermueri} can therefore be used with the reference input
 
 \begin{equation}
   [r_{ref}(t), \; \dot{r}_{ref}(t), \; \ddot{r}_{ref}(t)]^T = [\tilde{p}(t), \; \dot{\tilde{p}}(t), \; \ddot{\tilde{p}}(t)]^T
 \end{equation}
 
-Testing the controller yields good performance.. BLA BLA Graphic figure \ref{fig:trajectoryfollowing}
+The controller scheme is shown in figure \ref{fig:trajectoryfollowing}. 
+
+%$\left[ \begin{array}{c} {\bf r}(t) \\ {\bf \dot{r}}(t) \end{array} \right]$
 \begin{figure}[h]
-  \begin{minipage}[t]{0.48\textwidth}
-%    \includegraphics[width = \textwidth]{graphics/a}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.48\textwidth}
-%    \includegraphics[width = \textwidth]{graphics/b.eps}
-  \end{minipage}
-  \caption{Trajectory following yields to extremly awesome tracking.}
-  \label{fig:trajectoryfollowing}
+    \centering
+    \def\svgwidth{0.4\columnwidth}
+    \input{graphics/scene_trajectoryFollowing.pdf_tex}
+    \caption{For a perfect model and a trajectory ${\bf \tilde{p}}(t)$ considering all system constraints, the position ${\bf{r}}(t)$ will correctly follow the trajectory.}
+    \label{fig:scene_trajectoryFollowing}
 \end{figure}
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{graphics/controller_trajectoryFollowing.pdf_tex}
+    \caption{Trajectory following controller. The value of the parameter $t$ of the trajectory is equal to the current time.}
+    \label{fig:trajectoryfollowing}
+\end{figure}
+
+
+Testing the controller yields good performance.. BLA BLA Graphic figure 
 
 
 
 \subsection{Pure Pursuit Controller}
-Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl+\Delta T}) = \tilde{p}(t_{cl}) + \dot{\tilde{p}}(t_{cl})\Delta T + \ddot{\tilde{p}}(t_{cl}) + ORDNUNG$.
+Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = \tilde{p}(t_{cl}) + \Delta T \cdot \dot{\tilde{p}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot \ddot{\tilde{p}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ which also considers terms of $\mathcal{O}(\Delta T^3)$\footnote{Note, that this is simple and robust alternative to any derivative controller.}.
+
+%$ {\bf \dot{r}}_{ref}(t) $
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{0.5\columnwidth}
+    \input{graphics/scene_purePursuit.pdf_tex}
+    \caption{Pure pursuit yields to extremly awesome tracking.}
+    \label{fig:scene_purePursuit}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{graphics/controller_purePursuit.pdf_tex}
+    \caption{Pure pursuit yields to extremly awesome tracking.}
+    \label{fig:purePursuit}
+\end{figure}
+
 \subsection{Cross Track Error Controller}
 see \cite{williams}
+
+%$\left[ \begin{array}{c} {\bf \tilde{p}}(t) \\ {\bf \dot{\tilde{p}}}(t) \\ {\bf \ddot{\tilde{p}}}(t) \end{array} \right]$
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{0.5\columnwidth}
+    \input{graphics/scene_crossTrack.pdf_tex}
+    \caption{Cross Track Error Control yields to extremly awesome tracking.}
+    \label{fig:scene_crossTrack}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{graphics/controller_crossTrack.pdf_tex}
+    \caption{Cross Track Error Control yields to extremly awesome tracking.}
+    \label{fig:crossTrack}
+\end{figure}
 
 \section{Discussion}
 \label{sec:discussion}

@@ -12,9 +12,9 @@ A level-1 auxiliary file: appendix.aux
 A level-1 auxiliary file: bibliography.aux
 I found no \bibdata command---while reading file Bericht.aux
 I found no \bibstyle command---while reading file Bericht.aux
-You've used 9 entries,
+You've used 11 entries,
             0 wiz_defined-function locations,
-            102 strings with 720 characters,
+            104 strings with 739 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0
