@@ -8,6 +8,29 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 %In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
 
 \section{Experimental Design}
+The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:XXX_some_sample_nodes}. Indeed, to verify the conclusions, some more situations were considered.
+
+% HERE PICTURE
+
+Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria \ref{item:static_deviation} to \ref{item:static_acceleration} are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller.
+\begin{enumerate}
+\item DEVIATION BETWEEN CHORD CONNECTION AND PATH
+\label{item:static_deviation}
+\item CURVATURES OF PATH
+\label{item:static_curvature}
+\item ACELLERATION OF TRAJECT
+\label{item:static_acceleration}
+\item DEVIATION BET TRAJ AND TRACE
+\label{item:dynamic_deviation}
+\item ACCELERATION OF TRACE
+\label{item:dynamic_acceleration}
+\item TIME SYNCHRONITY
+\label{item:dynamic_synchronity}
+
+
+
+\end{enumerate}
+
 
 \section{Definition of Trajectories}
 \label{sec:definition}
@@ -74,7 +97,7 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \subsection{Time Parametrization}
 
 \section{Controller Implementation}
-Some commonly used trajectory controllers\footnote{\cite{snider} provides a good overview to trajectory control.} are tested to follow the defined trajectories. The \textit{Trajectory following} controller supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point and the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to better path tracking results.
+Some commonly used trajectory controllers\footnote{\cite{snider} provides a good overview to trajectory control.} are tested to follow the defined trajectories. The \textit{Trajectory following} controller supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to more robust path tracking results.
 \\
 BLA BLA introduce notation.. $r(t)$ bla.
 
