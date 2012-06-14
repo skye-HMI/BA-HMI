@@ -1,3 +1,4 @@
+%!TEX root = Bericht.tex
 \graphicspath{{graphics/}}
 
 \chapter{Trajectory Planning}
@@ -57,17 +58,19 @@ Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tild
 \section{Definition of Trajectories}
 \label{sec:definition}
 \subsection{Paths and Trajectories}
-
+The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. The composition of the function\footnote{In  \cite{snider} named as the \textit{Motion Law}} $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
 \begin{figure}[h]
 \centering
 \def\svgwidth{0.9\textwidth}
 \input{graphics/PathTrajectory.pdf_tex}
+\caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
+\label{fig:path_trajectory}
 \end{figure}
 
 
 
 \subsection{Interpolation and Approximation}
-If one wants to draw a curve through a set of data points, there exists two ways to do this. First, the curve can pass through all data points no matter how many bends it will have, secondly, the curve tries to best fit the data, i.e. a function of a  certain order is adopted to best fit the date. This can be done with different methods, e.g with least-squares. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
+If one wants to draw a path through a set of waypoints, there exists two ways to do this. First, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
 
 
 \begin{figure}[h]
@@ -82,7 +85,10 @@ If one wants to draw a curve through a set of data points, there exists two ways
   \label{fig:ApproxInterpol}
 \end{figure}
 
-If the pilot  defines the trajectory with a set of waypoints, i.e. data points, he usually wants the UAV to pass through all of them. Therefore the waypoints must be interpolated and not approximated with a suitable curve. Instead of using polynomials of degree BLA BLA, splines were chosen.
+For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This was due to the GUI used (see \ref{sec:realization}). There only a small amount of waypoints is set ant the pilot expects the UAV to pass through all of them and not to take a shortcut. The approximation of the waypoints could result in a collision with buildings as shown in \ref{fig:ApproxInterpol}
+
+
+Instead of using polynomials of degree BLA BLA, splines were chosen.
 
 
 \section{Spline Theory}
