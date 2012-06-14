@@ -104,7 +104,7 @@ The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{
 If one wants to draw a path through a set of waypoints, there exists two ways to do this. First, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/ApproxInterpol.eps}
   \end{minipage}
@@ -116,11 +116,10 @@ If one wants to draw a path through a set of waypoints, there exists two ways to
   \label{fig:ApproxInterpol}
 \end{figure}
 
-For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This was due to the GUI used (see \ref{sec:realization}). There only a small amount of waypoints is set ant the pilot expects the UAV to pass through all of them and not to take a shortcut. The approximation of the waypoints could result in a collision with buildings as shown in \ref{fig:ApproxInterpol}
+For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This was due to the GUI used (see \ref{sec:realization}). There only a small amount of waypoints is set ant the pilot expects the UAV to pass through all of them and not to take a shortcut. The approximation of the waypoints could result in a collision with buildings as shown in \ref{fig:ApproxInterpol}.
 
 
-Instead of using polynomials of degree BLA BLA, splines were chosen.
-
+There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of polynomials finally forms a spline. As impressively shown in \cite{wolfgang}, splines are the better option for more than a few waypoints. 
 
 \section{Spline Theory}
 A set of data points can be interpolated with one single curve or with a set of curves defined over a certain interval.  For a 
