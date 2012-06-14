@@ -2,4 +2,6 @@
 *.log
 *.out
 *.toc
+*.dvi
 *.synctex.gz
+*converted-to.pdf

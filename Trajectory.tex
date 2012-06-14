@@ -1,3 +1,5 @@
+\graphicspath{{graphics/}}
+
 \chapter{Trajectory Planning}
 \label{cha:trajectory}
 For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
@@ -25,6 +27,13 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \caption{The experimental environment based on three samples. The \textit{road} waypoints (left) represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. The \textit{agile} waypoints include both straight sections as high curvatures.}
   \label{fig:sampleNodes}
 \end{figure}
+
+\begin{figure}
+\centering
+\def\svgwidth{\columnwidth}
+\input{graphics/drawing.pdf_tex}
+\end{figure}
+
 
 Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller.
 \begin{enumerate}[i)]
