@@ -1,6 +1,6 @@
 \chapter{Trajectory Planning}
 \label{cha:trajectory}
-For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated.
+For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
 
 %\subsection{Our Approach}
 %From the GUI it was given that the goal trajectory would be a multipoint-interpolating %trajectory. The user is able to define waypoints on a map which afterwards should be %connected with a reasonable and realizable trajectory. Beside interpolating trajectories %there exist also approximating trajectories but they were not taken into consideration, since %usually the user wants skye fly directly through a waypoint.
@@ -74,8 +74,11 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \subsection{Time Parametrization}
 
 \section{Controller Implementation}
-Some common trajectory controllers are tested to follow the defined trajectories. \textit{Trajectory following} supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking fails if disturbances occure. The \textit{pure pursuit} and \textit{cross track error} controller include an outer feedback loop and are therfore more robust. The \textit{pure pursuit} contoller bases on a path only and therefore yields to worse results compared to the trajectory based \textit{cross track error} controller.
-\\ XXXX see \cite{snider} and \cite{deluca}
+Some commonly used trajectory controllers\footnote{\cite{snider} provides a good overview to trajectory control.} are tested to follow the defined trajectories. The \textit{Trajectory following} controller supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point and the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to better path tracking results.
+\\
+BLA BLA introduce notation.. $r(t)$ bla.
+
+ XXXX see \cite{snider} and \cite{deluca}
 \label{sec:controllerImplementation}
 \subsection{Trajectory Following}
 Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives.}, the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields accurate tracking in a safe environment \cite{doesegger}.
@@ -87,7 +90,7 @@ Assuming a perfect model and a trajectory considering all system constraints\foo
 Testing the controller yields good performance.. BLA BLA Graphic figure \ref{fig:trajectoryfollowing}
 \begin{figure}[h]
   \begin{minipage}[t]{0.48\textwidth}
-%    \includegraphics[width = \textwidth]{graphics/a.eps}
+    \includegraphics[width = \textwidth]{graphics/a}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.48\textwidth}
