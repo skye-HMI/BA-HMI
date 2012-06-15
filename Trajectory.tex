@@ -12,7 +12,9 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 
 \section{Experimental Design}
 \label{sec:experimental design}
-The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. Indeed, to verify the conclusions, some more situations had to be considered.
+The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. They represent standard situations for the applications mentioned before. Indeed, to verify the conclusions, some a wider set of waypoints had to be considered.
+\\
+The first waypoints are similar as they would be set to capture images of the the university building. 
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
@@ -29,6 +31,7 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as high curvatures.}
   \label{fig:sampleNodes}
 \end{figure}
+
 
 Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}}.
 \\
@@ -49,9 +52,11 @@ J_1 = \int_{u_{min}}^{u_{max}} \|{\bf p}(u)- {\bf p}_2(u)\| du \cdot L_p^{-1} \l
 \item Average curvature of path\footnote{For a derivation of curvature see any vetor analysis book, e.g. \cite{stammbach} chapter II, page 71.}
 \label{item:static_curvature}
 \begin{equation}
-J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \dot{\bf p}(u) \times \ddot{\bf p}(u) \|}{\| \dot{\bf p}(u) \|^3}du \cdot L_p^{-1} 
+J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \frac{d {\bf p}}{du} \times \frac{d^{2} {\bf p}}{du^{2}} \|}{\|  \frac{d {\bf p}}{du} \|^3}du \cdot L_p^{-1}
 \label{eq:static_curvature}
 \end{equation}
+% THIS ALTERNATIVE NOTATION IS INCONSEQUENCE IN USING DOT WHEN NOT HAVING PARAM T !!
+% J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \dot{\bf p}(u) \times \ddot{\bf p}(u) \|}{\| \dot{\bf p}(u) \|^3}du \cdot L_p^{-1}
 
 \item Average acceleration of the trajectory
 \label{item:static_acceleration}
@@ -59,7 +64,7 @@ J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \dot{\bf p}(u) \times \ddot{\bf p}(u) \|
 J_3 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{\tilde{p}}}(t)\| dt \cdot T_p^{-1} \label{eq:static_acceleration}
 \end{equation}
 
-\item Deviation between trajectory and trace of the system\footnote{The deviation vector between trace and its closest point on the trajectory is always normal to the later.}
+\item Deviation between trajectory and trace of the system\footnote{The deviation vector between trace and its closest point on the trajectory is always normal to the latter. Compare with figure \ref{fig:scene_crossTrack}.}
 \label{item:dynamic_deviation}
 \begin{equation}
 J_4 = \int_{t_{min}}^{t_{max}} \| {\bf \tilde{p}}(t_{cl}) - {\bf r}(t) \| dt \cdot T_p^{-1} 
@@ -69,7 +74,7 @@ J_4 = \int_{t_{min}}^{t_{max}} \| {\bf \tilde{p}}(t_{cl}) - {\bf r}(t) \| dt \cd
 \item Average acceleration of the system
 \label{item:dynamic_acceleration}
 \begin{equation}
-J_5 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{r}}(u)\| dt \cdot T_p^{-1}
+J_5 = \int_{t_{min}}^{t_{max}} \|{\bf \ddot{r}}(t)\| dt \cdot T_p^{-1}
 \end{equation}
 
 \item Time synchronity\footnote{Time synchronity should be warranted for accurate \textit{trajectory} following. In our task for caputuring time independent imagery, it was only considered as a secondary aspect.}
@@ -283,7 +288,7 @@ Testing the controller yields good performance.. BLA BLA Graphic figure
 
 
 \subsection{Pure Pursuit Controller}
-Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = \tilde{p}(t_{cl}) + \Delta T \cdot \dot{\tilde{p}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot \ddot{\tilde{p}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ which also considers terms of $\mathcal{O}(\Delta T^3)$\footnote{Note, that this is simple and robust alternative to any derivative controller.}.
+Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
 
 %$ {\bf \dot{r}}_{ref}(t) $
 \begin{figure}[h]
