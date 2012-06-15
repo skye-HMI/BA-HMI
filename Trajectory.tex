@@ -89,7 +89,6 @@ J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq
 \label{sec:definition}
 \subsection{Paths and Trajectories}
 The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. The composition of the function\footnote{In  \cite{snider} named as the \textit{Motion Law}} $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
-
 \begin{figure}[h]
 \centering
 \def\svgwidth{0.9\textwidth}
@@ -118,6 +117,10 @@ If one wants to draw a path through a set of waypoints, there exists two ways to
 \begin{figure}[H]
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/ApproxInterpol.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.8\textwidth}
+%    \includegraphics[width = \textwidth]{graphics/b.eps}
   \end{minipage}
   \caption{Interpolation and approximation of waypoints}
   \label{fig:ApproxInterpol}
@@ -162,18 +165,7 @@ u_n-u_{n-1}=\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x
 \end{equation*}
 \subsubsection{Arc length}
 The arc length method is improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{sec:arcLengthDistribution}.
-
-\begin{figure}[h]
-\centering
-\def\svgwidth{0.7\textwidth}
-\input{graphics/arcLength.pdf_tex}
-\caption{The arc length is estimated using the segments of two circles.}
-\label{fig:arcLength}
-\end{figure}
-
-\begin{equation*}
-u_n-u_{n-1}=\frac{B_a+B_b}{2}
-\end{equation*}
+{\bf include picture}
 
 \subsubsection{Centripetal}
 This method was first proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
@@ -182,18 +174,7 @@ u_n-u_{n-1}=\sqrt{\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bma
 \end{equation*}
 
 \subsubsection{Comparison}
-
 geometrical properties, dynamical properties, Kreb'sche Bewertungsalgrithmen:) \textbf{pictures of all of them, justify choice, say that if more waypoints, different decision}
-
-\begin{figure}[H]
-  \begin{minipage}[t]{0.9\textwidth}
-    \includegraphics[width = \textwidth]{graphics/Parameterizations4_road_agile.eps}
-  \end{minipage}
-  \caption{The different parameterizations shown with quartic splines}
-  \label{fig:ApproxInterpol}
-\end{figure}
-
-
 
 \subsection{Spline Degree}
 \subsubsection{Continuity}
@@ -277,8 +258,83 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 \end{figure}
 
 
-Testing the controller yields good performance.. BLA BLA Graphic figure 
+Testing the controller yields good performance.. figure \ref{fig:trajFoll_tracking} some BLA BLA
 
+
+\begin{figure}[h]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \caption{BLA tracking }
+  \label{fig:trajFoll_tracking}
+\end{figure}
+
+Furthermore, we observed dynamics \ref{fig:trajFoll_dynamics} there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{trackings/figure_2D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \hfill
+  \caption{BLA dynamics}
+  \label{fig:trajFoll_dynamics}
+\end{figure}
+
+It is definitively too much to show figure \ref{fig:trajFoll_sysConstraints} and it has to be improved by showing both trajectory and trace.. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. \\ there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
+
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width = 0.8\textwidth]{trackings/figure_1D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+%  \hfill
+%  \caption{BLA dynamics}
+%  \label{fig:trajFoll_dynamics}
+%\end{figure}
+
+We can show the results in a table, or we can put it all to the appendix..
+
+\begin{table}[h]
+\begin{center}
+ \caption{Here some absolute results to trajectory following BLA.}\vspace{1ex}
+ \label{tab:trajFoll_absoulte}
+ \begin{tabular}{ll|ccc}
+ \hline
+ Kennzahl & Einheit & ECE & EUDC & NEFZ \\ \hline \hline
+ Dauer & s & 780 & 400 & 1180 \\
+ Distanz & km & 4.052 & 6.955 & 11.007 \\
+ Durchschnittsgeschwindigkeit & km/h & 18.7 &  62.6 & 33.6 \\
+ Leerlaufanteil & \% & 36 & 10 & 27 \\
+ \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+
+
+The results before were all by perfect models. Now with distrubances..there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  \caption{BLA tracking but this time with wind}
+  \label{fig:trajFollWind_tracking}
+\end{figure}
 
 
 \subsection{Pure Pursuit Controller}
@@ -301,6 +357,43 @@ Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To co
     \label{fig:purePursuit}
 \end{figure}
 
+And here again, the resulting trajectories altough they look the same as in the subsection before.
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \caption{BLA pure pursuit}
+  \label{fig:purePursuit_tracking}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  \caption{BLA pure pursuit and here with wind}
+  \label{fig:purePursuit_tracking}
+\end{figure}
+
+
+
+
 \subsection{Cross Track Error Controller}
 see \cite{williams}
 
@@ -320,6 +413,39 @@ see \cite{williams}
     \input{graphics/controller_crossTrack.pdf_tex}
     \caption{Cross Track Error Control yields to extremly awesome tracking.}
     \label{fig:crossTrack}
+\end{figure}
+
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \caption{BLA cross track}
+  \label{fig:crossTrack_tracking}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_1}
+  \end{minipage}
+  \caption{BLA cross track with wind}
+  \label{fig:crossTrackWind_tracking}
 \end{figure}
 
 \section{Discussion}
