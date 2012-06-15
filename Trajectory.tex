@@ -11,7 +11,7 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 %In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
 
 \section{Experimental Design}
-The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. Indeed, to verify the conclusions, some more situations had to be considered.
+The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. They represent standard situations for the applications mentioned before. Indeed, to verify the conclusions, some more situations had to be considered.
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
@@ -29,11 +29,6 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \label{fig:sampleNodes}
 \end{figure}
 
-\begin{figure}
-\centering
-\def\svgwidth{\columnwidth}
-\input{graphics/drawing.pdf_tex}
-\end{figure}
 
 Furthermore, to score (\textbf{and optimize?}) the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}}.
 \\
@@ -264,7 +259,7 @@ Testing the controller yields good performance.. BLA BLA Graphic figure
 
 
 \subsection{Pure Pursuit Controller}
-Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = \tilde{p}(t_{cl}) + \Delta T \cdot \dot{\tilde{p}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot \ddot{\tilde{p}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ which also considers terms of $\mathcal{O}(\Delta T^3)$\footnote{Note, that this is simple and robust alternative to any derivative controller.}.
+Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
 
 %$ {\bf \dot{r}}_{ref}(t) $
 \begin{figure}[h]
