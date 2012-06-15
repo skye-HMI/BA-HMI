@@ -98,6 +98,17 @@ The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{
 \label{fig:path_trajectory}
 \end{figure}
 
+In order to get the velocity and acceleration of the trajectory, the chain rule has to be applied to ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$:
+
+\begin{align}\label{vel_acc}
+{\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\dot{u}(t) \\
+{\bf \ddot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\ddot{u}(t)+\frac{d^{2} {\bf p}}{du^{2}}\dot{u}^{2}(t)
+\end{align}
+
+%{\bf \ddot{\tilde{p}}}(t)
+
+
+
 
 
 \subsection{Interpolation and Approximation}
@@ -121,27 +132,65 @@ For the the trajectory planning for \textsc{Skye}, it was necessary to interpola
 
 There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of polynomials finally forms a spline. As impressively shown in \cite{wolfgang}, splines are the better option for more than a few waypoints. 
 
-\section{Spline Theory}
-A set of data points can be interpolated with one single curve or with a set of curves defined over a certain interval.  For a 
-\label{sec:splineTheory}
-references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
-\subsubsection{Continuity}
-\subsubsection{Boundary Conditions}
-\subsubsection{Polynomial Order}
-\subsubsection{Parametrization}
-\subsection{Piecewise Polynomial Interpolating Splines}
-\subsubsection{Boundary Conditions}
-\subsubsection{Polynomial Order}
-\subsubsection{Parameterization}
-\subsection{B-Splines}
-\subsubsection{Boundary Conditions}
-\subsubsection{Polynomial Order}
-\subsubsection{Parametrization}
+%A set of data points can be interpolated with one single curve or with a set of curves defined over a certain interval.  For a references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
 
-\section{Trajectory Generation}
-\label{sec:trajectoryGeneration}
+
+%\subsubsection{Continuity}
+%\subsubsection{Boundary Conditions}
+%\subsubsection{Polynomial Order}
+%\subsubsection{Parametrization}
+%\subsection{Piecewise Polynomial Interpolating Splines}
+%\subsubsection{Boundary Conditions}
+%\subsubsection{Polynomial Order}
+%\subsubsection{Parameterization}
+%\subsection{B-Splines}
+%\subsubsection{Boundary Conditions}
+%\subsubsection{Polynomial Order}
+%\subsubsection{Parametrization}
+
+
+\section{Splines}
+\label{sec:splines}
+\subsection{Parameterization}
+Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints, i.e. a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found. In this section, the most common used techniques are analyzed\footnote{A vaster evaluation of different parameterization can be found in \cite{haron}} The choice of parameterization affects the geometrical properties of the path on the one hand and the velocity and acceleration of the trajectory on the other hand. (compare \eqref{vel_acc}). Latter is especially of big impact if a proportional relation is used to describe the motion law, i.e. $u=\lambda t$ (compare \ref{sec:motionLaw}).
+
+\subsubsection{Uniform}
+This is the simplest way to define the $u_{0-n}$. Here basically the index number of the waypoints are assigned to $u$. Therefore no meaningful interpretation can be made.
+\begin{equation*}
+u_n-u_{n-1}=1
+\end{equation*}
+\subsubsection{Chord length}
+In this method the chord length between the waypoints is calculated and then summed up and assigned to $u$. With $u=\lambda t$ this method can be interpreted to aim for a more or less constant velocity over the whole trajectory.
+\begin{equation*}
+u_n-u_{n-1}=\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x_{n-1}\\y_{n-1}\\z_{n-1} \end{bmatrix}\right \|
+\end{equation*}
+\subsubsection{Arc length}
+The arc length method is improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{sec:arcLengthDistribution}.
+{\bf include picture}
+
+\subsubsection{Centripetal}
+This method was first proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
+\begin{equation*}
+u_n-u_{n-1}=\sqrt{\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x_{n-1}\\y_{n-1}\\z_{n-1} \end{bmatrix}\right \|}
+\end{equation*}
+
+\subsubsection{Comparison}
+geometrical properties, dynamical properties, Kreb'sche Bewertungsalgrithmen:) \textbf{pictures of all of them, justify choice, say that if more waypoints, different decision}
+
+\subsection{Spline Degree}
+\subsubsection{Continuity}
+first: explain, show continuity\\
+second: Decision with Propulsion Dynamics and oscillation
+
+\subsection{Boundary Conditions}
+
+\subsection{implementation}
+
+
+\section{Motion Law}
+\label{sec:motionLaw}
 \subsection{System Constraints}
-\subsubsection{Maximum Velocities and Accelerations}
+\label{subsec:systemConstraints}
 In order to plan a feasible trajectory one has to know the capabilities of the system. Here just a basic derivation for the velocities and accelerations is given, for more details refer to (!!!!Bsc Thesis Joe, Bsc Thesis Andy)\\
 
 The maximum feasible acceleration in any direction is calculated to be:
@@ -171,7 +220,8 @@ which is quite conservative because it is assumed that worst axis for turning is
 
 Since the system is almost undamped for rotations, the rotational velocities will never be the limiting factor.
 
-\subsection{Time Parametrization}
+\subsection{Time Scaling}
+\label{timeScaling}
 
 \section{Controller Implementation}
 Some commonly used trajectory controllers\footnote{\cite{snider} provides a good overview to trajectory control.} are tested to follow the defined trajectories. The \textit{Trajectory following} controller supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to more robust path tracking results.
