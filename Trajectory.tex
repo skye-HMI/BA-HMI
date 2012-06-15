@@ -90,6 +90,7 @@ J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq
 \label{sec:definition}
 \subsection{Paths and Trajectories}
 The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. The composition of the function\footnote{In  \cite{snider} named as the \textit{Motion Law}} $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
+
 \begin{figure}[h]
 \centering
 \def\svgwidth{0.9\textwidth}
@@ -166,7 +167,18 @@ u_n-u_{n-1}=\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x
 \end{equation*}
 \subsubsection{Arc length}
 The arc length method is improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{sec:arcLengthDistribution}.
-{\bf include picture}
+
+\begin{figure}[h]
+\centering
+\def\svgwidth{0.7\textwidth}
+\input{graphics/arcLength.pdf_tex}
+\caption{The arc length is estimated using the segments of two circles.}
+\label{fig:arcLength}
+\end{figure}
+
+\begin{equation*}
+u_n-u_{n-1}=\frac{B_a+B_b}{2}
+\end{equation*}
 
 \subsubsection{Centripetal}
 This method was first proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
