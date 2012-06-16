@@ -189,7 +189,7 @@ u_n-u_{n-1}=\sqrt{\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bma
 
 geometrical properties, dynamical properties, Kreb'sche Bewertungsalgrithmen:) \textbf{pictures of all of them, justify choice, say that if more waypoints, different decision}
 
-All those four methods were tested on our three sample waypoints defined in \ref{sec:experimental_design}. Since the helix waypoints all have the same distance between each other, all four methods result in the same path respectively trajectory. As the chord and arc length distribution try to maintain a constant velocity, it is obvious that high curvature has to be omitted. This however leads to overshoots as seen in \ref{fig:parameterizations4_road_agile}. Choosing cubic splines reduces this effect whereas quintic splines amplifies it. (compare \ref{fig:parameterization345_road_agile})
+All those four methods were tested on our three sample waypoints defined in \ref{sec:experimental design}. Since the helix waypoints all have the same distance between each other, all four methods result in the same path respectively trajectory. As the chord and arc length distribution try to maintain a constant velocity, it is obvious that high curvature has to be omitted. This however leads to overshoots as seen in \ref{fig:parameterizations4_road_agile}. Choosing cubic splines reduces this effect whereas quintic splines amplifies it. (compare \ref{fig:parameterization_cqq})
 
 \begin{figure}[H]
   \begin{minipage}[t]{0.9\textwidth}
@@ -199,9 +199,9 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
-Since those overshoots are intolerable a uniform or centripetal distribution has to be chosen. While in our sample waypoints the two seem to be quite similar the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot, since the uniform distribution is completely independent of the waypoint set.
-
-\textbf{Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used \ref{subsec:timeScaling}. Show here or after Time scaling the resulting velocity and acceleration profiles?}
+Since those overshoots are intolerable a uniform or centripetal distribution has to be chosen. While in our sample waypoints the two seem to be quite similar the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot, since the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to fit best our needs.
+\\
+Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used, as described in \ref{subsec:timeScaling}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
 
 \subsection{Spline Degree}
 \subsubsection{Continuity}
