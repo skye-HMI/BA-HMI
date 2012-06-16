@@ -8,8 +8,6 @@ For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic
 %\subsection{Our Approach}
 %From the GUI it was given that the goal trajectory would be a multipoint-interpolating %trajectory. The user is able to define waypoints on a map which afterwards should be %connected with a reasonable and realizable trajectory. Beside interpolating trajectories %there exist also approximating trajectories but they were not taken into consideration, since %usually the user wants skye fly directly through a waypoint.
 
-%In another Bsc Thesis elaborated in this project a controller for waypoint following was %designed. So it was convenient in the scope of this Thesis to use this controller instead of %a specialized trajectory controller.
-
 \section{Experimental Design}
 \label{sec:experimental design}
 The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results below belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. They represent standard situations for the applications mentioned before. Indeed, to verify the conclusions, some a wider set of waypoints had to be considered.
@@ -288,21 +286,6 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 Testing the controller yields good performance.. figure \ref{fig:trajFoll_tracking} some BLA BLA
 
 
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \caption{BLA tracking }
-  \label{fig:trajFoll_tracking}
-\end{figure}
 
 Furthermore, we observed dynamics \ref{fig:trajFoll_dynamics} there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
 
@@ -325,47 +308,31 @@ It is definitively too much to show figure \ref{fig:trajFoll_sysConstraints} and
 %  \label{fig:trajFoll_dynamics}
 %\end{figure}
 
-We can show the results in a table, or we can put it all to the appendix..
 
-\begin{table}[h]
-\begin{center}
- \caption{Here some absolute results to trajectory following BLA.}\vspace{1ex}
- \label{tab:trajFoll_absoulte}
- \begin{tabular}{ll|ccc}
- \hline
- Kennzahl & Einheit & ECE & EUDC & NEFZ \\ \hline \hline
- Dauer & s & 780 & 400 & 1180 \\
- Distanz & km & 4.052 & 6.955 & 11.007 \\
- Durchschnittsgeschwindigkeit & km/h & 18.7 &  62.6 & 33.6 \\
- Leerlaufanteil & \% & 36 & 10 & 27 \\
- \hline
- \end{tabular}
-\end{center}
-\end{table}
 
 
 
 The results before were all by perfect models. Now with distrubances..there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
 
-\begin{figure}[H]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \caption{BLA tracking but this time with wind}
-  \label{fig:trajFollWind_tracking}
-\end{figure}
+%\begin{figure}[H]
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
+%  \end{minipage}
+%  \caption{BLA tracking but this time with wind}
+%  \label{fig:trajFollWind_tracking}
+%\end{figure}
 
 
 \subsection{Pure Pursuit Controller}
-Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
+Another commonly used controller to track paths is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
 
 %$ {\bf \dot{r}}_{ref}(t) $
 \begin{figure}[h]
@@ -386,37 +353,37 @@ Another commonly used trajectory controller is Pure Pursuit \cite{snider}. To co
 
 And here again, the resulting trajectories altough they look the same as in the subsection before.
 
-\begin{figure}[H]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \caption{BLA pure pursuit}
-  \label{fig:purePursuit_tracking}
-\end{figure}
-
-\begin{figure}[H]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \caption{BLA pure pursuit and here with wind}
-  \label{fig:purePursuit_tracking}
-\end{figure}
+%\begin{figure}[H]
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
+%  \end{minipage}
+%  \caption{BLA pure pursuit}
+%  \label{fig:purePursuit_tracking}
+%\end{figure}
+%
+%\begin{figure}[H]
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
+%  \end{minipage}
+%  \caption{BLA pure pursuit and here with wind}
+%  \label{fig:purePursuit_tracking}
+%\end{figure}
 
 
 
@@ -443,7 +410,71 @@ see \cite{williams}
 \end{figure}
 
 
-\begin{figure}[H]
+%\begin{figure}[H]
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
+%  \end{minipage}
+%  \caption{BLA cross track}
+%  \label{fig:crossTrack_tracking}
+%\end{figure}
+%
+%\begin{figure}[H]
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_1}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[t]{0.32\textwidth}
+%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_1}
+%  \end{minipage}
+%  \caption{BLA cross track with wind}
+%  \label{fig:crossTrackWind_tracking}
+%\end{figure}
+
+\section{Results}
+\label{sec:results}
+
+\paragraph{Perfect Model OR IDEAL CASE}
+\label{par:results_perfect_model}
+
+\begin{figure}[h]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
   \end{minipage}
@@ -455,11 +486,61 @@ see \cite{williams}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
   \end{minipage}
-  \caption{BLA cross track}
-  \label{fig:crossTrack_tracking}
+  \caption{BLA tracking }
+  \label{fig:results_perfect_model}
 \end{figure}
 
-\begin{figure}[H]
+We can show the results in a table, or we can put it all to the appendix..
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{lll|lll}
+ \hline
+ Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
+ Trajectory Following & Av. Dev. & $[m]$ & 0.007 & 0.017 & 0.014 \\
+ Pure Pursuit         & Av. Dev & $[m]$ & 0.007 & 0.009 & 0.017 \\
+ Cross Track          & Av. Dev & $[m]$ &  0.007 & 0.007 & 0.006 \\
+    
+ Trajectory Following & Av. Acc & $[m/s^2]$ & 0.029 & 0.174 & 0.137 \\
+ Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.159 & 0.128 \\
+ Cross Track          & Av. Acc & $[m/s^2]$ & 0.029 & 0.159 & 0.126 \\
+ \hline
+ \end{tabular}
+ \caption{Here some absolute results to perfect model estimation.}\vspace{1ex}
+ \label{tab:results_perfect_model}
+\end{center}
+\end{table}
+
+\paragraph{Wind Disturbance}
+\label{par:results_wind_disturbance}
+
+\begin{figure}[h]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_1}
   \end{minipage}
@@ -471,10 +552,98 @@ see \cite{williams}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_1}
   \end{minipage}
-  \caption{BLA cross track with wind}
-  \label{fig:crossTrackWind_tracking}
+  \caption{BLA tracking }
+  \label{fig:results_wind_disturbance}
 \end{figure}
+
+We can show the results in a table, or we can put it all to the appendix..
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{lll|lll}
+ \hline
+ Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
+ Trajectory Following & Av. Dev. & $[m]$ & 1.783 & 0.606 & 0.111 \\
+ Pure Pursuit         & Av. Dev & $[m]$ & 0.0785 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev & $[m]$ &  0.034 & 0.061 & 0.023 \\
+    
+ Trajectory Following & Av. Acc & $[m/s^2]$ & 0.031 & 0.191 & 0.138 \\
+ Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.136 & 0.121 \\
+ Cross Track          & Av. Acc & $[m/s^2]$ & 0.028 & 0.140 & 0.120 \\
+ \hline
+ \end{tabular}
+ \caption{Here some absolute results with wind disturbance.}\vspace{1px}
+ \label{tab:results_model_uncertainties}
+\end{center}
+\end{table}
+
+\paragraph{Model Uncertainties}
+\label{par:results_model_uncertainties}
+
+\begin{figure}[h]
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
+  \end{minipage}
+  %\caption{BLA tracking }
+  \vspace{5pt}
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
+  \end{minipage}
+  \caption{BLA tracking }
+  \label{fig:results_model_uncertainties}
+\end{figure}
+
+We can show the results in a table, or we can put it all to the appendix..
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{lll|lll}
+ \hline
+ Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
+ Trajectory Following & Av. Dev. & $[m]$ & 3.227 & 1.628 & 0.838 \\
+ Pure Pursuit         & Av. Dev & $[m]$ & 3.650 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev & $[m]$ &  0.034 & 0.061 & 0.023 \\
+    
+ Trajectory Following & Av. Acc & $[m/s^2]$ & 0.031 & 0.191 & 0.138 \\
+ Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.136 & 0.121 \\
+ Cross Track          & Av. Acc & $[m/s^2]$ & 0.028 & 0.140 & 0.120 \\
+ \hline
+ \end{tabular}
+ \caption{Here some absolute results with model uncertainties.}\vspace{1px}
+ \label{tab:absolute_results}
+\end{center}
+\end{table}
 
 \section{Discussion}
 \label{sec:discussion}
+
 
