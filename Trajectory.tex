@@ -117,10 +117,6 @@ If one wants to draw a path through a set of waypoints, there exists two ways to
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/ApproxInterpol.eps}
   \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.8\textwidth}
-%    \includegraphics[width = \textwidth]{graphics/b.eps}
-  \end{minipage}
   \caption{Interpolation and approximation of waypoints}
   \label{fig:ApproxInterpol}
 \end{figure}
@@ -130,21 +126,6 @@ For the the trajectory planning for \textsc{Skye}, it was necessary to interpola
 
 There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of polynomials finally forms a spline. As impressively shown in \cite{wolfgang}, splines are the better option for more than a few waypoints. 
 
-%A set of data points can be interpolated with one single curve or with a set of curves defined over a certain interval.  For a references to \cite{engeln}, \cite{biagiotti} and \cite{doessegger}
-
-
-%\subsubsection{Continuity}
-%\subsubsection{Boundary Conditions}
-%\subsubsection{Polynomial Order}
-%\subsubsection{Parametrization}
-%\subsection{Piecewise Polynomial Interpolating Splines}
-%\subsubsection{Boundary Conditions}
-%\subsubsection{Polynomial Order}
-%\subsubsection{Parameterization}
-%\subsection{B-Splines}
-%\subsubsection{Boundary Conditions}
-%\subsubsection{Polynomial Order}
-%\subsubsection{Parametrization}
 
 
 \section{Splines}
@@ -193,7 +174,7 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/Parameterizations4_road_agile.eps}
   \end{minipage}
-  \caption{The different parameterizations shown with quartic splines}
+  \caption{The different parameterizations shown with quartic splines; Uniform:black, Chord length: blue, Arc length: green, Centripetal: red}
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
@@ -201,14 +182,51 @@ Since those overshoots are intolerable a uniform or centripetal distribution has
 \\
 Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used, as described in \ref{subsec:timeScaling}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
 
+\begin{figure}[H]
+  \begin{minipage}[t]{0.96\textwidth}
+    \includegraphics[width = \textwidth]{graphics/Parameterization4_road_vel_acc.eps}
+  \end{minipage}
+  \caption{Velocity and acceleration of the quartic road trajectory with a motion law which, in this case, limits the maximum velocity. Compare \ref{sec:motionLaw} Uniform:black, Chord length: blue, Arc length: green, Centripetal: red}
+  \label{fig:para road vel acc}
+\end{figure}
+
+In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track.
+
+
 \subsection{Spline Degree}
+{\bf first: explain, show continuity\\
+second: Decision with Propulsion Dynamics and oscillation}
 \subsubsection{Continuity}
-first: explain, show continuity\\
-second: Decision with Propulsion Dynamics and oscillation
+As soon as we talk of splines the question about the spline order arises. Of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used then already the first derivative of the curve will not be continuous anymore. In the case of a trajectory the continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. So are e.g. cubic splines discontinuous in the jerk whereas quartic is still continuous and quintic splines would be continuous up to the snap. 
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.96\textwidth}
+    \includegraphics[width = \textwidth]{graphics/continuity.eps}
+  \end{minipage}
+  \caption{The different degrees of continuity for cubic (green), quartic(blue) and quintic(magenta) splines}
+  \label{fig:continuity}
+\end{figure}
+
+
+
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used. This is due to its propulsion system, which is briefly described in \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be turned immediately. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with force calculated from the acceleration $F_x=m_tot*a_x$. As can be seen from figure \ref{forces} the propulsion system is able to handle all resulting inputs of the cubic, quartic and quintic splines.
+ 
+\begin{figure}[H]
+  \begin{minipage}[t]{0.96\textwidth}
+    \includegraphics[width = \textwidth]{graphics/forces.eps}
+  \end{minipage}
+  \caption{The comparison of the forces output of the propulsion dynamics and the forces input resulting from the different degrees of splines; input:blue, output:cubic-green, quartic-blue, quintic-magenta}
+\label{fig:forces}
+\end{figure} 
+
+The small deviations between the input and the output forces are a result of interpolation, done in the propulsion system \cite{schaffnervu}, and are not a result of an inadequate input. However, BLABLA.....see deviations, but much faster dynamics therefore neglectable.
+
+
 
 \subsection{Boundary Conditions}
+v0, acc0, vn, accn null, alternative, erstes stueck der kurve durch ein polynom ersetzen.
 
-\subsection{implementation}
+\subsection{Implementation}
 
 
 \section{Motion Law}
