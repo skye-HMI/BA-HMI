@@ -429,10 +429,12 @@ see \cite{williams}
 \section{Results}
 \label{sec:results}
 
-\subsection{Perfect Model OR IDEAL CASE}
+A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters are exposed. Further results can be found in AAAAPPPPPEEENNNNNDDDDIIIIIXXXX.
+
+\subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
 
-The controllers described above were tested within the experimental design notified in \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. 
+The three trajectory controllers were tested on the given conditions. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter 2.7 m) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. 
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
@@ -482,12 +484,12 @@ The controllers described above were tested within the experimental design notif
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
  Trajectory Following & Av. Dev. & $[m]$ & 0.007 & 0.017 & 0.014 \\
- Pure Pursuit         & Av. Dev & $[m]$ & 0.007 & 0.009 & 0.017 \\
- Cross Track          & Av. Dev & $[m]$ &  0.007 & 0.007 & 0.006 \\
+ Pure Pursuit         & Av. Dev. & $[m]$ & 0.007 & 0.009 & 0.017 \\
+ Cross Track          & Av. Dev. & $[m]$ &  0.007 & 0.007 & 0.006 \\
     
- Trajectory Following & Av. Acc & $[m/s^2]$ & 0.029 & 0.174 & 0.137 \\
- Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.159 & 0.128 \\
- Cross Track          & Av. Acc & $[m/s^2]$ & 0.029 & 0.159 & 0.126 \\
+ Trajectory Following & Av. Acc. & $[m/s^2]$ & 0.029 & 0.174 & 0.137 \\
+ Pure Pursuit         & Av. Acc. & $[m/s^2]$ & 0.031 & 0.159 & 0.128 \\
+ Cross Track          & Av. Acc. & $[m/s^2]$ & 0.029 & 0.159 & 0.126 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results to perfect model estimation.}\vspace{1ex}
@@ -498,8 +500,8 @@ The controllers described above were tested within the experimental design notif
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
+The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \unit{1} in positive x-direction have been added. The disturbance starts 10 seconds after the simulations start.
 
-We can show the results in a table, or we can put it all to the appendix..
 
 \begin{table}[h]
 \begin{center}
