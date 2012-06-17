@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.48.2, www.inkscape.org
+%% Creator: Inkscape 0.48.2, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'controller_purePursuit.pdf' (pdf, eps, ps)
 %%
@@ -51,7 +51,7 @@
   \begin{picture}(1,0.1953136)%
     \put(0,0){\includegraphics[width=\unitlength]{controller_purePursuit.pdf}}%
     \put(0.03776564,0.1264695){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Trajectory}}}%
-    \put(0.4183356,0.12497357){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Pos Control}}}%
+    \put(0.4183356,0.12497357){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Vel Control}}}%
     \put(0.8543492,0.12725252){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Skye}}}%
   \end{picture}%
 \endgroup%

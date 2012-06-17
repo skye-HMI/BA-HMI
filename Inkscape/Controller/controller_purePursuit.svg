@@ -9,7 +9,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="controller_purePursuit.pdf"
+   sodipodi:docname="controller_purePursuit.svg"
    inkscape:version="0.48.2 r9819"
    version="1.1"
    id="svg2"
@@ -24,14 +24,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.6663055"
      inkscape:cx="347.39237"
-     inkscape:cy="571.86193"
+     inkscape:cy="526.85583"
      inkscape:document-units="px"
      inkscape:current-layer="g2990"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="744"
-     inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -109,7 +109,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -210,7 +210,7 @@
            id="tspan3244-6"
            x="282.66464"
            y="496.62878"
-           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Serif;-inkscape-font-specification:Serif">Pos Control</tspan></text>
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Serif;-inkscape-font-specification:Serif">Vel Control</tspan></text>
       <rect
          style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.83539909px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="rect3240-4-3-6"
