@@ -244,7 +244,7 @@ In order to plan a feasible trajectory one has to know the capabilities of the s
 The maximum feasible acceleration in any direction is calculated to be:
 
 \begin{equation}
-  \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = 0.96 m/s^2
+  \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = 0.96\si{\meter\per\square\second}
 \end{equation}
 
 Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated under full load in the worst direction and $m_{tot}$ is the sum of the masses of the helium, the virtual mass and the mass of the system itself.\\
@@ -253,7 +253,7 @@ Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated 
 The maximum feasible velocity in any direction is calculated to be:
 
 \begin{equation}
-\left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=2.9 m/s
+\left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=\si{\meter\per\second}
 \end{equation}
 
 which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
@@ -261,7 +261,7 @@ which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
 For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
 
 \begin{equation}
-  \left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = 2.06 rad/s^2 
+\left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = 2.06\si{\radian\per\square\second} 
 \end{equation}
 
 which is quite conservative because it is assumed that worst axis for turning is also the principle axis of the inertia tensor with the highest inertia.\\
@@ -435,8 +435,12 @@ see \cite{williams}
 \section{Results}
 \label{sec:results}
 
-\subsection{Perfect Model OR IDEAL CASE}
+A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters are exposed. Further results can be found in AAAAPPPPPEEENNNNNDDDDIIIIIXXXX.
+
+\subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
+
+The three trajectory controllers were tested on the given conditions. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter 2.7\si{\meter}) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. 
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
@@ -476,24 +480,22 @@ see \cite{williams}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
   \end{minipage}
-  \caption{BLA tracking }
+  \caption{Trajectory tracking with perfect model estimation. {\bf Top}: \textit{Trajectory following} control {\bf Center}: \textit{Pure pursuit} control {\bf Bottom}: \textit{Cross track error} control}
   \label{fig:results_perfect_model}
 \end{figure}
-
-We can show the results in a table, or we can put it all to the appendix..
 
 \begin{table}[h]
 \begin{center}
  \begin{tabular}{lll|lll}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
- Trajectory Following & Av. Dev. & $[m]$ & 0.007 & 0.017 & 0.014 \\
- Pure Pursuit         & Av. Dev & $[m]$ & 0.007 & 0.009 & 0.017 \\
- Cross Track          & Av. Dev & $[m]$ &  0.007 & 0.007 & 0.006 \\
+ Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 0.007 & 0.017 & 0.014 \\
+ Pure Pursuit         & Av. Dev. & $[\si{\meter}]$ & 0.007 & 0.009 & 0.017 \\
+ Cross Track          & Av. Dev. & $[\si{\meter}]$ &  0.007 & 0.007 & 0.006 \\
     
- Trajectory Following & Av. Acc & $[m/s^2]$ & 0.029 & 0.174 & 0.137 \\
- Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.159 & 0.128 \\
- Cross Track          & Av. Acc & $[m/s^2]$ & 0.029 & 0.159 & 0.126 \\
+ Trajectory Following & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.029 & 0.174 & 0.137 \\
+ Pure Pursuit         & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.159 & 0.128 \\
+ Cross Track          & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.029 & 0.159 & 0.126 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results to perfect model estimation.}\vspace{1ex}
@@ -504,62 +506,21 @@ We can show the results in a table, or we can put it all to the appendix..
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \caption{BLA tracking }
-  \label{fig:results_wind_disturbance}
-\end{figure}
+The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of 1\si{\meter\per\second} in positive x-direction have been added. The disturbance starts 10 seconds after the simulations start.
 
-We can show the results in a table, or we can put it all to the appendix..
 
 \begin{table}[h]
 \begin{center}
  \begin{tabular}{lll|lll}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
- Trajectory Following & Av. Dev. & $[m]$ & 1.783 & 0.606 & 0.111 \\
- Pure Pursuit         & Av. Dev & $[m]$ & 0.0785 & 0.098 & 0.037 \\
- Cross Track          & Av. Dev & $[m]$ &  0.034 & 0.061 & 0.023 \\
+ Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 1.783 & 0.606 & 0.111 \\
+ Pure Pursuit         & Av. Dev & $[\si{\meter}]$ & 0.0785 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
     
- Trajectory Following & Av. Acc & $[m/s^2]$ & 0.031 & 0.191 & 0.138 \\
- Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.136 & 0.121 \\
- Cross Track          & Av. Acc & $[m/s^2]$ & 0.028 & 0.140 & 0.120 \\
+ Trajectory Following & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
+ Pure Pursuit         & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
+ Cross Track          & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.028 & 0.140 & 0.120 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results with wind disturbance.}\vspace{1px}
@@ -570,47 +531,6 @@ We can show the results in a table, or we can put it all to the appendix..
 \subsection{Model Uncertainties}
 \label{sub:results_model_uncertainties}
 
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \caption{BLA tracking }
-  \label{fig:results_model_uncertainties}
-\end{figure}
 
 We can show the results in a table, or we can put it all to the appendix..
 
@@ -619,13 +539,13 @@ We can show the results in a table, or we can put it all to the appendix..
  \begin{tabular}{lll|lll}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
- Trajectory Following & Av. Dev. & $[m]$ & 3.227 & 1.628 & 0.838 \\
- Pure Pursuit         & Av. Dev & $[m]$ & 3.650 & 0.098 & 0.037 \\
- Cross Track          & Av. Dev & $[m]$ &  0.034 & 0.061 & 0.023 \\
+ Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 3.227 & 1.628 & 0.838 \\
+ Pure Pursuit         & Av. Dev & $[\si{\meter}]$ & 3.650 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
     
- Trajectory Following & Av. Acc & $[m/s^2]$ & 0.031 & 0.191 & 0.138 \\
- Pure Pursuit         & Av. Acc & $[m/s^2]$ & 0.031 & 0.136 & 0.121 \\
- Cross Track          & Av. Acc & $[m/s^2]$ & 0.028 & 0.140 & 0.120 \\
+ Trajectory Following & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
+ Pure Pursuit         & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
+ Cross Track          & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.028 & 0.140 & 0.120 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results with model uncertainties.}\vspace{1px}
