@@ -192,12 +192,14 @@ Beside the geometrical appearance due to the different distributions the dynamic
 
 In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track.
 
+{ \bf Bring here criteria, nevertheless centripetal has to be taken anyways}
+
 
 \subsection{Spline Degree}
 {\bf first: explain, show continuity\\
 second: Decision with Propulsion Dynamics and oscillation}
 \subsubsection{Continuity}
-As soon as we talk of splines the question about the spline order arises. Of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used then already the first derivative of the curve will not be continuous anymore. In the case of a trajectory the continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. So are e.g. cubic splines discontinuous in the jerk whereas quartic is still continuous and quintic splines would be continuous up to the snap. 
+As soon as we talk of splines the question about the spline order arises, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used then already the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk whereas quartic is still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
 
 \begin{figure}[H]
   \begin{minipage}[t]{0.96\textwidth}
@@ -209,7 +211,7 @@ As soon as we talk of splines the question about the spline order arises. Of wha
 
 
 
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used. This is due to its propulsion system, which is briefly described in \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be turned immediately. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with force calculated from the acceleration $F_x=m_tot*a_x$. As can be seen from figure \ref{forces} the propulsion system is able to handle all resulting inputs of the cubic, quartic and quintic splines.
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed. This is due to its propulsion system, which is briefly described in \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be turned immediately. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with force calculated from the acceleration $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all resulting inputs of the cubic, quartic and quintic splines.
  
 \begin{figure}[H]
   \begin{minipage}[t]{0.96\textwidth}
@@ -220,6 +222,8 @@ As soon as we talk of splines the question about the spline order arises. Of wha
 \end{figure} 
 
 The small deviations between the input and the output forces are a result of interpolation, done in the propulsion system \cite{schaffnervu}, and are not a result of an inadequate input. However, BLABLA.....see deviations, but much faster dynamics therefore neglectable.
+
+{\bf here static criteria, connected with boundary conditions?}
 
 
 
@@ -235,12 +239,12 @@ v0, acc0, vn, accn null, alternative, erstes stueck der kurve durch ein polynom 
 \label{sec:motionLaw}
 \subsection{System Constraints}
 \label{subsec:systemConstraints}
-In order to plan a feasible trajectory one has to know the capabilities of the system. Here just a basic derivation for the velocities and accelerations is given, for more details refer to (!!!!Bsc Thesis Joe, Bsc Thesis Andy)\\
+In order to plan a feasible trajectory one has to know the capabilities of the system. Here just a basic derivation for the velocities and accelerations is given, for more details refer to \cite{weichart}, \cite{schaffnervu}. \\
 
 The maximum feasible acceleration in any direction is calculated to be:
 
 \begin{equation}
-  \left|a_{max} \right| =  \frac{\left|F_{res, w}\right|}{m_{tot}} = 0.96 m/s^2
+  \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = 0.96 m/s^2
 \end{equation}
 
 Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated under full load in the worst direction and $m_{tot}$ is the sum of the masses of the helium, the virtual mass and the mass of the system itself.\\
@@ -249,7 +253,7 @@ Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated 
 The maximum feasible velocity in any direction is calculated to be:
 
 \begin{equation}
-\left|v_{max} \right| = \sqrt{\frac{\left|F_{res,w} \right|}{\frac{1}{2}c_d \rho \pi r^2}}=2.9 m/s
+\left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=2.9 m/s
 \end{equation}
 
 which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
@@ -257,7 +261,7 @@ which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
 For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
 
 \begin{equation}
-  \left|\Psi_{max} \right| =  \frac{\left|M_{res,w}\right|}{\left| \lambda_{max, J_{B}} \right|} = 2.06 rad/s^2 
+  \left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = 2.06 rad/s^2 
 \end{equation}
 
 which is quite conservative because it is assumed that worst axis for turning is also the principle axis of the inertia tensor with the highest inertia.\\
@@ -266,6 +270,8 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 
 \subsection{Time Scaling}
 \label{subsec:timeScaling}
+
+{\bf don't forget to mention the security factor}
 
 \section{Controller Implementation}
 \label{sec:controllerImplementation}
