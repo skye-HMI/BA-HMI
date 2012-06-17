@@ -41,7 +41,7 @@ L_p = \int_{u_{min}}^{u_{max}} du \qquad T_p = \int_{t_{min}}^{t_{max}} dt
 the criteria are:
 
 \begin{enumerate}[i)] 
-\item Average deviation between actual path and chord connection between waypoints
+\item Average deviation between actual path and chord (straight) connection between waypoints
 \label{item:static_deviation}
 \begin{equation}
 J_1 = \int_{u_{min}}^{u_{max}} \|{\bf p}(u)- {\bf p}_2(u)\| du \cdot L_p^{-1} \label{eq:static_deviation}
@@ -248,16 +248,13 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \label{subsec:timeScaling}
 
 \section{Controller Implementation}
-Some commonly used trajectory controllers\footnote{\cite{snider} provides a good overview to trajectory control.} are tested to follow the defined trajectories. The \textit{Trajectory following} controller supplies the system's position controller \cite{meier} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to more robust path tracking results.
-\\
-BLA BLA introduce notation.. $r(t)$ bla.
-
- XXXX see \cite{snider} and \cite{deluca}
 \label{sec:controllerImplementation}
+A trajectory controller and two commonly used path tracking controllers\footnote{\cite{snider} provides a good overview to various approaches.} are tested to follow the defined trajectories. The \textit{trajectory following} controller supplies the system's position controller \cite{meiermueri} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to more robust and accurate path tracking results.
+SOMEWHERE PROBABLY CITE \cite{deluca}
 \subsection{Trajectory Following}
-Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives.}, the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields to accurate tracking in a safe environment \cite{doesegger}.
+Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives, see section \ref{subsec:systemConstraints}.} the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields to accurate tracking in a safe environment \cite{doesegger}.
 \\
-A position controller with feedforward terms for velocity and acceleration as described in \cite{meiermueri} can therefore be used with the reference input
+A position PI(D) controller with feedforward terms for velocity and acceleration as described in \cite{meiermueri} can therefore be used with the reference input
 
 \begin{equation}
   [r_{ref}(t), \; \dot{r}_{ref}(t), \; \ddot{r}_{ref}(t)]^T = [\tilde{p}(t), \; \dot{\tilde{p}}(t), \; \ddot{\tilde{p}}(t)]^T
@@ -270,7 +267,7 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
     \centering
     \def\svgwidth{0.4\columnwidth}
     \input{graphics/scene_trajectoryFollowing.pdf_tex}
-    \caption{For a perfect model and a trajectory ${\bf \tilde{p}}(t)$ considering all system constraints, the position ${\bf{r}}(t)$ will correctly follow the trajectory.}
+    \caption{Trajectory Following. The reference state is predefined by the trajectory for every time $t$.}
     \label{fig:scene_trajectoryFollowing}
 \end{figure}
 
@@ -282,23 +279,13 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
     \label{fig:trajectoryfollowing}
 \end{figure}
 
-
-Testing the controller yields good performance.. figure \ref{fig:trajFoll_tracking} some BLA BLA
-
-
-
-Furthermore, we observed dynamics \ref{fig:trajFoll_dynamics} there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = \textwidth]{trackings/figure_2D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \hfill
-  \caption{BLA dynamics}
-  \label{fig:trajFoll_dynamics}
-\end{figure}
-
-It is definitively too much to show figure \ref{fig:trajFoll_sysConstraints} and it has to be improved by showing both trajectory and trace.. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. \\ there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width = \textwidth]{trackings/figure_2D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
+%  \hfill
+%  \caption{BLA dynamics}
+%  \label{fig:trajFoll_dynamics}
+%\end{figure}
 
 %\begin{figure}[h]
 %    \centering
@@ -307,29 +294,6 @@ It is definitively too much to show figure \ref{fig:trajFoll_sysConstraints} and
 %  \caption{BLA dynamics}
 %  \label{fig:trajFoll_dynamics}
 %\end{figure}
-
-
-
-
-
-The results before were all by perfect models. Now with distrubances..there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. there are much too many pictures withing the text .. 
-
-%\begin{figure}[H]
-%  \begin{minipage}[t]{0.32\textwidth}
-%    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}[t]{0.32\textwidth}
-%    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}[t]{0.32\textwidth}
-%    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
-%  \end{minipage}
-%  \caption{BLA tracking but this time with wind}
-%  \label{fig:trajFollWind_tracking}
-%\end{figure}
-
 
 \subsection{Pure Pursuit Controller}
 Another commonly used controller to track paths is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
