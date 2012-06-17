@@ -183,7 +183,7 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/Parameterizations4_road_agile.eps}
   \end{minipage}
-  \caption{The different parameterizations shown with quartic splines; Uniform:black, Chord length: blue, Arc length: green, Centripetal: red}
+  \caption{The different parameterizations shown with quartic splines; Uniform: black, Chord length: blue, Arc length: green, Centripetal: red}
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
@@ -396,10 +396,10 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \label{sec:controllerImplementation}
 A trajectory controller and two commonly used path tracking controllers\footnote{\cite{snider} provides a good overview to various approaches.} are tested to follow the defined trajectories. The \textit{trajectory following} controller supplies the system's position controller \cite{meiermueri} with a feed forward reference signal. Although it delivers good results for ideal case, the tracking get worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore to more robust and accurate path tracking results.
 SOMEWHERE PROBABLY CITE \cite{deluca}
-\subsection{Trajectory Following}
-Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives, see section \ref{subsec:systemConstraints}.} the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields to accurate tracking in a safe environment \cite{doesegger}.
+\subsection{Trajectory following}
+Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives, see section \ref{subsec:systemConstraints}.} the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields to accurate tracking in a safe environment \cite{doessegger}.
 \\
-A position PI(D) controller with feedforward terms for velocity and acceleration as described in \cite{meiermueri} can therefore be used with the reference input
+A position PI controller with feedforward terms for velocity and acceleration as described in \cite{meiermueri} can therefore be used with the reference input
 
 \begin{equation}
   [r_{ref}(t), \; \dot{r}_{ref}(t), \; \ddot{r}_{ref}(t)]^T = [\tilde{p}(t), \; \dot{\tilde{p}}(t), \; \ddot{\tilde{p}}(t)]^T
@@ -441,14 +441,23 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 %\end{figure}
 
 \subsection{Pure Pursuit Controller}
-Another commonly used controller to track paths is Pure Pursuit \cite{snider}. To consider all dynamics of the trajectory, the reference intput is based on a lookahead point $\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)$ that considers terms of ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{Note, that this is a simple and robust alternative to any derivative controller.}.
+Another commonly used controller to track paths is \textit{Pure Pursuit} \cite{snider}. This technique is mainly used for path tracking only with a e.g. constant given tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point is set on the trajectory $\Delta T$\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} in front of the current closest position ${\bf \tilde{p}}(t_{cl})$.
+\begin{equation}
+\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)
+\end{equation}
+Therefore, the controller considers the full dynamics of the trajectory, i.e. ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{This is a simple and robust alternative to any derivative controller.}.
+Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The control scheme can be seen in figure \ref{fig:purePursuit}. Actually, the inner control block is a velocity controller only. The reference velocity is given by
+\begin{equation}
+{\bf \dot{r}}_{ref}(t) = \frac{{\bf \tilde{p}}(t_{cl}+\Delta T)-{\bf r}(t)}{\Delta T}
+\end{equation}
+
 
 %$ {\bf \dot{r}}_{ref}(t) $
 \begin{figure}[h]
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/scene_purePursuit.pdf_tex}
-    \caption{Pure pursuit yields to extremly awesome tracking.}
+    \caption{Pure pursuit. The reference velocity is given by the difference between the actual position and a lookahead defined by the trajectory $\Delta T$ ahead the closest point.}
     \label{fig:scene_purePursuit}
 \end{figure}
 
@@ -456,11 +465,9 @@ Another commonly used controller to track paths is Pure Pursuit \cite{snider}. T
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller_purePursuit.pdf_tex}
-    \caption{Pure pursuit yields to extremly awesome tracking.}
+    \caption{Pure pursuit controller. The position feedback is closed by defining the lookahead point depending on the closest point of the trajectory.}
     \label{fig:purePursuit}
 \end{figure}
-
-And here again, the resulting trajectories altough they look the same as in the subsection before.
 
 %\begin{figure}[H]
 %  \begin{minipage}[t]{0.32\textwidth}
@@ -494,18 +501,15 @@ And here again, the resulting trajectories altough they look the same as in the 
 %  \label{fig:purePursuit_tracking}
 %\end{figure}
 
-
-
-
 \subsection{Cross Track Error Controller}
-see \cite{williams}
+The idea of the \textit{cross track error} controller is to directly reduce the cross track distance. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of taking the trajectory's current time, here the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
 
 %$\left[ \begin{array}{c} {\bf \tilde{p}}(t) \\ {\bf \dot{\tilde{p}}}(t) \\ {\bf \ddot{\tilde{p}}}(t) \end{array} \right]$
 \begin{figure}[h]
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/scene_crossTrack.pdf_tex}
-    \caption{Cross Track Error Control yields to extremly awesome tracking.}
+    \caption{Cross track error. The reference point is the nearest point on the trajectory.}
     \label{fig:scene_crossTrack}
 \end{figure}
 
@@ -514,7 +518,7 @@ see \cite{williams}
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller_crossTrack.pdf_tex}
-    \caption{Cross Track Error Control yields to extremly awesome tracking.}
+    \caption{Cross track error controller. The value of the trajectories time stamp $t_{cl}$ of the closest point is generally not equal the current time $t$.}
     \label{fig:crossTrack}
 \end{figure}
 
@@ -554,7 +558,7 @@ see \cite{williams}
 \section{Results}
 \label{sec:results}
 
-A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters are exposed. Further results can be found in AAAAPPPPPEEENNNNNDDDDIIIIIXXXX.
+A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters is exposed. Further results can be found in the Appendix (\ref{sec:app_trajectory_control_results}).
 
 \subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
@@ -579,7 +583,7 @@ The three trajectory controllers were tested on the given conditions. Figure \re
  Cross Track          & Reached & $[\si{\percent}]$ &  97 &  97 &  97 \\
  \hline
  \end{tabular}
- \caption{Here some absolute results to perfect model estimation.}\vspace{1ex}
+ \caption{Results of the three controllers using perfect model estimation}\vspace{1ex}
  \label{tab:results_perfect_model}
 \end{center}
 \end{table}
@@ -609,7 +613,7 @@ Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the thre
  Cross Track          & Reached & $[\si{\percent}]$ &  94 &  89 &  95 \\
  \hline
  \end{tabular}
- \caption{Here some absolute results with wind disturbance.}\vspace{1px}
+ \caption{Results of the three controllers with wind disturbance}\vspace{1px}
  \label{tab:results_wind_disturbance}
 \end{center}
 \end{table}
@@ -639,15 +643,15 @@ The tracking of all controllers is shown in figure \ref{fig:results_model_uncert
  Cross Track          & Reached & $[\si{\percent}]$ &  87 &  93 &  89 \\
  \hline
  \end{tabular}
- \caption{Here some absolute results with model uncertainties.}\vspace{1px}
+ \caption{Results of the three controllers with underestimated trajectory constraints}\vspace{1px}
  \label{tab:results_model_uncertainties}
 \end{center}
 \end{table}
 
 \subsection{Data Correlation}
-Within the gathered data for the tracking with ideal conditions (section \ref{sub:results_perfect_model} and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly}. some correlating results could be observed. \\
+Within the gathered data for the tracking with ideal conditions (section \ref{sub:results_perfect_model}) and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly}. Some correlating results could be observed. \\
 Figure \ref{fig:correlation_time_acc} shows the relation between the given time $T_p$ for the trajectory and the average acceleration $J_5$ occurring on the system. The result is trivial, as the less time is given to follow the waypoints, the higher gets the acceleration. The dependence on the used parametrization is different for the different waypoints, whereas higher spline degrees (quartic and quintic) yield to slightly smaller time $T_p$ and acceleration $J_5$ than lower degree (cubic) consequently. \\
-In figure \ref{fig:correlation_invdev_acc} the correlation between average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are equal much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic that are nearly the same.
+In figure \ref{fig:correlation_invdev_acc} the correlation between average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are similar but much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic that are nearly the same.
 \\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal \SI{0}{\meter\per\square\second}. 
 
 \begin{figure}[h]
@@ -658,7 +662,7 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between average devia
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_Time_Acc_SplineDegree}
   \end{minipage}
-  \caption{ddddddddddddd}
+  \caption{Correlation between trajectory time length $T_p$ and average accelerations on trace. On the double logarithmic plot the correlation becomes clear. {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
   \label{fig:correlation_time_acc}
 \end{figure}
 
@@ -670,7 +674,7 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between average devia
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_SplineDegree}
   \end{minipage}
-  \caption{ddddddddddddd}
+  \caption{Correlation between deviation between trajectory and trace. Data points from \textit{road} waypoints. {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
   \label{fig:correlation_invdev_acc}
 \end{figure}
 
