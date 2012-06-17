@@ -412,6 +412,8 @@ see \cite{williams}
 \subsection{Perfect Model OR IDEAL CASE}
 \label{sub:results_perfect_model}
 
+The controllers described above were tested within the experimental design notified in \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. 
+
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
@@ -450,11 +452,9 @@ see \cite{williams}
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
   \end{minipage}
-  \caption{BLA tracking }
+  \caption{Trajectory tracking with perfect model estimation. {\bf Top}: \textit{Trajectory following} control {\bf Center}: \textit{Pure pursuit} control {\bf Bottom}: \textit{Cross track error} control}
   \label{fig:results_perfect_model}
 \end{figure}
-
-We can show the results in a table, or we can put it all to the appendix..
 
 \begin{table}[h]
 \begin{center}
@@ -478,47 +478,6 @@ We can show the results in a table, or we can put it all to the appendix..
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_1}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_1}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_1}
-  \end{minipage}
-  \caption{BLA tracking }
-  \label{fig:results_wind_disturbance}
-\end{figure}
 
 We can show the results in a table, or we can put it all to the appendix..
 
@@ -544,47 +503,6 @@ We can show the results in a table, or we can put it all to the appendix..
 \subsection{Model Uncertainties}
 \label{sub:results_model_uncertainties}
 
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \caption{BLA tracking }
-  \label{fig:results_model_uncertainties}
-\end{figure}
 
 We can show the results in a table, or we can put it all to the appendix..
 
