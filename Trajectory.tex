@@ -124,14 +124,15 @@ If one wants to draw a path through a set of waypoints, there exists two ways to
 For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This was due to the GUI used (see \ref{sec:realization}). There only a small amount of waypoints is set ant the pilot expects the UAV to pass through all of them and not to take a shortcut. The approximation of the waypoints could result in a collision with buildings as shown in \ref{fig:ApproxInterpol}.
 
 
-There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of polynomials finally forms a spline. As impressively shown in \cite{wolfgang}, splines are the better option for more than a few waypoints. 
+There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of polynomials finally forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints. 
 
 
 
 \section{Splines}
 \label{sec:splines}
 \subsection{Parameterization}
-Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
+\label{subsec:parameterization}
+Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a so called knot vector ${\bf u}$ containing a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
 
 \begin{equation}
 {\bf x}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
@@ -236,9 +237,118 @@ The small deviations between the input and the output forces are a result of int
 
 
 \subsection{Boundary Conditions}
-v0, acc0, vn, accn null, alternative, erstes stueck der kurve durch ein polynom ersetzen.
+\label{subsec:boundary conditions}
+{\bf v0, acc0, vn, accn null, alternative, erstes stueck der kurve durch ein polynom ersetzen.}
+
+If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots \footnote{knots are the places where the pylnominal pieces are connected}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a$ has $p+1$ degrees of freedom whereas the polynomial for the second interval $b$ is given by
+\begin{equation*}
+a^{j}(u_1)=b^{j}(u_1),~j=0,...,p-1
+\end{equation*}
+Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. Therefore the spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+) = p-1$ constraints that still have to be imposed. As a constant time scaling is used \ref{subsec:timeScaling} it is necessary to define:
+
+\begin{equation*}
+\frac{dp_x(u)}{du} \Bigm|_{u=u_0} = \frac{dp_x(u)}{du} \Bigm|_{u=u_n}=0
+\end{equation*}
+
+in order to have the velocity at the start and at the end of the trajectory to equal zero
+
+\begin{equation*}
+\dot{\tilde{p}}_x(t_{start}) = \dot{\tilde{p}}_x(t_{end})=0
+\end{equation*}
+
+For quintic splines two additional constraints can be set
+
+\begin{equation*}
+\frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_0} = \frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_n}=0
+\end{equation*}
+
+such that also the acceleration at the start and at the end of the trajectory is zero(compare \eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and knots are shifted as described in \ref{subsec:implementation}. This is done for all the dimensions.
+
+
 
 \subsection{Implementation}
+\label{subsec:implementation}
+As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set correct boundary conditions for quartic and quintic splines and to get a thorough understanding it was best to program the algorithms and only use the toolbox to make the calculations with the generated splines.\\
+
+While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines and their derivatives.\\
+
+If ${\bf u_B}=\left[u_0,...u_{n_{knots}}\right]$ is the knot vector for the B-splines, the $m=n_{knots}-p-1$ B-splines of degree $p$ for this knot vector are defined recursively using the Cox-de Boor recursion formula:
+
+\begin{align}
+B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
+					0,&\text{otherwise}
+		\end{cases}\\
+B_j^p(u) &= \frac{u-u_j}{u_{j+p}-u_j}B_j^{p-1}(u)+\frac{u_{j+p+1}-u}{u_{j+p+1}-u_{j+1}}B_{j+1}^{p-1}(u), ~p>0
+\end{align}
+
+A linear combination of B-splines then finally forms the path, whereas ${\bf c_j}$ is also referred to as control polygon:
+
+\begin{equation}
+{\bf p}(u) = \sum_{j=0}^m {\bf c_j}B_j^p(u), ~u_{mint} \leq u \leq u_{maw}
+\end{equation}
+ 
+First the knot Vector ${\bf u}$ calculated in \ref{subsec:parameterization} needs to be extended for the use with B-splines. For the quintic splines the following extension is used:
+\begin{equation}
+{\bf u_B}= \underbrace{ [u_0,\ldots,u_0}_{6},u_1, \ldots,u_{n-1},\underbrace{u_n,\ldots, u_n ]}_{6} 
+\end{equation}
+So the total number of knots is $n_{knots}+1 = n+11$ and therefore the number of the control polygon's points to be defined is $m+1=n_{knots}+1-5-1=n+5$ Given $n+1$ waypoints the 4 additional constraint on velocity and acceleration, stated in \ref{subsec:boundary conditions} are left
+
+For the quartic splines the knot vector is shifted in order to get a better result as proposed in \cite{engeln}:
+\begin{equation}
+{\bf u_B}= \underbrace{ [u_0,\ldots,u_0}_{5},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{5} 
+\end{equation} 
+Doing the same calculation as for the quintic splines here again results in $m+1=n+5$ as well, this is why the mentioned four boundary conditions in \ref{subsec:boundary conditions} hold true.
+
+Once the knot Vector ${\bf u_B}$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions here shown for $x$:
+\begin{equation}
+{\bf A_{[m+1\times m+1] }}{\bf {c_x}_{[m+1\times 1]}}={\bf {b_x}_{[m+1 \times 1]}}
+\end{equation}
+where
+
+
+\begin{equation*}
+    {\bf c_x} = [ {c_x}_{0}, {c_x}_{1}, \ldots, {c_x}_{m-1}, {c_x}_{m}]
+\end{equation*}
+
+and
+
+\begin{equation*}
+{\bf A}=   \begin{bmatrix} % or pmatrix or bmatrix or Bmatrix or ...
+      B_0^p(u_0)        & B_1^p(u_0)         & \ldots & B_m^p(u_0) \\
+      B_0^{p(1)}(u_0) & B_1^{p(1)}(u_0) & \ldots & B_m^{p(1)}(u_0) \\
+      B_0^{p(2)}(u_0) & B_1^{p(2)}(u_0) & \ldots & B_m^{p(2)}(u_0) \\
+      B_0^p(u_1)         & B_1^p(u_1)         & \ldots & B_m^p(u_1) \\
+      \vdots			&\vdots		     &            &\vdots \\
+      B_0^p(u_{n-1})        & B_1^p(u_{n-1})         & \ldots & B_m^p(u_{n-1}) \\
+      B_0^{p(2)}(u_n) & B_1^{p(2)}(u_n) & \ldots & B_m^{p(2)}(u_n) \\
+      B_0^{p(1)}(u_n) & B_1^{p(1)}(u_n) & \ldots & B_m^{p(1)}(u_n) \\
+      B_0^p(u_n)         & B_1^p(u_n)         & \ldots & B_m^p(u_n) \\
+      
+   \end{bmatrix},
+   \quad 
+   {\bf c_x} = \begin{bmatrix}
+   {c_x}_0\\
+   {c_x}_1\\
+   \vdots \\
+   {c_x}_{m-1}\\
+   {c_x}_{m} 
+    \end{bmatrix},
+    \quad
+   {\bf b_x} =  \begin{bmatrix}
+   x_0\\
+   {v_x}_0\\
+   {a_x}_0\\
+   x_1\\
+   \vdots \\
+   x_{n-1} \\
+   {a_x}_n\\
+   {v_x}_n\\
+   x_n
+    \end{bmatrix}
+\end{equation*}
+ 
+
+
 
 
 
@@ -280,6 +390,7 @@ Since the system is almost undamped for rotations, the rotational velocities wil
 \label{subsec:timeScaling}
 
 {\bf don't forget to mention the security factor}
+{\bf show that if a polynomial is used for the first and last interval, different boundary conditions could be used}
 
 \section{Controller Implementation}
 \label{sec:controllerImplementation}
