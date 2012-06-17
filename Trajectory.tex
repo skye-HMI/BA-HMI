@@ -252,7 +252,7 @@ In order to plan a feasible trajectory one has to know the capabilities of the s
 The maximum feasible acceleration in any direction is calculated to be:
 
 \begin{equation}
-  \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = 0.96\si{\meter\per\square\second}
+  \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = \SI{0.96}{\meter\per\square\second}
 \end{equation}
 
 Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated under full load in the worst direction and $m_{tot}$ is the sum of the masses of the helium, the virtual mass and the mass of the system itself.\\
@@ -261,7 +261,7 @@ Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated 
 The maximum feasible velocity in any direction is calculated to be:
 
 \begin{equation}
-\left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=\si{\meter\per\second}
+\left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=\SI{2.9}{\meter\per\second}
 \end{equation}
 
 which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
@@ -269,7 +269,7 @@ which is nothing but $ \left|F_{res,min} \right| = \left|F_{dray} \right| $.\\
 For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
 
 \begin{equation}
-\left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = 2.06\si{\radian\per\square\second} 
+\left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = \SI{2.06}{\radian\per\square\second}
 \end{equation}
 
 which is quite conservative because it is assumed that worst axis for turning is also the principle axis of the inertia tensor with the highest inertia.\\
@@ -448,53 +448,11 @@ A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was a
 \subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
 
-The three trajectory controllers were tested on the given conditions. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter 2.7\si{\meter}) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. 
-
-\begin{figure}[h]
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_trajectoryFollowing_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_purePursuit_Disturbance_0}
-  \end{minipage}
-  %\caption{BLA tracking }
-  \vspace{5pt}
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_helix_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \includegraphics[width = \textwidth]{trackings/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
-  \end{minipage}
-  \caption{Trajectory tracking with perfect model estimation. {\bf Top}: \textit{Trajectory following} control {\bf Center}: \textit{Pure pursuit} control {\bf Bottom}: \textit{Cross track error} control}
-  \label{fig:results_perfect_model}
-\end{figure}
+The three trajectory controllers were tested on the given conditions. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter \SI{2.7}{\meter}) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. 
 
 \begin{table}[h]
 \begin{center}
- \begin{tabular}{lll|lll}
+ \begin{tabular}{lll|rrr}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
  Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 0.007 & 0.017 & 0.014 \\
@@ -504,6 +462,10 @@ The three trajectory controllers were tested on the given conditions. Figure \re
  Trajectory Following & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.029 & 0.174 & 0.137 \\
  Pure Pursuit         & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.159 & 0.128 \\
  Cross Track          & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.029 & 0.159 & 0.126 \\
+ 
+ Trajectory Following & Reached & $[\si{\percent}]$ & 100 & 100 & 100 \\
+ Pure Pursuit         & Reached & $[\si{\percent}]$ &  99 &  97 &  98 \\
+ Cross Track          & Reached & $[\si{\percent}]$ &  97 &  97 &  97 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results to perfect model estimation.}\vspace{1ex}
@@ -511,58 +473,71 @@ The three trajectory controllers were tested on the given conditions. Figure \re
 \end{center}
 \end{table}
 
+
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
-The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of 1\si{\meter\per\second} in positive x-direction have been added. The disturbance starts 10 seconds after the simulations start.
-
+The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes. The disturbance starts 10 seconds after the simulations start. \\
+Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. In table \ref{tab:results_wind_disturbance} the absolute resulted values are listed. While \textit{pure pursuit} and \textit{cross track error} control remain small\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation results of \textit{trajectory following} are now at a considerable big scale. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectoy follwing} reaches the end of the trajectory within the given time $T_p$ by definition, the path tracking based trajectory controllers will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$.
 
 \begin{table}[h]
 \begin{center}
- \begin{tabular}{lll|lll}
+ \begin{tabular}{lll|rrr}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
  Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 1.783 & 0.606 & 0.111 \\
- Pure Pursuit         & Av. Dev & $[\si{\meter}]$ & 0.0785 & 0.098 & 0.037 \\
- Cross Track          & Av. Dev & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
-    
- Trajectory Following & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
- Pure Pursuit         & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
- Cross Track          & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.028 & 0.140 & 0.120 \\
+ Pure Pursuit         & Av. Dev. & $[\si{\meter}]$ & 0.0785 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev. & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
+
+ Trajectory Following & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
+ Pure Pursuit         & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
+ Cross Track          & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.028 & 0.140 & 0.120 \\
+ 
+ Trajectory Following & Reached & $[\si{\percent}]$ & 100 & 100 & 100 \\
+ Pure Pursuit         & Reached & $[\si{\percent}]$ &  96 &  86 &  96 \\
+ Cross Track          & Reached & $[\si{\percent}]$ &  94 &  89 &  95 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results with wind disturbance.}\vspace{1px}
- \label{tab:results_model_uncertainties}
+ \label{tab:results_wind_disturbance}
 \end{center}
 \end{table}
+
 
 \subsection{Model Uncertainties}
 \label{sub:results_model_uncertainties}
 
-
-We can show the results in a table, or we can put it all to the appendix..
+The simulations were repeated by designing the trajectories by system constraints with a safety factor reduced to less than one, i.e. to \num{0.8}. Therefore, the trajectory overestimates the system's actuation possibilities. \\
+The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even beats the \textit{cross track error} results. The average accelerations are slightly higher at \textit{trajectory follwing}. Contrary to the \textit{trajectory following} that heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
 
 \begin{table}[h]
 \begin{center}
- \begin{tabular}{lll|lll}
+ \begin{tabular}{lll|rrr}
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
- Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 3.227 & 1.628 & 0.838 \\
- Pure Pursuit         & Av. Dev & $[\si{\meter}]$ & 3.650 & 0.098 & 0.037 \\
- Cross Track          & Av. Dev & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
+ Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 3.228 & 1.628 & 0.838 \\
+ Pure Pursuit         & Av. Dev. & $[\si{\meter}]$ & 0.049 & 0.026 & 0.036 \\
+ Cross Track          & Av. Dev & $[\si{\meter}]$ &  0.092 & 0.044 & 0.058 \\
     
- Trajectory Following & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
- Pure Pursuit         & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
- Cross Track          & Av. Acc & $[\si{\meter\per\square\second}]$ & 0.028 & 0.140 & 0.120 \\
+ Trajectory Following & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.066 & 0.234 & 0.234 \\
+ Pure Pursuit         & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.045 & 0.210 & 0.182 \\
+ Cross Track          & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.047 & 0.220 & 0.192 \\
+ 
+ Trajectory Following & Reached & $[\si{\percent}]$ & 100 & 100 & 100 \\
+ Pure Pursuit         & Reached & $[\si{\percent}]$ &  86 &  90 &  86 \\
+ Cross Track          & Reached & $[\si{\percent}]$ &  87 &  93 &  89 \\
  \hline
  \end{tabular}
  \caption{Here some absolute results with model uncertainties.}\vspace{1px}
- \label{tab:absolute_results}
+ \label{tab:results_model_uncertainties}
 \end{center}
 \end{table}
 
 \subsection{Data Correlation}
-Within the gathered data for the tracking with ideal conditions (section \ref{sub:results_perfect_model}\footnote{By considering all introduced parametrizations and spline degrees cubic, quartic and quintic, a data set of 108 items was analysed. The additional cases  with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown.}) some correlating results could be observed. Figure \ref{fig:correlation_time_acc} shows the relation between the given time $T_p$ for the trajectory and the average acceleration $J_5$ occurring on the system. As it could be expected, the less time is given to follow the waypoints, the higher are the accelerations.
+Within the gathered data for the tracking with ideal conditions (section \ref{sub:results_perfect_model} and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly}. some correlating results could be observed. \\
+Figure \ref{fig:correlation_time_acc} shows the relation between the given time $T_p$ for the trajectory and the average acceleration $J_5$ occurring on the system. The result is trivial, as the less time is given to follow the waypoints, the higher gets the acceleration. The dependence on the used parametrization is different for the different waypoints, whereas higher spline degrees (quartic and quintic) yield to slightly smaller time $T_p$ and acceleration $J_5$ than lower degree (cubic) consequently. \\
+In figure \ref{fig:correlation_invdev_acc} the correlation between average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are equal much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic that are nearly the same.
+\\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal \SI{0}{\meter\per\square\second}. 
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.48\textwidth}
@@ -573,7 +548,19 @@ Within the gathered data for the tracking with ideal conditions (section \ref{su
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_Time_Acc_SplineDegree}
   \end{minipage}
   \caption{ddddddddddddd}
-  \label{fig:results_perfect_model}
+  \label{fig:correlation_time_acc}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_Parametrization}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_SplineDegree}
+  \end{minipage}
+  \caption{ddddddddddddd}
+  \label{fig:correlation_invdev_acc}
 \end{figure}
 
 
