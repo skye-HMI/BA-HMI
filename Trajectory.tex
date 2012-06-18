@@ -446,7 +446,7 @@ A position PI controller with feedforward terms for velocity and acceleration as
 The controller scheme is shown in figure \ref{fig:trajectoryfollowing}. 
 
 %$\left[ \begin{array}{c} {\bf r}(t) \\ {\bf \dot{r}}(t) \end{array} \right]$
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{0.4\columnwidth}
     \input{graphics/scene_trajectoryFollowing.pdf_tex}
@@ -454,7 +454,7 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
     \label{fig:scene_trajectoryFollowing}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller_trajectoryFollowing.pdf_tex}
@@ -491,7 +491,7 @@ Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The
 
 
 %$ {\bf \dot{r}}_{ref}(t) $
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/scene_purePursuit.pdf_tex}
@@ -499,7 +499,7 @@ Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The
     \label{fig:scene_purePursuit}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller_purePursuit.pdf_tex}
@@ -543,7 +543,7 @@ Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The
 The idea of the \textit{cross track error} controller is to directly reduce the cross track distance. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of taking the trajectory's current time, here the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
 
 %$\left[ \begin{array}{c} {\bf \tilde{p}}(t) \\ {\bf \dot{\tilde{p}}}(t) \\ {\bf \ddot{\tilde{p}}}(t) \end{array} \right]$
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/scene_crossTrack.pdf_tex}
@@ -552,7 +552,7 @@ The idea of the \textit{cross track error} controller is to directly reduce the 
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller_crossTrack.pdf_tex}
@@ -630,8 +630,9 @@ The three trajectory controllers were tested on the given conditions. Figure \re
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
-The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes. The disturbance starts 10 seconds after the simulations start. \\
-Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. In table \ref{tab:results_wind_disturbance} the absolute resulted values are listed. While \textit{pure pursuit} and \textit{cross track error} control remain small\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation results of \textit{trajectory following} are now at a considerable big scale. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectoy follwing} reaches the end of the trajectory within the given time $T_p$ by definition, the path tracking based trajectory controllers will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$.
+The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes. The disturbance is added 10 seconds after the simulation's start. \\
+Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. The resulting performance values are listed in table \ref{tab:results_wind_disturbance}. While \textit{pure pursuit} and \textit{cross track error} control remain small deviation\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} it has grown to aconsiderable big scale for \textit{trajectory following}. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectoy follwing} reaches the end of the trajectory within the given time $T_p$ by definition, the path tracking based trajectory controllers will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$. \\
+Compared to the results of perfect modelling, the deviations of the accurate controllers get worse \numrange{5}{10} times and of \textit{trajectory following} by factor \numrange{10}{200}. The accelerations are comparable to the ideal case. 
 
 \begin{table}[h]
 \begin{center}
@@ -639,8 +640,8 @@ Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the thre
  \hline
  Controller &   & unit & \textit{Road} & \textit{Helix} & \textit{Agile} \\ \hline \hline
  Trajectory Following & Av. Dev. & $[\si{\meter}]$ & 1.783 & 0.606 & 0.111 \\
- Pure Pursuit         & Av. Dev. & $[\si{\meter}]$ & 0.0785 & 0.098 & 0.037 \\
- Cross Track          & Av. Dev. & $[\si{\meter}]$ &  0.034 & 0.061 & 0.023 \\
+ Pure Pursuit         & Av. Dev. & $[\si{\meter}]$ & 0.079 & 0.098 & 0.037 \\
+ Cross Track          & Av. Dev. & $[\si{\meter}]$ & 0.034 & 0.061 & 0.023 \\
 
  Trajectory Following & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.191 & 0.138 \\
  Pure Pursuit         & Av. Acc. & $[\si{\meter\per\square\second}]$ & 0.031 & 0.136 & 0.121 \\
@@ -661,7 +662,9 @@ Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the thre
 \label{sub:results_model_uncertainties}
 
 The simulations were repeated by designing the trajectories by system constraints with a safety factor reduced to less than one, i.e. to \num{0.8}. Therefore, the trajectory overestimates the system's actuation possibilities. \\
-The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even beats the \textit{cross track error} results. The average accelerations are slightly higher at \textit{trajectory follwing}. Contrary to the \textit{trajectory following} that heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
+The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even beats the \textit{cross track error} results. The average accelerations are slightly higher when using \textit{trajectory follwing}. Contrary to the \textit{trajectory following} that heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
+\\
+In comparison to the ideal case, the deviations of the accurate controllers get worse \numrange{2}{10} times. \textit{Trajectory following} lead to deviations \numrange{50}{400} times larger than for perfect modelling. Average accelerations grew by factors less than \num{2}.
 
 \begin{table}[h]
 \begin{center}
@@ -692,7 +695,7 @@ Figure \ref{fig:correlation_time_acc} shows the relation between the given time 
 In figure \ref{fig:correlation_invdev_acc} the correlation between average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are similar but much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic that are nearly the same.
 \\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal \SI{0}{\meter\per\square\second}. 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_Time_Acc_Parametrization}
   \end{minipage}
@@ -704,7 +707,7 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between average devia
   \label{fig:correlation_time_acc}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_Parametrization}
   \end{minipage}
@@ -720,4 +723,4 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between average devia
 \section{Discussion}
 \label{sec:discussion}
 
-
+\textit{The almost endless field of trajectories represents the individual needs for for trajectories within different situations. Before considering steering by waypoints, the criteria for a good fitting trajectory have to be elaborated. This can be very case-specific, as it depends not only on available system's actuation, but also on the way one sets the waypoints. The holonomic design of the system has to be considered as well as environmental obstacles at the scene. Suitable trajectory controllers will handle aaaaaaaaaaa\\ Therefore, geometrical design of the path has mainly to be considered. Dynamical aspect of the trajectory depends largely on the used controller..} HELLO?
