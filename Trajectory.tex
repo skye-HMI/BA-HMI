@@ -3,7 +3,7 @@
 
 \chapter{Trajectory Planning}
 \label{cha:trajectory}
-For the two most advanced modes, i. e. the Half-Automatic and the Full-Automatic Mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
+For the two most advanced modes, i.e. the Half-Automatic and the Full-Automatic mode, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
 
 %\subsection{Our Approach}
 %From the GUI it was given that the goal trajectory would be a multipoint-interpolating %trajectory. The user is able to define waypoints on a map which afterwards should be %connected with a reasonable and realizable trajectory. Beside interpolating trajectories %there exist also approximating trajectories but they were not taken into consideration, since %usually the user wants skye fly directly through a waypoint.
@@ -29,7 +29,7 @@ The main application fields of the system \textsc{Skye} are image capturing and 
 \end{figure}
 
 
-Furthermore, to score and optimize the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$, we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are refered to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}}.
+Furthermore, to score and optimize the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$ we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are referred to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}.}.
 \\
 Being $L_p$ the length of the path ${\bf p}(u)$ and $T_p$ the time of the trajectory $\tilde{\bf p}(t)$
 \begin{equation}
@@ -45,7 +45,7 @@ the criteria are:
 J_1 = \int_{u_{min}}^{u_{max}} \|{\bf p}(u)- {\bf p}_2(u)\| du \cdot L_p^{-1} \label{eq:static_deviation}
 \end{equation}
 
-\item Average curvature of path\footnote{For a derivation of curvature see any vetor analysis book, e.g. \cite{stammbach} chapter II, page 71.}
+\item Average curvature of the path\footnote{For a derivation of curvature see any vetor analysis book, e.g. \cite{stammbach} chapter II, page 71.}
 \label{item:static_curvature}
 \begin{equation}
 J_2 = \int_{u_{min}}^{u_{max}} \frac{\| \frac{d {\bf p}}{du} \times \frac{d^{2} {\bf p}}{du^{2}} \|}{\|  \frac{d {\bf p}}{du} \|^3}du \cdot L_p^{-1}
@@ -85,10 +85,10 @@ J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq
 \section{Definition of Trajectories}
 \label{sec:definition}
 \subsection{Paths and Trajectories}
-The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will be also referred to as the motion law, as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
+The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will also be referred to as the motion law as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
 \begin{figure}[H]
 \centering
-\def\svgwidth{0.9\textwidth}
+\def\svgwidth{0.75\textwidth}
 \input{graphics/PathTrajectory.pdf_tex}
 \caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
 \label{fig:path_trajectory}
@@ -108,7 +108,7 @@ In order to get the velocity and acceleration of the trajectory, the chain rule 
 
 
 \subsection{Interpolation and Approximation}
-If one wants to draw a path through a set of waypoints, there exists two ways to do this. First, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit the waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
+If one wants to draw a path through a set of waypoints, we can distinguish between two cases. Firstly, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit the waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
 
 
 \begin{figure}[H]
@@ -118,10 +118,10 @@ If one wants to draw a path through a set of waypoints, there exists two ways to
   \label{fig:ApproxInterpol}
 \end{figure}
 
-For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This was due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take a shortcut. The approximation of the waypoints could result in a collision with buildings as shown in \ref{fig:ApproxInterpol}.
+For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
 
 
-There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints. 
+There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints has high order polygons tend to high oscillations.
 
 
 
@@ -137,7 +137,7 @@ Before actually a path can be drawn through a set of waypoints respectively a sp
 \end{equation}
 
 
-In this section, the most common used techniques are analyzed\footnote{A vaster evaluation of different parameterizations can be found in \cite{haron}} The choice of parameterization affects the geometrical properties of the path on the one hand and the velocity and acceleration of the trajectory on the other hand. (compare \eqref{vel_acc}). Latter is especially of big impact if a proportional relation is used to describe the motion law, i.e. $u=\lambda t$ (compare \ref{sec:motionLaw}).
+In this section, the most common used techniques are analyzed\footnote{A vaster evaluation of different parameterizations can be found in \cite{haron}}. The choice of parameterization affects the geometrical properties of the path on the one hand and the velocity and acceleration of the trajectory on the other hand (compare equation \eqref{vel_acc}). Latter is especially of big impact if a proportional relation is used to describe the motion law, i.e. $u=\lambda t$ (compare section \ref{sec:motionLaw}).
 
 \subsubsection{Uniform}
 This is the simplest way to define the knot vector $\bf u$. Here, basically the index number of the waypoints are assigned to $u$ if $c=1$. Therefore no meaningful interpretation can be made.
@@ -150,7 +150,7 @@ In this method the chord length between the waypoints is calculated and then sum
 u_n-u_{n-1}=\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x_{n-1}\\y_{n-1}\\z_{n-1} \end{bmatrix}\right \|
 \end{equation*}
 \subsubsection{Arc length}
-The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
+The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
 
 \begin{figure}[h]
 \centering
@@ -174,7 +174,7 @@ u_n-u_{n-1}=\sqrt{\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bma
 
 %geometrical properties, dynamical properties, Kreb'sche Bewertungsalgrithmen:) \textbf{pictures of all of them, justify choice, say that if more waypoints, different decision}
 
-All those four methods were tested on our three sample waypoints defined in \ref{sec:experimental design}. Since the helix waypoints all have the same distance between each other, all four methods result in the same path, respectively trajectory. As the chord and arc length distribution try to maintain a constant velocity, high curvature will be omitted. This however leads to overshoots as seen in figure \ref{fig:parameterizations4_road_agile}. Choosing cubic splines reduces this effect whereas quintic splines amplify it. (compare \ref{fig:parameterization_cqq})
+All those four methods were tested on our three sample waypoints defined in \ref{sec:experimental design}. Since the helix waypoints all have the same distance between each other, all four methods result in the same path, respectively trajectory. As the chord and arc length distribution try to maintain a constant velocity, high curvature will be omitted. This however leads to overshoots as seen in figure \ref{fig:parameterizations4_road_agile}. Choosing cubic splines reduces this effect whereas quintic splines amplify it (compare figure \ref{fig:parameterization_cqq}).
 
 \begin{figure}[H]
 	\centering
@@ -183,18 +183,18 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
-Since those overshoots are intolerable a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to fit best our needs.
+Since those overshoots are intolerable, a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two variants seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to fit best our needs.
 \\
-Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used, as described in section \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
+Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest, especially if a constant time scaling is used as described in section \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/Parameterization4_road_vel_acc.eps}
-  \caption{Velocity and acceleration of the road trajectory generated with quartic splines. In this case the motion law limits the maximum velocity. Compare section \ref{sec:motionLaw} Uniform:black, Chord length: blue, Arc length: green, Centripetal: red}
+  \caption{Velocity and acceleration of the \textit{road} trajectory generated with quartic splines. In this case the motion law limits the maximum velocity whereas the acceleration remains below its limit. Parametrizations: Uniform (black), chord length (blue), arc length (green) and centripetal (red).}
   \label{fig:para road vel acc}
 \end{figure}
 
-In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (compare \ref{tab:results_parameterization_road_cubic} and {\bf Appendix}) but over all criteria centripetal yields the best result.
+In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (compare table \ref{tab:results_parameterization_road_cubic} and {\bf Appendix will soon include the quartic and quintic table}) but over all criteria centripetal yields the best result.
 
 
 \begin{table}[h]
@@ -205,11 +205,12 @@ In figure \ref{fig:para road vel acc} the effect of the different distributions 
  Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 3.859 & 4.477 & 4.903 & 3.650 \\
  Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.025 & 0.022 & 0.020 & 0.024 \\
  Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.042 & 0.164 & 0.176 & 0.071 \\
- Max. Acceleration &   & $[\si{\meter\per\square\second}]$ &  0.141 & 1.351 & 1.586 & 0.411 \\
+ % CAN IT BE THAT MAXIMUM ACCELERATION IS ABOVE 0.96 ???
+ %Max. Acceleration &   & $[\si{\meter\per\square\second}]$ &  0.141 & 1.351 & 1.586 & 0.411 \\
  Time      &   & $[\si{\second}]$ &  388.5 & 322.2 & 334.4 & 340.3 \\
  \hline
  \end{tabular}
- \caption{BLA}\vspace{1ex}
+ \caption{Comparison of the parametrizations. Static criteria are listed for cubic trajectories using the \textit{road} waypoints.}\vspace{1ex}
  \label{tab:results_parameterization_road_cubic}
 \end{center}
 \end{table}
@@ -222,7 +223,7 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/continuity.eps}
-  \caption{The different degrees of continuity for cubic (green), quartic(blue) and quintic(magenta) splines}
+  \caption{The different degrees of continuity for cubic (green), quartic (cyan) and quintic( magenta) splines.}
   \label{fig:continuity}
 \end{figure}
 
@@ -233,7 +234,7 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/forces.eps}
-  \caption{The comparison of the forces output of the propulsion dynamics with the forces input resulting from the different degrees of splines; input:blue, output:cubic-green, quartic-blue, quintic-magenta}
+  \caption{The comparison of the forces output of the propulsion dynamics with the forces input resulting from the different degrees of splines; input (blue), output: cubic (green), quartic (cyan) and quintic (magenta).}
 \label{fig:forces}
 \end{figure} 
 
@@ -258,11 +259,11 @@ Beside the continuity and the dynamic properties again the geometrical appearanc
 \subsection{Boundary Conditions}
 \label{subsec:boundary conditions}
 
-If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots \footnote{Knots are the places where the pylnominal pieces are connected}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a$ has $p+1$ degrees of freedom. The polynomial for the second interval $b$ is given by
+If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots\footnote{Knots are the places where the polynomial pieces are connected.}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a$ has $p+1$ degrees of freedom. The polynomial for the second interval $b$ is given by
 \begin{equation*}
 a^{j}(u_1)=b^{j}(u_1),~j=0,...,p-1
 \end{equation*}
-Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. Therefore the spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+1) = p-1$ constraints that still have to be imposed. As a constant time scaling is used\footnote{ See section \ref{subsec:motionLaw}. Also a non linear solution is described.} it is necessary to define:
+Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. The spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}.}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+1) = p-1$ constraints that still have to be imposed. As a constant time scaling is used\footnote{ See section \ref{subsec:motionLaw}. Also a non linear solution is described.} it is necessary to define:
 
 \begin{equation*}
 \frac{dp_x(u)}{du} \Bigm|_{u=u_0} = \frac{dp_x(u)}{du} \Bigm|_{u=u_n}=0
@@ -280,16 +281,16 @@ For quintic splines two additional constraints can be set
 \frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_0} = \frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_n}=0
 \end{equation*}
 
-such that also the acceleration at the start and at the end of the trajectory is zero (compare with equation\eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and the knots are shifted as described in \ref{subsec:implementation}. \\
+such that also the acceleration at the start and at the end of the trajectory is zero (compare with equation\eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and the knots are shifted as described in section \ref{subsec:implementation}. \\
 Those boundary conditions are set for all dimensions.
 
 
 
 \subsection{Implementation}
 \label{subsec:implementation}
-As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make the calculations with the generated splines.\\
+As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
 
-While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines and their derivatives.\\
+While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
 
 If ${\bf u}_B=\left[u_0,...u_{n_{knots}}\right]$ is the knot vector for the B-splines, the $m=n_{knots}-p-1$\footnote{For a derivation of this relationship, see \cite{biagiotti} or  \cite{haron}.}B-splines of degree $p$ for this knot vector are defined recursively using the Cox-de Boor recursion formula:
 
@@ -423,7 +424,7 @@ Knowing the system constraints the motion law $u=u(t)$ can be defined. There are
 \end{figure}
 
 \subsubsection{Constant Time Scaling}
-The most obvious solution is the one of a constant time scaling in which a constant $\lambda$ is used to scale time\footnote{It must be noticed that this is nothing but a reparameterization of the path with the parameter $t$.}.
+The most obvious solution is the one of a constant time scaling in which a constant $\lambda$ is used to scale time\footnote{It must be noticed that this is nothing but a reparametrization of the path with parameter $t$.}.
 \begin{equation}
 u(t) = \lambda t
 \end{equation}
@@ -434,7 +435,7 @@ In this case, $u(t)$ is monotonically increasing. And since $u(t)$ is continuous
 {\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\lambda \\
 {\bf \ddot{\tilde{p}}}(t) &= \frac{d^{2} {\bf p}}{du^{2}}\lambda^2 \\
 {\bf \dddot{\tilde{p}}}(t) &= \frac{d^{3} {\bf p}}{du^{3}}\lambda^3 \\
-&\vdots
+&\vdots			\nonumber
 \end{align}
 
 The last constraint on $u(t)$ is met by choosing $\lambda$ as follows:
@@ -442,7 +443,7 @@ The last constraint on $u(t)$ is met by choosing $\lambda$ as follows:
 \lambda = min \left\{ \frac{|v_{max}|}{\|{\bf p}^{(1)}(u)\|_{max}}, \quad \sqrt{\frac{|a_{max}|}{\|{\bf p}^{(2)}(u)\|_{max}}}  \right\}/S
 \end{equation}
 
-where $S$ is a security factor, e.g. for model uncertainties.\\
+where $S$ is a security factor, e.g. for model uncertainties.\footnote{In our case $S$ would also to be used to consider additional manual angular velocities that are superpositioned.}  \\
 This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization from \cite{doessegger}.
 
 \subsubsection{A Simple Non Linear Approach}
@@ -453,7 +454,7 @@ We use cubic time parametrizations for the intervals $u_0$ to $u_1$ and $u_{n-1}
 \begin{figure}[h]
     \centering
     \includegraphics[width = 0.8\textwidth]{graphics/constantTimeScaling_adoptedBoundaries.eps}
-    \caption{Visualisation of the constant time scaling with adopted boundaries.}
+    \caption{Visualization of the constant time scaling with adopted boundaries.}
     \label{fig:non_linear_time}
 \end{figure}
 
@@ -462,7 +463,7 @@ Like that $\ddot{\tilde{{\bf p}}}(t_0)$ and $\ddot{\tilde{{\bf p}}}(t_n)$ can be
 \dot{u}(t_0)=\dot{u}(t_n)=\frac{d{\bf p}}{du}\Bigm|_{u=u_0}=\frac{d{\bf p}}{du}\Bigm|_{u=u_n}=0
 \end{equation*}
 
-With these conditions, $u(t_0)=u_0$, $u(t_n)=u_n$ and the equations resulting from continuous boundary conditions, the following motion law is obtained by solving the nonlinear set of equations \footnote{E.g. using \textsc{Wolfram Mathematica}.}.
+With these conditions, $u(t_0)=u_0$, $u(t_n)=u_n$ and the equations resulting from continuous boundary conditions, the following motion law is obtained by solving the nonlinear set of equations\footnote{E.g. using \textsc{Wolfram Mathematica}.}
 
 \begin{equation}
 u(t) =
@@ -481,8 +482,8 @@ b_0 = \frac{\lambda}{3t_1} , \quad
 c_0 = 0 , \quad
 d_0 = 0 , \quad
 \tilde{d} = - \frac{5}{9}\lambda t_1 , \\
-a_{n-1} &= -\frac{4 \lambda^3}{27 (\tilde{d} + \lambda t_{n-1} - un)^2} , \quad
-b_{n-1} = \frac{4 \lambda^3 t_{n-1}}{9 (\tilde{d} + \lambda t_{n-1} - un)^2} , \\
+a_{n-1} &= -\frac{4 \lambda^3}{27 (\tilde{d} + \lambda t_{n-1} - u_n)^2} , \quad
+b_{n-1} = \frac{4 \lambda^3 t_{n-1}}{9 (\tilde{d} + \lambda t_{n-1} - u_n)^2} , \\
 c_{n-1} &= \frac{\lambda (9 \tilde{d}^2 + 18 \lambda \tilde{d} t_{n-1} + 5 \lambda^2 t_{n-1}^2 - 18 \tilde{d} u_n - 18 \lambda t_{n-1} u_n + 
    9 u_n^2)}{9 (\tilde{d} + \lambda t_{n-1} - u_n)^2} , \\
 d_{n-1} &= \frac{27 \tilde{d}^3 + 54 \lambda \tilde{d}^2 t_{n-1} + 27 \lambda^2 \tilde{d} t_{n-1}^2 + 4 \lambda^3 t_{n-1}^3 - 
@@ -490,6 +491,7 @@ d_{n-1} &= \frac{27 \tilde{d}^3 + 54 \lambda \tilde{d}^2 t_{n-1} + 27 \lambda^2 
 t_n &= \frac{-3 \tilde{d} - \lambda t_{n-1} + 3 u_n}{2 \lambda}
 \end{align*}
 
+\pagebreak
 \section{Controller Implementation}
 \label{sec:controllerImplementation}
 A trajectory controller and two commonly used path tracking controllers\footnote{\cite{snider} provides a good overview over various approaches.} are tested to follow the defined trajectories. The \textit{trajectory following} controller supplies the system's position controller, described in \cite{meiermueri}, with a feed forward reference signal. Although it delivers good results for ideal case, the tracking gets worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore more robust and accurate path tracking results.
@@ -539,9 +541,9 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 %\end{figure}
 
 \subsection{Pure Pursuit Controller}
-Another commonly used controller to track paths is \textit{Pure Pursuit} \cite{snider}. This technique is mainly used for path tracking while having a constant tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point is set on the trajectory $\Delta T$\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} in front of the current closest position ${\bf \tilde{p}}(t_{cl})$.
+Another commonly used controller to track paths is \textit{Pure Pursuit} \cite{snider}. This technique is mainly used for path tracking while having a constant tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point ${\bf \tilde{p}}(t_{cl}+\Delta T)$ is set on the trajectory in front\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} of the current closest position ${\bf \tilde{p}}(t_{cl})$.
 \begin{equation}
-\tilde{p}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)
+{\bf \tilde{p}}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)
 \end{equation}
 Therefore, the controller considers the full dynamics of the trajectory, i.e. ${\bf \tilde{p}}(t)$ and all its derivatives\footnote{This is a simple and robust alternative to any derivative controller.}.
 Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The control scheme can be seen in figure \ref{fig:purePursuit}. Actually, the inner control block is a velocity controller only. The reference velocity is given by
@@ -555,7 +557,7 @@ Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/scene_purePursuit.pdf_tex}
-    \caption{Pure pursuit. The reference velocity is given by the difference between the actual position and a lookahead defined by the trajectory $\Delta T$ ahead the closest point.}
+    \caption{Pure pursuit. The reference velocity is given by the difference between the actual position and a lookahead point defined by the trajectory's closest point shifted by $\Delta T$ ahead.}
     \label{fig:scene_purePursuit}
 \end{figure}
 
@@ -600,7 +602,7 @@ Figure \ref{fig:scene_purePursuit} represents the controllers functionality. The
 %\end{figure}
 
 \subsection{Cross Track Error Controller}
-The idea of the \textit{cross track error} controller is to directly reduce the cross track distance. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of taking the trajectory's current time, here, the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
+The idea of the \textit{cross track error} controller is to directly reduce the cross track distance. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of considering the trajectory's current time, here, the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
 
 %$\left[ \begin{array}{c} {\bf \tilde{p}}(t) \\ {\bf \dot{\tilde{p}}}(t) \\ {\bf \ddot{\tilde{p}}}(t) \end{array} \right]$
 \begin{figure}[H]
@@ -656,12 +658,12 @@ The idea of the \textit{cross track error} controller is to directly reduce the 
 \section{Results}
 \label{sec:results}
 
-A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters is exposed. Further results can be found in the Appendix (\ref{sec:app_trajectory_control_results}).
+A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as wind disturbance and model uncertainties. Furthermore the correlation between different parameters is exposed. Further results can be found in the appendix (\ref{sec:app_trajectory_control_results}). The occurring accelerations as well as the percentage of reached trajectory the remain nearly the same for all controllers.
 
 \subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
 
-The three trajectory controllers were tested with the given waypoint samples. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter \SI{2.7}{\meter}) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. 
+The three trajectory controllers were tested with the given waypoint samples. Figure \ref{fig:results_perfect_model} shows their tracking. The performance difference between them is minimal as it can be seen from the results listed in table \ref{tab:results_perfect_model}. In comparison to the systems characteristic size (diameter \SI{2.7}{\meter}) the deviations between trajectory and trace are extremely small, i.e. less than 1\% of the characteristic size. The average acceleration is  
 
 \begin{table}[h]
 \begin{center}
@@ -691,7 +693,7 @@ The three trajectory controllers were tested with the given waypoint samples. Fi
 \label{sub:results_wind_disturbance}
 
 The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes. The disturbance is added 10 seconds after the simulation's start. \\
-Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. The resulting performance values are listed in table \ref{tab:results_wind_disturbance}. While \textit{pure pursuit} and \textit{cross track error} control still result in small deviation\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation has grown to aconsiderable big scale for \textit{trajectory following}. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectoy follwing} reaches the end of the trajectory within the given time $T_p$ by definition, the path tracking based trajectory controllers will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$. \\
+Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. The resulting performance values are listed in table \ref{tab:results_wind_disturbance}. While \textit{pure pursuit} and \textit{cross track error} control still result in small deviation\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation has grown to a considerable big scale for \textit{trajectory following}. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectory following} reaches the end of the trajectory within the given time $T_p$ by definition, the path tracking based trajectory controllers will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$. \\
 Compared to the results of perfect modelling, the deviations of the accurate controllers get worse \numrange{5}{10} times and for \textit{trajectory following} by factor \numrange{10}{200}. The accelerations are comparable to the ideal case. 
 
 \begin{table}[h]
@@ -722,11 +724,11 @@ Compared to the results of perfect modelling, the deviations of the accurate con
 \label{sub:results_model_uncertainties}
 
 The simulations were repeated by designing the trajectories by system constraints with a safety factor reduced to less than one, i.e. to \num{0.8}. Therefore, the trajectory overestimates the system's actuation possibilities. \\
-The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even tops the \textit{cross track error} results. The average accelerations are slightly higher when using \textit{trajectory follwing}. Contrary to the \textit{trajectory following} which heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
+The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even tops the \textit{cross track error} results in this case. The average accelerations are slightly higher when using \textit{trajectory following}. Contrary to the \textit{trajectory following} which heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
 \\
 In comparison to the ideal case, the deviations of the accurate controllers get worse \numrange{2}{10} times. \textit{Trajectory following} leads to deviations \numrange{50}{400} times larger than for perfect modelling. Average accelerations grew by factors less than \num{2}.
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{lll|rrr}
  \hline
@@ -750,10 +752,10 @@ In comparison to the ideal case, the deviations of the accurate controllers get 
 \end{table}
 
 \subsection{Data Correlation}
-Within the gathered data of the tracking with ideal conditions (section \ref{sub:results_perfect_model}) and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly}. Some correlating results could be observed. \\
+Within the gathered data of the tracking with ideal conditions (section \ref{sub:results_perfect_model}) and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly.}. Some correlating results could be observed. \\
 Figure \ref{fig:correlation_time_acc} shows the relation between the given time $T_p$ for the trajectory and the average acceleration $J_5$ occurring on the system. The result is trivial, as the less time is given to follow the waypoints, the higher gets the acceleration. The dependence on the used parametrization is different for the different waypoints, whereas higher spline degrees (quartic and quintic) yield to slightly smaller time $T_p$ and acceleration $J_5$ than lower degree (cubic) consequently. \\
 In figure \ref{fig:correlation_invdev_acc} the correlation between the average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are similar but much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic that are nearly the same.
-\\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal \SI{0}{\meter\per\square\second}. 
+\\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal zero. 
 
 \begin{figure}[H]
   \begin{minipage}[t]{0.48\textwidth}
@@ -788,5 +790,5 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between the average d
 The almost endless field of trajectory control represents the manifold needs for trajectories in different application fields. 
 %While the underlying spline theories have theirs roots in automobile industry XXXX \cite{deboor}, they can be adopted for any use.
 Even to control UAVs no throughout good or bad trajectory algorithms can be named. Theirs quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
-As for our case tight waypoint tracking was considered more than \textbf{BEISPIELSWEISE} time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the systems actuation saturations yield sufficient results. \\
+As for our case tight waypoint tracking was considered more than for instance time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the systems actuation saturations yield sufficient results. \\
 Dependent on the choice how the generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to non agile vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
