@@ -237,7 +237,7 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 
 
 
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed. This is due to its propulsion system, which is briefly described in \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be turned immediately. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with force calculated from the acceleration $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all resulting inputs of the cubic, quartic and quintic splines.
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed. This is due to its propulsion system, which is briefly described in \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all resulting inputs of the cubic, quartic and quintic splines.
  
 \begin{figure}[H]
   \begin{minipage}[t]{0.96\textwidth}
@@ -248,8 +248,21 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 \end{figure} 
 
 The small deviations between the input and the output forces are a result of interpolation, done in the propulsion system \cite{schaffnervu}, and are not a result of an inadequate input. However, BLABLA.....see deviations, but much faster dynamics therefore neglectable.
+{\bf here static criteria?}
 
-{\bf here static criteria, connected with boundary conditions?}
+\subsubsection{Geometrical appearance}
+Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to compensated with a denser set of waypoints.
+
+\begin{figure}[H]
+  \begin{minipage}[t]{1\textwidth}
+    \includegraphics[width = \textwidth]{graphics/DegreeCentripetal_road_agile.eps}
+  \end{minipage}
+  \caption{The comparison of the cubic:green, quartic:cyan and quintic:magenta splines with a centripetal parameterization of the waypoints}
+  \label{fig:degreeCentripetal}
+\end{figure} 
+
+
+
 
 
 
