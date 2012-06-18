@@ -458,8 +458,8 @@ We use cubic time parametrizations for the intervals $u_0$ to $u_1$ and $u_{n-1}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.6\textwidth]{graphics/constantTimeScaling_adoptedBoundaries.eps}
-    \caption{Visualisation of the linear time scaling with adopted boundaries.}
+    \includegraphics[width = 0.8\textwidth]{graphics/constantTimeScaling_adoptedBoundaries.eps}
+    \caption{Visualisation of the constant time scaling with adopted boundaries.}
     \label{fig:non_linear_time}
 \end{figure}
 
@@ -777,8 +777,14 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between average devia
   \label{fig:correlation_invdev_acc}
 \end{figure}
 
-
+\pagebreak
 \section{Discussion}
 \label{sec:discussion}
 
-\textit{The almost endless field of trajectories represents the individual needs for for trajectories within different situations. Before considering steering by waypoints, the criteria for a good fitting trajectory have to be elaborated. This can be very case-specific, as it depends not only on available system's actuation, but also on the way one sets the waypoints. The holonomic design of the system has to be considered as well as environmental obstacles at the scene. Suitable trajectory controllers will handle aaaaaaaaaaa\\ Therefore, geometrical design of the path has mainly to be considered. Dynamical aspect of the trajectory depends largely on the used controller..} HELLO?
+%\textit{The almost endless field of trajectories represents the individual needs for for trajectories within different situations. Before considering steering by waypoints, the criteria for a good fitting trajectory have to be elaborated. This can be very case-specific, as it depends not only on available system's actuation, but also on the way one sets the waypoints. The holonomic design of the system has to be considered as well as environmental obstacles at the scene. Suitable trajectory controllers will handle aaaaaaaaaaa\\ Therefore, geometrical design of the path has mainly to be considered. Dynamical aspect of the trajectory depends largely on the used controller..} HELLO?
+
+The almost endless field of trajectory control represents the manifold needs for trajectories in different application fields. 
+%While the underlying spline theories have theirs roots in automobile industry XXXX \cite{deboor}, they can be adopted for any use.
+Even to control UAVs no throughout good or bad trajectory algorithms can be named. Theirs quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
+As for our case tight waypoint tracking was considered more than \textbf{BEISPIELSWEISE} time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the systems actuation saturations yield sufficient results. \\
+Dependent on the choice how the generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to non agile vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
