@@ -163,7 +163,65 @@ TO DO
 
 \subsection{Varying trajectory constraints}
 \label{sub:app_varying_sys_constraints}
-Here we show to how the tracking results change if we increase the system's constraints.
+Repetitively simulations with different scaled time parametrization (i.e. varying system constraint's safety factor $S$ from \numrange{0.8}{1.6}) were conducted\footnote{\textit{Agile} waypoints, centripetal parametrization, cubic splines, cross track error controller, no wind disturbance.}. Figure \ref{fig:app_sys_constr} illustrates the different trajectories and the corresponding traces.
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_80}
+  \\ $S=0.8$
+  \end{minipage}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_90}
+  \\ $S=0.9$
+  \end{minipage} \\ \hspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_100}
+  \\ $S=1.0$
+  \end{minipage}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_110}
+  \\ $S=1.1$
+  \end{minipage}\\ \hspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_120}
+  \\ $S=1.2$
+  \end{minipage}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_125}
+  \\ $S=1.25$
+  \end{minipage}\\ \hspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_130}
+  \\ $S=1.3$
+  \end{minipage}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_140}
+  \\ $S=1.4$
+  \end{minipage}\\ \hspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_150}
+  \\ $S=1.5$
+  \end{minipage}
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{sys_constr/figure_1D_agile_SplineDegree3_crossTrack_Disturbance_0_S_160}
+  \\ $S=1.6$
+  \end{minipage} \\
+  \label{fig:app_sys_constr}
+  \caption{Trajectory (blue), trace (green), $(\cdot)_{lim}=(\cdot)_{max}/S$ (dashed bold) and $(\cdot)_{max}$ (dashed)}
+\end{figure}
+
+
 
 \subsection{Increasing the paths curvature}
 \label{sub:app_increasing_curvature}
