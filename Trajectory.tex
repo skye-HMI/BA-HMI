@@ -132,7 +132,7 @@ There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A
 \label{sec:splines}
 \subsection{Parameterization}
 \label{subsec:parameterization}
-Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a so called knot vector ${\bf u}$ containing a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
+Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a so called knot vector ${\bf u}$ composed of a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
 
 \begin{equation}
 {\bf x}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
@@ -189,7 +189,7 @@ All those four methods were tested on our three sample waypoints defined in \ref
 
 Since those overshoots are intolerable a uniform or centripetal distribution has to be chosen. While in our sample waypoints the two seem to be quite similar the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot, since the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to fit best our needs.
 \\
-Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used, as described in \ref{subsec:timeScaling}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
+Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest if a constant time scaling is used, as described in \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
 
 \begin{figure}[H]
   \begin{minipage}[t]{0.96\textwidth}
@@ -244,7 +244,7 @@ If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots \footn
 \begin{equation*}
 a^{j}(u_1)=b^{j}(u_1),~j=0,...,p-1
 \end{equation*}
-Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. Therefore the spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+) = p-1$ constraints that still have to be imposed. As a constant time scaling is used \ref{subsec:timeScaling} it is necessary to define:
+Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. Therefore the spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+) = p-1$ constraints that still have to be imposed. As a constant time scaling is used \ref{subsec:motionLaw} it is necessary to define:
 
 \begin{equation*}
 \frac{dp_x(u)}{du} \Bigm|_{u=u_0} = \frac{dp_x(u)}{du} \Bigm|_{u=u_n}=0
@@ -386,8 +386,46 @@ which is quite conservative because it is assumed that worst axis for turning is
 
 Since the system is almost undamped for rotations, the rotational velocities will never be the limiting factor.
 
-\subsection{Time Scaling}
-\label{subsec:timeScaling}
+\subsection{Motion Law}
+\label{subsec:motionLaw}
+Knowing the system constraints the motion law $u=u(t)$ can be defined. There are three constraints which have to be met:
+
+\begin{itemize}
+\item $u(t)$ must be monotonically increasing.
+\item $u(t)$ must have a  continuity such that the composition ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$ has the requested a parametric continuity.
+\item $u(t)$ must be designed such that the trajectory ${\bf \tilde{p}}(t)$ meets the system constraints.
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.6\textwidth}
+    \includegraphics[width = \textwidth]{graphics/constantTimeScaling.eps}
+  \end{minipage}
+  \caption{Visualization of the constant time scaling}
+  \label{fig:constantTimeScaling}
+\end{figure}
+
+
+The most obvious solution is the one of a constant time scaling in which a constant $\lambda$ is used to scale time\footnote{It must be noticed that this is nothing but a reparameterization of the path.}.
+\begin{equation}
+u(t) = \lambda t
+\end{equation}
+
+In this case, $u(t)$ is monotonically increasing. And since $u(t)$ is continuous in the first derivative and for all higher derivative equal to zero, the continuity of ${\bf \tilde{p}}(t)$ only depends on on geometrical continuity of ${\bf p}(u)$ for the acceleration and higher derivatives of time.
+
+\begin{align}
+{\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\lambda \\
+{\bf \ddot{\tilde{p}}}(t) &= \frac{d^{2} {\bf p}}{du^{2}}\lambda^2 \\
+{\bf \dddot{\tilde{p}}}(t) &= \frac{d^{3} {\bf p}}{du^{3}}\lambda^3 \\
+&\vdots
+\end{align}
+
+The last constraint on $u(t)$ is met with choosing $\lambda$ as follows:
+\begin{equation}
+\lambda = min \left\{ \frac{|v_{max}|}{\|{\bf p}^{(1)}(u)\|_{max}}, \quad \sqrt{\frac{|a_{max}|}{\|{\bf p}^{(2)}(u)\|_{max}}}  \right\}/S
+\end{equation}
+
+where $S$ is a security factor, e.g. for model uncertainties.\\
+This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization form \cite{doessegger}.
 
 {\bf don't forget to mention the security factor}
 {\bf show that if a polynomial is used for the first and last interval, different boundary conditions could be used}
