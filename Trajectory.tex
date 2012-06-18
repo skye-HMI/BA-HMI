@@ -249,7 +249,7 @@ The small deviations between the input and the output forces are a result of int
 {\bf here static criteria?}
 
 \subsubsection{Geometrical appearance}
-Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to compensated with a denser set of waypoints.
+Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to be compensated with setting waypoints more densely. As this would be cumbersome for the GUI described in \ref{cha:findHardSoftSolution}, cubic splines are most suitable. 
 
 \begin{figure}[H]
   \begin{minipage}[t]{1\textwidth}
@@ -327,7 +327,7 @@ For the quartic splines the knot vector is shifted in order to get a better resu
 \end{equation} 
 Doing the same calculation as for the quintic splines here again results in $m+1=n+5$ as well, this is why the mentioned four boundary conditions in \ref{subsec:boundary conditions} hold true.
 
-Once the knot Vector ${\bf u_B}$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions here shown for $x$:
+Once the knot Vector ${\bf u_B}$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions here shown for $x$ in order to get the control polygon\footnote{In fact, choosing the polygon spanned by the waypoints as a control polygon, the approximation displayed in \ref{fig:ApproxInterpol} results.}:
 \begin{equation}
 {\bf A_{[m+1\times m+1] }}{\bf {c_x}_{[m+1\times 1]}}={\bf {b_x}_{[m+1 \times 1]}}
 \end{equation}
