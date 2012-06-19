@@ -4,12 +4,27 @@
 
 \section{Context}
 \label{sec:context}
-\textit{Write something about project} \textsc{skye}\textit{, focus projects, ETH and/or ASL, DRZ. Motivation..}
+\textit{Write something about project} \textsc{skye}\textit{, focus projects, ETH and/or ASL, DRZ. Motivation..} 
+
+Within the Bachelor's course in mechanical engineering at the ETH Zurich it is offered to join a focus project instead of focus lectures. A focus project is often a novel or experimental design of a prototype\footnote{Some former projects can be found at \url{http://www.asl.ethz.ch/education/bachelor/focus}.} and elaborated over a period of two semesters within a team of mainly students in mechanical engineering, but often in cooperation with students from interdisciplinary courses. The project is settled at the Autonomous Systems Lab (ASL) at ETH Zurich in cooperation with Disney Research Zurich (DRZ). \\
+Project \textsc{Skye} then was a focus project started in autumn \num{2011} and will be continued even after the ``official'' end of the project in summer 2012. The \textit{Rollout} event in the historic main building of ETH Zurich was a unique moment when the prototype wafted over the overwhelmed spectators. \\
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/rollout2.jpg}
+  \caption{The highligth of project \textit{Skye}: The \textit{Rollout} event on May 25, 2012 in the main hall of ETH Zurich.}
+  \label{fig:rollout}
+\end{figure}
+
 
 \section{System Overview}
 \label{sec:system overview}
 \textit{Description of skye. Application fields, technical description, equipment, realization..}
 
+\textsc{Skye} is a high agile unmanned aerial vehicle in form of a spherical blimp. It was developed to achieve a system for image capturing for 3D reconstruction as well as obtain entertainment functions (as airshows, human interaction etc.). As there exist already systems that fullfil these requirements\footnote{Mainly quadrotors, but also other UAV.} it was claimed to build a system that provides increased flight time and higher operating safety. \textsc{Skye} is the system that accomplishes these improvements. \\
+The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The thrusters are pointing tangential to the sphere. Their orientation can be rotated around the radial axis. The center of gravity is approximately identical with the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}. Further on, a camera system consisting on two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera connected to a onboard \textit{Intel Atom} embedded computer are detached on the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} inertial measurements unit (IMU) controls the motor units. It is equipped with barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
+The high symmetrical system properties combined with the 8DOF actuation enable to fully control the holonomic 6DOF space. The 2 additional DOF are used for optimization (see \cite{schaffnervu}.  \\
+bla bla die 6dof müssen gesteuert werden und das ist unsere aufgabe:-)
 \section{Goals}
 \label{sec:goals}
 \textit{Goals of this thesis:
