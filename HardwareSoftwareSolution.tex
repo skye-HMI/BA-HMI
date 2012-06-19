@@ -163,29 +163,35 @@ The main device for the direct control mode is the 3D mouse which is connect ove
 
 
 \subsubsection{Assisted Control}
-
-
+Feeding velocities instead of a force and a moment makes the usage of the touchscreen beside the 3D mouse more reasonable. For this mode a combination of different widgets is used, shown in figure\footnote{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.} \ref{fig:qgc_manual_control}. E.g. the main control widget with which the pilot could switch between the 3D mouse and the touch input. If touch input is chosen, the HUD, showing the live view, enables rotational touch inputs. The map widget shows the position of \textsc{Skye} and allows to set translational inputs. Note that in a first approach these inputs were always given in the camera frame as the state estimation was not yet running.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{qgc_manual_control}
-		\caption[Manual control view of Graphical User Interface]{The pilots view on the GUI\footnotemark : The HUD shows the video stream and enables rotational touch inputs. The map widget shows the position of \textsc{Skye} and allows to set translational inputs. Note that in a first approach these inputs are always given in the camera frame and not as might expected in inertial frame. Further testing will show which mode is more intuitive. The GUI also includes the main control widget.}  
-		\label{figure:qgc_manual_control}		
+		\caption{The pilots view on the GUI if assisted  control and touch input is activated.}  
+		\label{fig:qgc_manual_control}		
 	\end{center}
 \end{figure}
-\footnotetext{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.}
+
+\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{graphics/TouchInput}
+		\caption{The enlarged HUD with touch input in action}  
+		\label{fig:touchInput}		
+	\end{center}
+\end{figure}
 
 
 \subsubsection{Half Automatic Control}
+For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}} was used to display the elevation. Once the waypoints are set a interpolating cubic spline is calculated and displayed.(compare figure \ref{fig:qgc_automatic_control} (The part of the path that is already reached is displayed in blue.). 
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{qgc_automatic_control}
-		\caption[Automatic control view of Graphical User Interface]{The user can set waypoints on Google Maps. Spline curves are calculated based on these nodes (yellow line). The part of the path that is already reached is displayed in blue. In the lower part, the height of the waypoints  can be set (yellow points). The actual height of the ground at the waypoints position is also provided by the Google Elevation API\footnotemark (green points and shape). In a further step, the trajectory controlling will be adapted to the real system.}  
-		\label{figure:qgc_automatic_control}		
+		\caption{Generating a trajectory with the GUI}
+		\label{fig:qgc_automatic_control}		
 	\end{center}
 \end{figure}
-\footnotetext{\url{https://developers.google.com/maps/documentation/elevation/}}
 
 
 \subsection{Mavlink}
