@@ -44,7 +44,7 @@ As \textsc{Skye} was built as an prototype in parallel to this thesis, the overa
 
 
 \subsubsection{Direct Control} 
-A second control mode that mainly intends to verify the system's properties is the \textit{direct control} mode where the operator sets the desired force and moment vectors. This 6DOF control therefore needs the transformation of the forces and moments to the 8 actuations\footnote{See \cite{schaffnervu} for details about the optimization criteria for the motor allocation.} only. No information about the system's properties and states are needed. The pilot's input is interpreted as the force and moment components in body fixed coordinates. As the camera system (the eye of \textsc{Skye}) represents the most recognisable orientation, the coordinate frame was aligned to the camera's orientation. This is illustrated in figure \ref{fig:direct_control}, where ${e_x^c, e_y^c, e_z^c}$ represents the camera orientated frame ($e_x^c$ collinear with the camera axis, $e_y^c$ heading left, $e_z^c$ bottom).
+A second control mode that mainly intends to verify the system's properties is the \textit{direct control} mode where the operator sets the desired force and moment vectors. This 6DOF control therefore needs the transformation of the forces and moments to the 8 actuations\footnote{See \cite{schaffnervu} for details about the optimization criteria for the motor allocation.} only. No information about the system's properties and states are needed. The pilot's input is interpreted as the force and moment components in body fixed coordinates. As the camera system (the eye of \textsc{Skye}) represents the most recognisable orientation, the coordinate frame was aligned to the camera's orientation. This is illustrated in figure \ref{fig:direct_control}, where $\{e_x^C, e_y^C, e_z^C\}$ represents the camera orientated frame ($e_x^C$ collinear with the camera axis, $e_y^C$ heading left, $e_z^C$ bottom) and $\{F_x^C, F_y^C, F_z^C, M_x^C, M_y^C, M_z^C\}$ the user input.
 
 %\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 %	\begin{center}
@@ -71,7 +71,8 @@ A second control mode that mainly intends to verify the system's properties is t
 
 
 \subsubsection{Assisted Control} 
-The \textit{direct control} mode demands well trained skills to properly navigate \textit{Skye}. This is especially due to the low damped rotation \cite{weichart} and the symmetrical appearance of the system. To eliminate the first reason, a stabilizing attitude controller is needed. To remedy the second issue, the translational inputs can be interpreted in a earth fixed coordinate frame. By using a proper state estimation, the pilot's commands can directly be interpreted as velocities and angular velocities respectively\footnote{See \cite{meiermueri} for the state estimation and controller design.}.
+The \textit{direct control} mode demands well trained skills to properly navigate \textit{Skye}. This is especially due to the low damped rotation \cite{weichart} and the symmetrical appearance of the system. To eliminate the first reason, a stabilizing attitude controller is needed. To remedy the second issue, the translational inputs can be interpreted in a earth fixed coordinate frame. By using a proper state estimation, the pilot's commands can directly be interpreted as velocities and angular velocities respectively\footnote{See \cite{meiermueri} for the state estimation and controller design.}. This is actually realized in the \textit{assisted control} mode. Figure \ref{fig:assisted_control} illustrates the user's input $\{v_x^I, v_y^I, v_z^I, \omega_x^C, \omega_y^C, \omega_z^C\}$. \\
+If a user interface for less than 6DOF is used, e.g. a remote controller\footnote{A remote controller (RC) was implemented as redundant control link, see section \ref{sub:hardware} or \cite{burri}.} which has only 4DOF, the user input is restricted to $\{v_x^C, \omega_x^C, \omega_y^C, \omega_z^C\}$ which is similar to helicopter or airplane control.
 
 \begin{figure}[H]		
 	\small{
@@ -93,7 +94,7 @@ The \textit{direct control} mode demands well trained skills to properly navigat
 \textit{Half Automatic Control and Full Automatic Control}
 
 \subsubsection{Half Automatic Control}
-
+When scanning an object for 3d reconstruction, it is often clear in advance where the pictures should be taken from. Therefore, a waypoint based controlling would be desirable. The \textit{half automatic control} mode allows to define a set of waypoints\footnote{In \cite{biagiotti} the waypoints are called \textit{via-points}.} $\{{\bf q}_0, {\bf q}_1, \cdots, {\bf q}_n\}$ for the system's position. The rotational degrees of freedom $\{\omega_x^C, \omega_y^C, \omega_z^C\}$ remain manual controllable. This allows to adjust the camera's orientation while automatically following the given path. For convenient use, it is important that the user can reduce the translational velocity on the path for instance if an additional view at the current position is demanded.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
@@ -104,6 +105,9 @@ The \textit{direct control} mode demands well trained skills to properly navigat
 \end{figure}
 
 \subsubsection{Full Automatic Control}
+A even more advanced control mode would also automatically adjust the system's orientation. Therefore, also the camera target position has to be indicated. For this Bachelor's thesis, only a solution considering a fix target point has been elaborated. This could easily be extended to multiple targets point similar to the waypoints. \\ As it can be seen in figure \ref{fig:full_automatic_control}, even with this method the orientation around the camera axis $e_x^C$ is not defined explicitly. Therefore, $\omega_x^C$ would remain as a manual user input. Indeed, for capturing images it is convenient to adjust the orientation to keep the horizon aligned.
+
+
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{FAComega.pdf}
