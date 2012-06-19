@@ -86,13 +86,14 @@ J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq
 \label{sec:definition}
 \subsection{Paths and Trajectories}
 The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will also be referred to as the motion law as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
+
 \begin{figure}[H]
-\centering
-\def\svgwidth{0.75\textwidth}
-\input{graphics/PathTrajectory.pdf_tex}
-\caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
-\label{fig:path_trajectory}
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/PathTrajectory.eps}
+  \caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
+  \label{fig:path_trajectory}
 \end{figure}
+
 
 In order to get the velocity and acceleration of the trajectory, the chain rule has to be applied to ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$:
 
@@ -118,10 +119,15 @@ If one wants to draw a path through a set of waypoints, we can distinguish betwe
   \label{fig:ApproxInterpol}
 \end{figure}
 
-For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
+For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. I.e.:
+\begin{equation}
+{\bf p}(u_k)\stackrel{!}{=}{\bf q}_k=\begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}
+\end{equation}
+
+The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
 
 
-There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints has high order polygons tend to high oscillations.
+There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints has high order polynomials tend to high oscillations.
 
 
 
@@ -132,8 +138,8 @@ There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A
 Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a so called knot vector ${\bf u}$ composed of a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
 
 \begin{equation}
-{\bf x}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
-   ={\bf p}(u)
+%{\bf x}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
+{\bf p}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
 \end{equation}
 
 
@@ -142,32 +148,33 @@ In this section, the most common used techniques are analyzed\footnote{A vaster 
 \subsubsection{Uniform}
 This is the simplest way to define the knot vector $\bf u$. Here, basically the index number of the waypoints are assigned to $u$ if $c=1$. Therefore no meaningful interpretation can be made.
 \begin{equation*}
-u_n-u_{n-1}= c
+u_k-u_{k-1}= c
 \end{equation*}
 \subsubsection{Chord length}
 In this method the chord length between the waypoints is calculated and then summed up and assigned to $u$. With $u=\lambda t$ this method can be interpreted to aim for a more or less constant velocity over the whole trajectory.
 \begin{equation*}
-u_n-u_{n-1}=\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x_{n-1}\\y_{n-1}\\z_{n-1} \end{bmatrix}\right \|
+u_k-u_{k-1}=\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|
 \end{equation*}
 \subsubsection{Arc length}
 The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
 
-\begin{figure}[h]
-\centering
-\def\svgwidth{0.7\textwidth}
-\input{graphics/arcLength.pdf_tex}
-\caption{The arc length is estimated using the segments of two circles.}
-\label{fig:arcLength}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/arcLength.eps}
+  \caption{The arc length is estimated using the segments of two circles.}
+  \label{fig:arcLength}
 \end{figure}
 
+
 \begin{equation*}
-u_n-u_{n-1}=\frac{B_a+B_b}{2}
+u_k-u_{k-1}=\frac{B_a+B_b}{2}
 \end{equation*}
 
 \subsubsection{Centripetal}
 This method was first proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
 \begin{equation*}
-u_n-u_{n-1}=\sqrt{\left \| \begin{bmatrix}x_n\\y_n\\z_n \end{bmatrix}-\begin{bmatrix}x_{n-1}\\y_{n-1}\\z_{n-1} \end{bmatrix}\right \|}
+u_k-u_{k-1}=\sqrt{\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|}
 \end{equation*}
 
 \subsubsection{Discussion}
