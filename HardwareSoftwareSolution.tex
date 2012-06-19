@@ -103,7 +103,6 @@ As it was clear that there was no GUI ready to use unchanged for the HMI, open s
 
 
 \subsection{Compact and Convenient Solution}
-\textit{About advantages of TabletPC, 3dMouse, RC}
 Using a 3D mouse, connected to a tablet computer has a lot of advantages. Both devices can be put on a board with suspenders. Like the pilot has a compact, portable control unit, without any external hardware interconnected, (Compare figure \ref{fig:HMI_in_Action}). While the 3D mouse provides intuitive control of the 6DOF, the tablet with its GUI is used to filter and route the signals of the 3D Mouse or serves as a highly modular touch input device on its own. With \textsc{QGroundControl} running on it, It also enables the pilot to adjust the controller and to set waypoints, while during the whole flight the live view of \textsc{Skye} is displayed. (More on that in section \ref{subsec:qGroundControl}) In case the tablet should crash, the RC can be used to bring down \textsc{Skye} safely.
 
 \begin{figure}[H]
@@ -120,22 +119,52 @@ Using a 3D mouse, connected to a tablet computer has a lot of advantages. Both d
 \label{subsec:qGroundControl}
 \textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
 
+The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.} , a project of the informatics department of the \textsc{ETH}. It is a complete open source project, based Qt, which is a cross-platform-framework for GUI, based on C++. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted. This varied from adding single lines to develop complete new additional widgets. Inspiration and know-how was taken from \cite{blanchette} and from \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}.
 
-\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
-	\begin{center}
-		\includegraphics[width=0.7\textwidth]{qgc_test_phase}
-		\caption[Test Phase realization]{The \textit{Test Phase} widget allows to adjust each actuation input separately. The input for the four thrusters is set by sliders and the orientation is set by turning the knobs. There is a main button (Activate Engine) to start and stop the motors.}  
-		\label{figure:qgc_test_phase}
-	\end{center}
-\end{figure}
+
+
+
+
+\subsubsection{The Main Control Widget}
+With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed (see figure \ref{fig:qgc_skye_control} for its appearance. With it the pilot can choose the control mode\footnote{As the Test Phase is not a usual control mode, its widget has to be opened in the menu bar.} and the input option. The two sliders visible in figure \ref{fig:qgc_skye_control} allow to adjust the input scaling. Indoor flights need usually smaller but more accurate inputs, while outdoors more power is needed. The colored arm/disarm button is used to (de-)activate the actuators. At the same time it serves as an emergency button.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{qgc_skye_control}
-		\caption[Main control widget]{On the main control widget, the control mode (Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) can be set. The colored arm/disarm button is used to (de-)activate the actuators. The input mode (3D Mouse, Touchscreen, Keyboard) can be set by three buttons. The two sliders allow to adjust the input scaling. Indoor flights need usually smaller but more accurate inputs, while outdoors more power is needed.}  
-		\label{figure:qgc_skye_control}		
+		\caption{The main control widget in which most modes and options can be set. On the right its appearance with activated actuators and and the left its appearance with deactivated actuators.}
+		\label{fig:qgc_skye_control}		
 	\end{center}
 \end{figure}
+
+
+
+\subsubsection{Test Phase Control}
+In order to test \textsc{Skye}'s four actuators before flight and in the development process, another widget was developed. It allows to adjust each of the eight actuation inputs separately. The input for the four thrusters is set by sliders and the orientation is set by turning the knobs. Again, there is a main button (Activate Engine) to start and stop the motors.
+
+\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{qgc_test_phase}
+		\caption{The test phase widget }  
+		\label{figure:qgc_test_phase}
+	\end{center}
+\end{figure}
+
+
+\subsubsection{Direct Control}
+The main device for the direct control mode is the 3D mouse which is connect over USB to the tablet. To use its input signals in  \textsc{QGroundControl}, a interface had to be written. With the two knobs, visible in figure \ref{fig:3D_mouse}, the pilot is able to deactivate translational or rotational inputs. This allows a very precise control.
+
+\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{3dx_productimage}
+		\caption{The 3D mouse used for the direct control }  
+		\label{fig:3D_mouse}
+	\end{center}
+\end{figure}
+
+
+\subsubsection{Assisted Control}
+
+
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
@@ -145,6 +174,9 @@ Using a 3D mouse, connected to a tablet computer has a lot of advantages. Both d
 	\end{center}
 \end{figure}
 \footnotetext{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.}
+
+
+\subsubsection{Half Automatic Control}
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
