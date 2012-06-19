@@ -1,4 +1,5 @@
 \chapter{Introduction}\label{sec:introduction}
+\graphicspath{{graphics/}}
 
 %\section{Motivation}
 
@@ -22,7 +23,15 @@ Project \textsc{Skye} then was a focus project started in autumn \num{2011} and 
 \textit{Description of skye. Application fields, technical description, equipment, realization..}
 
 \textsc{Skye} is a high agile unmanned aerial vehicle in form of a spherical blimp. It was developed to achieve a system for image capturing for 3D reconstruction as well as obtain entertainment functions (as airshows, human interaction etc.). As there exist already systems that fullfil these requirements\footnote{Mainly quadrotors, but also other UAV.} it was claimed to build a system that provides increased flight time and higher operating safety. \textsc{Skye} is the system that accomplishes these improvements. \\
-The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The thrusters are pointing tangential to the sphere. Their orientation can be rotated around the radial axis. The center of gravity is approximately identical with the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}. Further on, a camera system consisting on two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera connected to a onboard \textit{Intel Atom} embedded computer are detached on the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} Inertial Measurement Unit (IMU) controls the flight system. It is equipped with barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
+The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The \textit{AHM 23-10 EPP 1045} thrusters are pointing tangential to the sphere. Their orientation can be rotated around the radial axis using a \textit{\textsc{Maxon} A-Max 16} motor. The center of gravity is approximately identical with the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}.
+\begin{figure}[H]
+    \centering
+    \def\svgwidth{0.8\columnwidth}
+    \input{graphics/skye_description.pdf_tex}
+    \caption{CAD sketch of \textsc{Skye}. Red arrows indicate thrust and orientation of the motor units. Blue tetrahedron indicates symmetrical arrangement of them. }
+    \label{fig:scene_trajectoryFollowing}
+\end{figure}
+Further on, a camera system consisting on two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera connected to a onboard \textit{Intel Atom} embedded computer are detached on the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} Inertial Measurement Unit (IMU) controls the flight system. It is equipped with barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
 The high symmetrical system properties combined with the 8DOF actuation enable to fully control the holonomic 6DOF space. The 2 additional DOF are used for optimization (see \cite{schaffnervu}).  \\
 Finally, the system is only as good as the user appreciates it. Therefore a optimal Human-Machine Interface (HMI) inevitable to provide a useful system. The aim of this thesis is to realize such a HMI in an optimal way for project \textsc{Skye}.
 \section{Goals}
