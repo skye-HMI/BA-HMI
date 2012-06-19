@@ -3,11 +3,11 @@
 \chapter{The different Control Modes}
 \label{cha:DifferentControlModes}
 
-\textbf{\textit{About the need of different modes, the requirements of image capturing and overview of the realized modes}} \\
+\textbf{\textit{About the need of different modes, the requirements of image capturing and an overview of the realized modes}} \\
 
-As mentioned in section \ref{sec:system overview}, one of \textsc{Skye}'s unique properties are the decoupled 6DOF of space. This means, the system has the possibility to turn around an arbitrary axis while moving to any direction. This ability has to be used to fulfill the operation tasks in an optimal way. An intuitive handling for the pilot has to be granted in any way. \\ 
-The first approach is to provide a manual control mode that allows to pilot the 6DOF directly by the operator. A detailed description will be given in section \ref{sec:manualControlModes}. \\ 
-In contrast to the unrestricted control possibilities for manual control, a more autonomous control would allow the pilot to focus on a specific motion, e.g. the orientation of the camera. Therefore, a part of the 6DOF motion of \textit{Skye} will be automated\footnote{The prototype designed for this project does not include any environment detections. Therefore, autonomous control with obstacle detection will not be possible yet.}. In section \ref{sec:automaticControlModes} this is described in more detail. Furthermore, a basic \textit{test phase} control mode lets the operator directly access the 8 actuations individually. Table \ref{tab:control_modes} gives an overview of the control modes. Those actual realization is presented in chapter \ref{cha:findHardSoftSolution}.
+As mentioned in section \ref{sec:system overview}, one of \textsc{Skye}'s unique properties are the decoupled 6DOF in space. This means, the system has the possibility to turn around an arbitrary axis while moving in any direction. This ability has to be used to fulfill the operation tasks in an optimal way. An intuitive handling for the pilot has to be granted in any way. \\ 
+The first approach is to provide a manual control mode that allows the pilot to directly control the 6DOF. A detailed description will be given in section \ref{sec:manualControlModes}. \\ 
+In contrast to the unrestricted control possibilities for manual control, a more autonomous control would allow the pilot to focus on a specific motion, e.g. the orientation of the camera. Therefore, a part of the 6DOF motion of \textit{Skye} will be automated\footnote{The prototype designed for this project does not include any environment detections. Therefore, autonomous control with obstacle detection will not yet be possible.}. In section \ref{sec:automaticControlModes} this is described in more detail. Furthermore, a basic \textit{test phase} control mode lets the operator directly access the 8 actuators individually. Table \ref{tab:control_modes} gives an overview of the control modes. Those actual realization is presented in chapter \ref{cha:findHardSoftSolution}.
 
 \begin{table}[h]		% [H] indicates that the table should be right here.
 	\begin{tabular}{c c c c c} %{p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.16\textwidth}}	% add p{size_of_column} for every new column you'd like to have. If you put a | between the p then there is a vertical line between the columns. 
@@ -30,9 +30,9 @@ In contrast to the unrestricted control possibilities for manual control, a more
 
 \section{Manual Control Modes}
 \label{sec:manualControlModes}
-\textit{Direct Control and Assisted Control}
+\textit{Test Phase, Direct Control and Assisted Control}
 \subsubsection{Test Phase} 
-As \textsc{Skye} was built as an prototype in parallel to this thesis, the overall functionality of the system had to be checked piecewise. The \textit{test phase} control mode was therefore designed to test the propulsions behaviour. The number of revolutions as well as the reference orientation of each of the four actuation units can be set individually\footnote{In \cite{schaffnervu} referred to as input for the \textit{Thrust Section} and \textit{Positioning Section} respectively.}.
+As the prototype \textsc{Skye} was built in parallel to this thesis, the overall functionality of the system had to be checked piecewise. The \textit{test phase} control mode was therefore designed to test the propulsion's behaviour. The number of revolutions as well as the reference orientation of each of the four actuation units can be set individually\footnote{In \cite{schaffnervu} referred to as input for the \textit{Thrust Section} and \textit{Positioning Section} respectively.}.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
@@ -44,7 +44,7 @@ As \textsc{Skye} was built as an prototype in parallel to this thesis, the overa
 
 
 \subsubsection{Direct Control} 
-A second control mode that mainly intends to verify the system's properties is the \textit{direct control} mode where the operator sets the desired force and moment vectors. This 6DOF control therefore needs the transformation of the forces and moments to the 8 actuations\footnote{See \cite{schaffnervu} for details about the optimization criteria for the motor allocation.} only. No information about the system's properties and states are needed. The pilot's input is interpreted as the force and moment components in body fixed coordinates. As the camera system (the eye of \textsc{Skye}) represents the most recognisable orientation, the coordinate frame was aligned to the camera's orientation. This is illustrated in figure \ref{fig:direct_control}, where $\{e_x^C, e_y^C, e_z^C\}$ represents the camera orientated frame ($e_x^C$ collinear with the camera axis, $e_y^C$ heading left, $e_z^C$ bottom) and $\{F_x^C, F_y^C, F_z^C, M_x^C, M_y^C, M_z^C\}$ the user input.
+A second control mode that mainly intends to verify the system's properties is the \textit{direct control} mode where the operator sets the desired force and moment vectors. This 6DOF control therefore needs the transformation of the forces and moments to the 8 actuators\footnote{See \cite{schaffnervu} for details about the optimization criteria for the motor allocation.} only. No information about the system's properties and states are needed. The pilot's input is interpreted as the force and moment components in body fixed coordinates. As the camera system (the eye of \textsc{Skye}) enables best to recognize \textsc{Skye}'s attitude, the coordinate frame was aligned to the camera's orientation. This is illustrated in figure \ref{fig:direct_control}, where $\{e_x^C, e_y^C, e_z^C\}$ represents the camera orientated frame ($e_x^C$ collinear with the camera axis, $e_y^C$ pointing to the right, $e_z^C$  pointing downwards) and $\{F_x^C, F_y^C, F_z^C, M_x^C, M_y^C, M_z^C\}$ the user input.
 
 %\begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 %	\begin{center}
@@ -71,7 +71,7 @@ A second control mode that mainly intends to verify the system's properties is t
 
 
 \subsubsection{Assisted Control} 
-The \textit{direct control} mode demands well trained skills to properly navigate \textit{Skye}. This is especially due to the low damped rotation \cite{weichart} and the symmetrical appearance of the system. To eliminate the first reason, a stabilizing attitude controller is needed. To remedy the second issue, the translational inputs can be interpreted in a earth fixed coordinate frame. By using a proper state estimation, the pilot's commands can directly be interpreted as velocities and angular velocities respectively\footnote{See \cite{meiermueri} for the state estimation and controller design.}. This is actually realized in the \textit{assisted control} mode. Figure \ref{fig:assisted_control} illustrates the user's input $\{v_x^I, v_y^I, v_z^I, \omega_x^C, \omega_y^C, \omega_z^C\}$. \\
+The \textit{direct control} mode demands well trained skills to properly navigate \textit{Skye}. This is especially due to the low damped rotations \cite{weichart} and the symmetrical appearance of the system. To cope with the low damped rotations, a stabilizing attitude controller is needed. In order to better deal with the symmetrical appearance, the translational inputs can be interpreted in a earth fixed coordinate frame. By using a proper state estimation, the pilot's commands can directly be interpreted as velocities and angular velocities respectively\footnote{See \cite{meiermueri} for the state estimation and controller design.}. This is actually realized in the \textit{assisted control} mode. Figure \ref{fig:assisted_control} illustrates the user's input $\{v_x^I, v_y^I, v_z^I, \omega_x^C, \omega_y^C, \omega_z^C\}$. \\
 If a user interface for less than 6DOF is used, e.g. a remote controller\footnote{A remote controller (RC) was implemented as redundant control link, see section \ref{sub:hardware} or \cite{burri}.} which has only 4DOF, the user input is restricted to $\{v_x^C, \omega_x^C, \omega_y^C, \omega_z^C\}$ which is similar to helicopter or airplane control.
 
 \begin{figure}[H]		
@@ -105,7 +105,7 @@ When scanning an object for 3d reconstruction, it is often clear in advance wher
 \end{figure}
 
 \subsubsection{Full Automatic Control}
-A even more advanced control mode would also automatically adjust the system's orientation. Therefore, also the camera target position has to be indicated. For this Bachelor's thesis, only a solution considering a fix target point has been elaborated. This could easily be extended to multiple targets point similar to the waypoints. \\ As it can be seen in figure \ref{fig:full_automatic_control}, even with this method the orientation around the camera axis $e_x^C$ is not defined explicitly. Therefore, $\omega_x^C$ would remain as a manual user input. Indeed, for capturing images it is convenient to adjust the orientation to keep the horizon aligned.
+An even more advanced control mode would also automatically adjust the system's orientation. Therefore, also the camera target position has to be indicated. For this Bachelor's thesis, only a solution considering a fix target point has been elaborated. This could easily be extended to multiple targets point similar to the waypoints. \\ As it can be seen in figure \ref{fig:full_automatic_control}, even with this method the orientation around the camera axis $e_x^C$ is not defined explicitly. Therefore, $\omega_x^C$ would remain as a manual user input. Indeed, for capturing images it is convenient to adjust the orientation to keep the horizon aligned.
 
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
