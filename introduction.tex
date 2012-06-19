@@ -22,9 +22,9 @@ Project \textsc{Skye} then was a focus project started in autumn \num{2011} and 
 \textit{Description of skye. Application fields, technical description, equipment, realization..}
 
 \textsc{Skye} is a high agile unmanned aerial vehicle in form of a spherical blimp. It was developed to achieve a system for image capturing for 3D reconstruction as well as obtain entertainment functions (as airshows, human interaction etc.). As there exist already systems that fullfil these requirements\footnote{Mainly quadrotors, but also other UAV.} it was claimed to build a system that provides increased flight time and higher operating safety. \textsc{Skye} is the system that accomplishes these improvements. \\
-The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The thrusters are pointing tangential to the sphere. Their orientation can be rotated around the radial axis. The center of gravity is approximately identical with the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}. Further on, a camera system consisting on two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera connected to a onboard \textit{Intel Atom} embedded computer are detached on the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} inertial measurements unit (IMU) controls the motor units. It is equipped with barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
-The high symmetrical system properties combined with the 8DOF actuation enable to fully control the holonomic 6DOF space. The 2 additional DOF are used for optimization (see \cite{schaffnervu}.  \\
-bla bla die 6dof müssen gesteuert werden und das ist unsere aufgabe:-)
+The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The thrusters are pointing tangential to the sphere. Their orientation can be rotated around the radial axis. The center of gravity is approximately identical with the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}. Further on, a camera system consisting on two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera connected to a onboard \textit{Intel Atom} embedded computer are detached on the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} Inertial Measurement Unit (IMU) controls the flight system. It is equipped with barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
+The high symmetrical system properties combined with the 8DOF actuation enable to fully control the holonomic 6DOF space. The 2 additional DOF are used for optimization (see \cite{schaffnervu}).  \\
+Finally, the system is only as good as the user appreciates it. Therefore a optimal Human-Machine Interface (HMI) inevitable to provide a useful system. The aim of this thesis is to realize such a HMI in an optimal way for project \textsc{Skye}.
 \section{Goals}
 \label{sec:goals}
 \textit{Goals of this thesis:
@@ -34,8 +34,28 @@ bla bla die 6dof müssen gesteuert werden und das ist unsere aufgabe:-)
 \item Trajectory generating
 \item Trajectory control
 \end{itemize}
-fun..
+fun.. \\
 }
+Within project \textsc{Skye}, intuitive interfaces to control and observe the system have been developed. This includes the implementation of a Graphical User Interface (GUI) for a computer based Ground Station (GS) based on any existing solution. Further on, different manual control modes and suitable Human-Machine Interfaces have been elaborated and implemented. Finally, automatic manoeuvres  (paths and trajectories) have been generated considering simplified dynamic system constraints based on the results from a model elaborated in \cite{weichart}. The goals of this thesis are based one those needs and described below. \\
+Further on, the successful completion of project \textsc{Skye} could only be realized by invest a lot of effort for the compatibility of all system's part. Especially the integration of an alpha version IMU required thousands of tests to reach a full working system. bla bla Version Control, bla bla, das Zeugs gehoert wohl eher in die Conclusion.. So move it there;-)
+
+
+\begin{table}[H]
+\begin{center}
+ \begin{tabular}{ll}
+ \hline
+ Goal & Specification  \\ \hline \hline
+ Control Modes 	& 	Intuitive Control for Manual for 6DOF Blimp \\
+ HMI			&	Suitable for Control Modes \\
+ GUI         	& 	Provide System Info, Adapt Properties \\
+ Trajectories   & 	Automatic Maneuvers \\
+ \hline
+ \end{tabular}
+ \caption{Main goals of this thesis}\vspace{1ex}
+ \label{tab:goals}
+\end{center}
+\end{table}
+
 
 \section{Similar Systems and their HMI}
 \label{sec:similar systems}
