@@ -1,11 +1,11 @@
 %!TEX root = Bericht.tex
 \chapter{Conclusion}
-\textit{
-What is the strongest and most important statement that you can make from your observations? 
-If you met the reader at a meeting six months from now, what do you want them to remember about your paper? 
-Refer back to problem posed, and describe the conclusions that you reached from carrying out this investigation, summarize new observations, new interpretations, and new insights that have resulted from the present work.
-Include the broader implications of your results. 
-Do not repeat word for word the abstract, introduction or discussion.}\\
+%\textit{
+%What is the strongest and most important statement that you can make from your observations? 
+%If you met the reader at a meeting six months from now, what do you want them to remember about your paper? 
+%Refer back to problem posed, and describe the conclusions that you reached from carrying out this investigation, summarize new observations, new interpretations, and new insights that have resulted from the present work.
+%Include the broader implications of your results. 
+%Do not repeat word for word the abstract, introduction or discussion.}\\
 %\textit{To summarize
 %– What you researched– Nature of your main arguments– How you researched it– What you discovered– What pre-existing views were challenged
 %2. To provide an overview of 
@@ -24,4 +24,20 @@ Do not repeat word for word the abstract, introduction or discussion.}\\
 %– Start writing notes of content for potentialsections of your conclusion as you write other chapters…add bits in as you think of them– If you find a succinct quote that encapsulatescommon misunderstandings about your fieldthen use it at the start to bounce off.
 %}
 %
-A HMI, tailored to the needs of \textsc{Skye} has been developed. This ranges from defining control modes for six DOF, planing feasible trajectories to implementing these ideas to form a complete HMI. As for the trajectory planning existing solutions were adopted, the combination of touchscreen with a 3D mouse to control \textsc{Skye} is a new, so far unseen approach.  
+In this Thesis, a HMI, tailored to the needs of \textsc{Skye} has been developed. This ranges from defining control modes for six DOF, planing feasible trajectories to implementing these ideas to form a complete HMI. As for the trajectory planning existing solutions were adopted, the combination of touchscreen with a 3D mouse to control \textsc{Skye} is a new, so far unseen approach.  However, in order to realize all ideas for an intuitive HMI, a lot of challenges had to be met.
+
+\paragraph{Challenges}
+Working on a real project as a team means also finding interfaces for the different domains of the project as well as finding interfaces for the workload the different team members are taking. For the HMI which is almost connected to everything of the project,  this meant that the options for choosing the hardware and software were quite limited. Nevertheless a compact and convenient solution was found in discussions with the control and communication section of team \textsc{Skye}.\\
+Taking existing solution brings with it, that these solutions also have to be understood thoroughly. Otherwise it is impossible to adopt it reasonably. E.g. the source Code of \textsc{QGroundControl} had to be analyzed and this proved to be not that easy as it was someone else's code. However, as time passes by, you get used to it.\\
+Developing a HMI for a system which itself is not yet fully developed, was also a challenge. Numerous days were invested in other domains of the project, in order the make the whole system run and especially to make the HMI working properly with it. Especially the integration of an alpa version FMU required thousand of tests till it was running. 
+
+
+\paragraph{Maturity of the Solutions} Due to a not completely mature prototype and due to lack of time, not all ideas could be tested on the real system. While the finished test phase, direct and assisted control modes proved their functionality on the real system, the half and full automatic control modes still need to be tested. However, there is already a simulation of the half automatic control mode running on the GUI and it is assumed that only the controller and the state estimation would have to be adopted to make it work. This is not like the situation of the full automatic control mode. It is still far from maturity as only a \textsc{Matlab} simulation of it exists.
+
+
+\paragraph{Open Ideas} As mentioned above is the full automatic control not yet elaborated in detail. However, it is supposed that a complete automatic mode would boost the application field of \textsc{Skye} and therefore it is suggested to realize this mode in a further step of project \textsc{Skye}.\\
+Right now the generated trajectories are only optimized to not exceed the system abilities. In a further step they could be optimized for time or energy consumption.\\
+Although a widget for the control of the onboard cameras was developed, it was never put in action. The same applies to a battery widget which would constantly display the battery level of all three accumulators. Having these widgets work would extend the pilot's control over \textsc{Skye}.
+
+\paragraph{} Looking back on the developed HMI and the source code of the software, a lot of things would be done in a more effective and easier way. Yet this is not surprising as Lorenz Meier, a skilled programmer who developed \textsc{QGroundControl}, told us: "You know what I did once I had finished the source code of \textsc{QGroundControl}?-I wrote it all again."  %However, the general concept of the HMI with tablet, 3D mouse and trajectory planning would not be changed, which might be surprising.
+However, the general concept of the HMI with tablet, 3D mouse and trajectory planning proved to be the right choice.
