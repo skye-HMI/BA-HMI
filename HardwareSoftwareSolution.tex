@@ -2,7 +2,7 @@
 \graphicspath{{graphics/HMI/}{graphics/control_modes/}}
 \chapter{Finding a Hardware and Software Solution}
 \label{cha:findHardSoftSolution}
-In the following it is described how the the previously defined control modes were realized and what else lead to the finally realized HMI, described in the last section \ref{sec:realization}. On the one hand there was the hardware which had to be chosen and on the other the software to realize the control modes with that hardware had to be written.
+In the following it is described how the previously defined control modes were realized and what else lead to the finally realized HMI which is described in section \ref{sec:realization}. On the one hand there was the hardware which had to be chosen and on the other hand the software to realize the control modes with that hardware had to be written.
 
 
 
@@ -18,18 +18,18 @@ The hardware used should...
 \item[...]{be able to display the live view of \textsc{Skye},}
 \item[...]{offer the possibility to set waypoints for \textsc{Skye},}
 \end{itemize}
-whereas the used operation system should be compatible with the driver of the \textsc{XBee} module and with ROS\footnote{The decision to use a \textsc{XBee} module and Wifi for communication is explained in \cite{burri}. There, it is also explained how \textsc{ROS} was needed to process imagery.}.
+whereas the used operation system should be compatible with the driver of the \textsc{XBee} module and with \textsc{ROS}\footnote{The decision to use a \textsc{XBee} module and Wifi for communication is explained in \cite{burri}. There it is also explained how \textsc{ROS} is used to process imagery. \textsc{ROS}. Detailed description about \textsc{ROS} can be found on \url{http://www.ros.org/wiki/}.}.
 
 
 \section{Existing Solutions}
 \label{sec:existingSolutions}
-Existing HMI solutions were analyzed in order to find out, whether they would be convenient to adopt or whether they would fulfill the requirements on their own. 
+Existing HMI solutions were analyzed in order to find out, whether they would be convenient to adopt and whether they would fulfill the requirements on their own. 
 
 
 \subsection{Hardware}
 \label{sub:hardware}
 
-Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with a operation systems not compatible with \textsc{ROS}\footnote{This held true when this Thesis was written and might be different nowadays as almost everything.}.
+Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with operation systems not compatible with \textsc{ROS}\footnote{This held true when this Thesis was started and might be different nowadays as almost everything could be handled without ROS.}.
 
 \begin{figure}[h]		
 	\small{
@@ -56,7 +56,7 @@ Figure \ref{fig:devices taken into consideration} shows all devices which were t
 	\vspace{4.5mm}
 \end{figure}
 
-Table \ref{tab:requirements and expectations for hardware} shows the rating of the considered devices. It is visible that a solution in combination with a tablet had to be used, as only a tablet is able to fulfill certain criteria and to run \textsc{ROS}. Although the Qgo Sphere \footnote{In  \cite{kammermann} the usage of the Qgo Sphere as an input device for a ballbot is discussed.} would be most intuitive to use with \textsc{Skye}, a 3D mouse, i.e. a space navigator from \textsc{3DConnection}, was chosen as a supplementary device to the tablet. Because of the fix-installed infrared sensors needed for the detection of the sphere's translational movements, the Qgo Sphere is not portable, which made it inconvenient to use for \textsc{Skye}. For the tablet a \textsc{Lenovo} X220 was chosen whereas a \textsc{Futuba} 7C RC was chosen as a backup in case of a tablet failure.
+Table \ref{tab:requirements and expectations for hardware} shows the rating of the considered devices. It is visible that a solution in combination with a tablet had to be used, as only a tablet is able to fulfill the criteria for automatic controls and to run \textsc{ROS}. Although the Qgo Sphere\footnote{In  \cite{kammermann} the usage of the Qgo Sphere as an input device for a ballbot is discussed.} would be most intuitive to use with \textsc{Skye}, a 3D mouse (a space navigator from \textsc{3DConnection}) was chosen as a supplementary device to the tablet. Because of the fix-installed infrared sensors needed for the detection of the sphere's translational movements, the Qgo Sphere is not portable, which made it inconvenient to use for \textsc{Skye}. A joystick is not designed for 6DOF and is therefore much less intuitive in use as a 3D mouse. For the tablet a \textsc{Lenovo} X220 was chosen as it can be transformed to a common notebook. This allows easy postprocessing of any gathered data. Additionally, a \textsc{Futaba} 7C RC serves as a backup in case of any breakdown within the main HMI.
 
 
 \begin{table}[H]		% [H] indicates that the table should be right here.
@@ -90,9 +90,9 @@ Table \ref{tab:requirements and expectations for hardware} shows the rating of t
 
 
 \subsection{Software}
-\textit{QGroundControl, OpenPilot, Qt-Libraries}
-\textsc{Google} and \textsc{Apple} showed how intuitive a software could be in combination with a  touchscreen with their operating systems for smartphones. They offer the user unknown flexibility in adopting the GUI to his needs. However, out of \textsc{Windows}, \textsc{Ubuntu}, \textsc{Mac OS}, \textsc{iOS} and \textsc{Android}, \textsc{Ubuntu} was the only operating system which provided complete support for \textsc{ROS}  Therefore \textsc{Ubuntu 11.10} was chosen as the operating system for the tablet.\\
-As it was clear that there was no GUI ready to use unchanged for the HMI, open source software was analyzed in order to adopt it for \textsc{Skye}. Using \textsc{QGroundControl} (described in section \ref{subsec:qGroundControl}) was the best option. On the one hand it already offered the commonly used tools to control a UAV, and on the other hand a good support in adopting it to the needs of \textsc{Skye} was granted as it was also developed at the \textsc{ETH}.
+\textit{QGroundControl, OpenPilot, Qt-Libraries} \\
+\textsc{Google} and \textsc{Apple} showed how intuitive a GUI can be in combination with a  touchscreen with their operating systems for smartphones. They offer the user unknown flexibility in adopting the GUI to his needs. However, out of \textsc{Windows}, \textsc{Ubuntu}, \textsc{Mac OS}, \textsc{iOS} and \textsc{Android}, \textsc{Ubuntu} was the only operating system which provides complete support for \textsc{ROS}. Therefore \textsc{Ubuntu 11.10} was chosen as the operating system for the tablet.\\
+As it was clear that there was no GUI ready to use unchanged for the HMI, open source software was analyzed in order to adopt it for \textsc{Skye}. Using \textsc{QGroundControl} (described in section \ref{subsec:qGroundControl}) was the best option. On the one hand it already offered the commonly used tools to control a UAV and on the other hand a good support in adopting it to the needs of \textsc{Skye} was granted as it was also developed at the \textsc{ETH}.
 
 
 
@@ -103,7 +103,7 @@ As it was clear that there was no GUI ready to use unchanged for the HMI, open s
 
 
 \subsection{Compact and Convenient Solution}
-Using a 3D mouse, connected to a tablet computer has a lot of advantages. Both devices can be put on a board with suspenders. Like the pilot has a compact, portable control unit, without any external hardware interconnected, (Compare figure \ref{fig:HMI_in_Action}). While the 3D mouse provides intuitive control of the 6DOF, the tablet with its GUI is used to filter and route the signals of the 3D Mouse or serves as a highly modular touch input device on its own. With \textsc{QGroundControl} running on it, It also enables the pilot to adjust the controller and to set waypoints, while during the whole flight the live view of \textsc{Skye} is displayed. (More on that in section \ref{subsec:qGroundControl}) In case the tablet should crash, the RC can be used to bring down \textsc{Skye} safely.
+Using a 3D mouse in combination with a tablet computer has a lot of advantages. Both devices can be put on a board with suspenders. Like this, the pilot has a compact, portable control unit, without any external hardware interconnected (compare figure \ref{fig:HMI_in_Action}). While the 3D mouse provides intuitive control of the 6DOF, the tablet with its GUI is used to filter and route the signals of the 3D Mouse or serves as a highly modular touch input device on its own. With \textsc{QGroundControl} running on it, It also enables the pilot to adjust the controller and to set waypoints, while during the whole flight the live view of \textsc{Skye} is displayed (More on that in section \ref{subsec:qGroundControl}). In case the tablet should crash, the RC can be used to bring down \textsc{Skye} safely.
 
 \begin{figure}[H]
 	\begin{center}
@@ -119,18 +119,21 @@ Using a 3D mouse, connected to a tablet computer has a lot of advantages. Both d
 \label{subsec:qGroundControl}
 \textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
 
-The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.} , a project of the informatics department of the \textsc{ETH}. It is a complete open source project, based Qt, which is a cross-platform-framework for GUI, based on C++. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted. This varied from adding single lines to develop complete new additional widgets. Inspiration and know-how was taken from \cite{blanchette} and from \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}.
+The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}.
 
-
+\textbf{HERE matthias would like to summarize the basic code structure of qgc.. so it can be refered to and from the \textsc{Mavlink} section}
 
 
 
 \subsubsection{The Main Control Widget}
-With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed (see figure \ref{fig:qgc_skye_control} for its appearance. With it the pilot can choose the control mode\footnote{As the Test Phase is not a usual control mode, its widget has to be opened in the menu bar.} and the input option. The two sliders visible in figure \ref{fig:qgc_skye_control} allow to adjust the input scaling. Indoor flights need usually smaller but more accurate inputs, while outdoors more power is needed. The colored arm/disarm button is used to (de-)activate the actuators. At the same time it serves as an emergency button.
+With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed to choose between these options (see figure \ref{fig:qgc_skye_control} for its appearance). 
+%With it the pilot can choose the control mode\footnote{As the Test Phase is not a usual control mode, its widget has to be opened in the menu bar.} and the input option.
+The Test Phase mode is not meant to be used in flight and has therefore be activated via the menu bar.
+The two sliders visible in figure \ref{fig:qgc_skye_control} allow to adjust the input scaling for translations and rotations respectively. Indoor flights need usually smaller but more accurate inputs, while outdoors more power is needed. The colored arm/disarm button is used to (de-)activate the actuators. At the same time it serves as an emergency button.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{qgc_skye_control}
+		\includegraphics[width=0.7\textwidth]{qgc_skye_control}
 		\caption{The main control widget in which most modes and options can be set. On the right its appearance with activated actuators and and the left its appearance with deactivated actuators.}
 		\label{fig:qgc_skye_control}		
 	\end{center}
@@ -151,7 +154,7 @@ In order to test \textsc{Skye}'s four actuators before flight and in the develop
 
 
 \subsubsection{Direct Control}
-The main device for the direct control mode is the 3D mouse which is connect over USB to the tablet. To use its input signals in  \textsc{QGroundControl}, a interface had to be written. With the two knobs, visible in figure \ref{fig:3D_mouse}, the pilot is able to deactivate translational or rotational inputs. This allows a very precise control.
+The main device for the direct control mode is the 3D mouse which is connected by USB to the tablet. To use its input signals in  \textsc{QGroundControl}, a interface had to be written. With the two knobs on the device (hardly visible in figure \ref{fig:3D_mouse}) the pilot is able to (de-)activate translational or rotational inputs. This allows a very precise control.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
@@ -161,14 +164,13 @@ The main device for the direct control mode is the 3D mouse which is connect ove
 	\end{center}
 \end{figure}
 
-
 \subsubsection{Assisted Control}
-Feeding velocities instead of a force and a moment makes the usage of the touchscreen beside the 3D mouse more reasonable. For this mode a combination of different widgets is used, shown in figure\footnote{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.} \ref{fig:qgc_manual_control}. E.g. the main control widget with which the pilot could switch between the 3D mouse and the touch input. If touch input is chosen, the HUD, showing the live view, enables rotational touch inputs. The map widget shows the position of \textsc{Skye} and allows to set translational inputs. Note that in a first approach these inputs were always given in the camera frame as the state estimation was not yet running.
+Feeding velocities instead of a force and a moment makes the usage of the touchscreen beside the 3D mouse more reasonable. For this mode a combination of different widgets is used, shown in figure\footnote{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.} \ref{fig:qgc_manual_control}. The widgets can be scaled and positioned individually. As a default view for \textsc{Skye}, the shown arrangement of the Head-up-Display (HUD), map and main control widget is provided. If touch input is chosen, the HUD enables rotational touch inputs directly on the displayed live view. The map widget shows the position of \textsc{Skye} and allows to set translational inputs. Note that in a first approach these inputs were always interpreted in the camera frame as the state estimation was not yet running. Intuitively, this has to be transformed to inputs in the North-East-Down (NED) frame which has recently been tested on the system.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{qgc_manual_control}
-		\caption{The pilots view on the GUI if assisted  control and touch input is activated.}  
+		\caption{The pilot's view on the GUI if assisted  control and touch input is activated.}  
 		\label{fig:qgc_manual_control}		
 	\end{center}
 \end{figure}
@@ -183,7 +185,7 @@ Feeding velocities instead of a force and a moment makes the usage of the touchs
 
 
 \subsubsection{Half Automatic Control}
-For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}} was used to display the elevation. Once the waypoints are set a interpolating cubic spline is calculated and displayed.(compare figure \ref{fig:qgc_automatic_control} (The part of the path that is already reached is displayed in blue.). 
+For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}} was used to display the elevation. Once the waypoints are set a interpolating cubic spline is calculated and displayed (compare figure \ref{fig:qgc_automatic_control}). Out from the recent position of \textsc{Skye}, a velocity input is calculated using a \textit{Pure Pursuit} approach\footnote{In section \ref{sub:pure_pursuit} \textit{Pure Pursuit} is described how it was implemented in \textsc{Matlab}.} The part of the path that is already reached is displayed in blue. % The trace of the (simulated) motion is tracked with red dots.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
@@ -193,6 +195,7 @@ For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adop
 	\end{center}
 \end{figure}
 
+\textbf{A Picture of the DC/AC widget should be placed at least in the APENDIX.. Camera reconfiguration and battery info can be left away.}
 
 \subsection{Mavlink}
 \textit{Summary of Protocal, adaptions and use for} \textsc{Skye}
