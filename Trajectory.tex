@@ -115,7 +115,7 @@ If one wants to draw a path through a set of waypoints, we can distinguish betwe
 \begin{figure}[H]
 	\centering
     \includegraphics[width = 0.9\textwidth]{graphics/ApproxInterpol.eps}
-  \caption{Interpolation and approximation of waypoints}
+  \caption{ Waypoint approximation on the left and waypoint interpolation on the right}
   \label{fig:ApproxInterpol}
 \end{figure}
 
@@ -201,7 +201,7 @@ Beside the geometrical appearance due to the different distributions the dynamic
   \label{fig:para road vel acc}
 \end{figure}
 
-In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (compare table \ref{tab:results_parameterization_road_cubic} and {\bf Appendix will soon include the quartic and quintic table}) but over all criteria centripetal yields the best result.
+In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (compare table \ref{tab:results_parameterization_road_cubic} for the values of cubic spline or section \ref{subsec:parameterization_degree}) but over all criteria centripetal yields the best result.
 
 
 \begin{table}[h]
@@ -451,7 +451,17 @@ The last constraint on $u(t)$ is met by choosing $\lambda$ as follows:
 \end{equation}
 
 where $S$ is a security factor, e.g. for model uncertainties.\footnote{In our case $S$ would also to be used to consider additional manual angular velocities that are superpositioned.}  \\
-This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization from \cite{doessegger}.
+\\
+This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization from \cite{doessegger}. The resulting velocity and acceleration for the \textit{road} trajectory generated with cubic splines is visible in figure\ref{fig:constantTimeScaling3cp_road}. It is clear that for this path, the maximum velocity will be the limiting factor as it has a lot of lang straight lines.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/constantTimeScaling3cp_road.eps}
+  \caption{From a constant time scaling resulting velocity and acceleration for the \textit{road} trajectory generated with cubic splines, in red the system constraints}
+  \label{fig:constantTimeScaling3cp_road}
+\end{figure}
+
+
 
 \subsubsection{A Simple Non Linear Approach}
 As described in \ref{subsec:boundary conditions}, polynomials of at least quartic degree would be necessary to set the boundary conditions of the second derivative ${\bf \ddot{\tilde{p}}}(t)$ when using constant time scaling. As an alternative (not only for cubic splines), non linear time parametrization can be used. A simple approach is to replace the beginning and ending of the linear time parametrization $u(t)=\lambda t$ by a polynomial of higher degree\footnote{See \cite{doessegger} and \cite{biagiotti} for more advanced approaches.}.
@@ -503,7 +513,7 @@ t_n &= \frac{-3 \tilde{d} - \lambda t_{n-1} + 3 u_n}{2 \lambda}
 \label{sec:controllerImplementation}
 A trajectory controller and two commonly used path tracking controllers\footnote{\cite{snider} provides a good overview over various approaches.} are tested to follow the defined trajectories. The \textit{trajectory following} controller supplies the system's position controller, described in \cite{meiermueri}, with a feed forward reference signal. Although it delivers good results for ideal case, the tracking gets worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore more robust and accurate path tracking results.
 
-\subsection{Trajectory following}
+\subsection{Trajectory Following}
 Assuming a perfect model and a trajectory considering all system constraints\footnote{I.e. saturations of $\dot{r}(t)$ and its derivatives, see section \ref{subsec:systemConstraints}.} the position $r\left(t\right)$ of the system can be assumed to be equal to the trajectory $\tilde{p}(t)$ at any time. Therefore, a straight forward way of a trajectory controller is to follow the trajectory $\tilde{p}(t)$ for every time $t$. This yields accurate tracking in a safe environment \cite{doessegger}.
 \\
 A position PI controller with feedforward terms for velocity and acceleration can therefore be used with the reference input

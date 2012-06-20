@@ -14,7 +14,23 @@ TO DO
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/Parameterization345_road_agile.eps}
   \end{minipage}
-  \caption{The different parameterizations shown with cubic, quartic and quintic splines}
+  \caption{The geometrical appearance of the different parameterizations shown with cubic (top), quartic (middle) and quintic (bottom) splines; Uniform:black, Chord length: blue, Arc length: green, Centripetal:red}
+  \label{fig:parameterization_cqq}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}[t]{0.9\textwidth}
+    \includegraphics[width = \textwidth]{graphics/Parameterization3_road_vel_acc.eps}
+  \end{minipage}
+  \vfill
+    \begin{minipage}[t]{0.9\textwidth}
+    \includegraphics[width = \textwidth]{graphics/Parameterization4_road_vel_acc.eps}
+  \end{minipage}
+  \vfill
+    \begin{minipage}[t]{0.9\textwidth}
+    \includegraphics[width = \textwidth]{graphics/Parameterization5_road_vel_acc.eps}
+  \end{minipage}
+  \caption{The dynamic of the different parameterizations in combination with a constant time scaling shown with cubic (top), quartic (middle) and quintic (bottom) splines for the \textit{road} path; Uniform:black, Chord length: blue, Arc length: green, Centripetal:red}
   \label{fig:parameterization_cqq}
 \end{figure}
 
@@ -161,7 +177,7 @@ TO DO
   \label{fig:correlation_invdev_acc_all_circuits}
 \end{figure}
 
-\subsection{Varying trajectory constraints}
+\subsection{Varying Trajectory Constraints}
 \label{sub:app_varying_sys_constraints}
 Repetitively simulations with different scaled time parametrization (i.e. varying system constraint's safety factor $S$ from \numrange{0.8}{1.6}) were conducted\footnote{\textit{Agile} waypoints, centripetal parametrization, cubic splines, cross track error controller, no wind disturbance.}. Figure \ref{fig:app_sys_constr} illustrates the different trajectories and the corresponding traces.
 
@@ -223,10 +239,12 @@ Repetitively simulations with different scaled time parametrization (i.e. varyin
 
 
 
-\subsection{Increasing the paths curvature}
+\subsection{Increasing the Path's Curvature}
 \label{sub:app_increasing_curvature}
 And here follows a subsection with constraint comparisons of a helix with smaller radius.
-
+\\
+TO DO
+\\
  %\cleardoublepage
 
 
@@ -235,6 +253,8 @@ And here follows a subsection with constraint comparisons of a helix with smalle
 %Bla bla \dots
 
  %\cleardoublepage
+\section{Mavlink Protocol}
+\label{sec:app_mavlink_protocol}
 
 \begin{lstlisting}[captionpos=b, caption="Definition of \textsc{Skye} specific Mavlink messages", label=app_xml]
 <?xml version='1.0'?>
