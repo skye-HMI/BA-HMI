@@ -1,5 +1,5 @@
 \chapter{Introduction}\label{sec:introduction}
-\graphicspath{{graphics/}}
+\graphicspath{{graphics/}{graphics/systems/}}
 
 %\section{Motivation}
 
@@ -68,7 +68,38 @@ Further on, the successful completion of project \textsc{Skye} could only be rea
 \section{Similar Systems and their HMI}
 \label{sec:similar systems}
 \textit{About degrees of freedom, (non-)holonomic system control, car wheels, rezeros qgo sphere cite \cite{kammermann}.} \\
-The HMI (or control device) for a machine mainly depends on its number of control inputs and its level of automation. In a car, the driver controls the steer angle and the acceleration. Although this is not sufficient to move the car into any desired direction\footnote{As the lateral motion depends on the turning angle, the system is nonholonomic.} the steering wheel and gas pedal provide sufficient and intuitive control to drive from a to b. The pilot of an airplane can move through the three dimensional space and has therefore more freedom to control its vehicle than the car driver. As a drawback, he has to consider even more control inputs (joystick for pitch and roll, rudder pedals for yaw and throttle control for thrust). As the system dynamics of \textsc{Skye} only depend on holonomic constraints, its motion in the 3D space can be controlled for every of the 6DOF independently. As a drawback, the pilot would have to consider 6 control inputs at the same time. The elaboration of finding a suitable solution for the piloting of \textsc{Skye} is described in chapters \ref{cha:DifferentControlModes} and \ref{cha:findHardSoftSolution}.
+The HMI (or control device) for a machine mainly depends on its number of control inputs and its level of automation. To control more control inputs, additional sticks or motions have to be provided. Automation of the system can simplify its control, but requests for emergency backups in case of automation fail. \\
+The number of control inputs depends on the systems possibilities. This is shown in table \ref{tab:systems_hmi}\footnote{\textsc{AMZ} racing: \url{http://www.amz.ethz.ch/} \\ \textsc{Rezero}: \url{http://rezero.ethz.ch/} \\ \textsc{Arac}: \url{http://www.arac.ethz.ch/} \\ \textsc{arDrone}: \url{http://ardrone2.parrot.com/}}. A car has 3DOF, i.e. it can move in a plane and turn around its yaw axis. But the driver cannot steer all those motions independently as no lateral motion is possible without longitudinal movements (the system has a nonholonomic constraint). So a steering wheel in combination with a gas and break pedal serve as HMI. For a ballbot or a legged robot each of the 3DOF can be steered directly (they are holonomic systems). Therefore the HMI device must enable three inputs as it is provided for instance by a Qgo Sphere\footnote{See \cite{kammermann}, section \ref{sub:hardware} or \url{http://www.quasmo.ch/index.php/qgosphere} for more informations about Qgo Sphere.} or a game-pad. A quadrotor is comparable to the system \textsc{Skye}. A quadrotor is a nonholonomic system, as roll and pitch angle are coupled with the lateral and longitudinal motion. Therefore out of the 6DOF in space, only 4 can be controlled independently by the pilot. A game-pad or even a smartphone are suitable control devices. As \textsc{Skye} is (due to its mechanics and actuation symmetry) a holonomic system, all the 6DOF can be steered individually. This requires a HMI with even more control inputs.
+%In a car, the driver controls the steer angle and the acceleration. Although this is not sufficient to move the car into any desired direction\footnote{As the lateral motion depends on the turning angle, the system is nonholonomic.} the steering wheel and gas pedal provide sufficient and intuitive control to drive from a to b. The pilot of an airplane can move through the three dimensional space and has therefore more freedom to control its vehicle than the car driver. As a drawback, he has to consider even more control inputs (joystick for pitch and roll, rudder pedals for yaw and throttle control for thrust). As the system dynamics of \textsc{Skye} only depend on holonomic constraints, its motion in the 3D space can be controlled for every of the 6DOF independently. As a drawback, the pilot would have to consider 6 control inputs at the same time. The elaboration of finding a suitable solution for the piloting of \textsc{Skye} is described in chapters \ref{cha:DifferentControlModes} and \ref{cha:findHardSoftSolution}.
+
+\begin{table}[H]
+\begin{center}
+\newcolumntype{M}{>{$\vcenter\bgroup\hbox\bgroup}c<{\egroup\egroup$}} 
+ \begin{tabular}{MMMMM}
+ \hline
+ System & DOF & Non\-holonomic & Inputs & Device \\ 
+  \hline \hline 
+     \includegraphics[width = 0.25\textwidth]{amz.jpg}
+   & 	3 & 1  & 2 & \includegraphics[width = 0.18\textwidth]{steeringwheel.jpg} \\
+  \hline
+    \includegraphics[width = 0.25\textwidth]{rezero.jpg}
+   & 	3 & 0  & 3 & \includegraphics[width = 0.18\textwidth]{HMI/qgo_sphere_cut.jpg} \\
+  \hline
+    \includegraphics[width = 0.25\textwidth]{arac.jpg}
+   & 	3 & 0  & 3 & \includegraphics[width = 0.14\textwidth]{gamepad.jpg} \\
+  \hline
+    \includegraphics[width = 0.25\textwidth]{ardrone.jpg}
+   & 	6 & 2  & 4 & \includegraphics[width = 0.18\textwidth]{iphone.jpg} \\
+  \hline
+    \includegraphics[width = 0.25\textwidth]{skye.jpg}
+   & 	6 & 0  & 6 & \includegraphics[width = 0.1\textwidth]{questionmark.eps} \\
+ \hline
+ \end{tabular}
+ \caption{Some examples of systems and their HMI. The number of inputs depends on the number of degree of motion reduced by nonholonomic constraints.}\vspace{1ex}
+ \label{tab:systems_hmi}
+\end{center}
+\end{table}
+
 
 \section{Structure of the Report}
 \label{structure}
