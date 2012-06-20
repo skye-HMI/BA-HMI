@@ -8,28 +8,26 @@ In the following it is described how the previously defined control modes were r
 
 \section{Requirements}
 \label{sec:requirements}
-One of the goals of this Bachelor's Thesis was to develop a HMI which was tailored to \textsc{Skye}. In the following listing, all requirements demanded for such a HMI are pointed out: \\
+One of the goals of this bachelor thesis was to develop a HMI which was tailored to \textsc{Skye}. In the following listing, all requirements demanded for such a HMI are pointed out: \\
 
-The hardware used should...
+The hardware used for the HMI should...
 \begin{itemize}
 \item[...]{offer intuitive control for six DOF, i.e. fit the defined control modes, }
 \item[...]{be portable,}
-\item[...]{offer wireless connection, i.e. ports for attaching a \textsc{XBee} module and a Wifi router,}
-\item[...]{be able to display the live view of \textsc{Skye},}
+\item[...]{offer wireless connection, i.e. ports for attaching a \textsc{XBee} module and a Wi-Fi router,}
+\item[...]{be able to display the video stream of \textsc{Skye},}
 \item[...]{offer the possibility to set waypoints for \textsc{Skye},}
 \end{itemize}
-whereas the used operation system should be compatible with the driver of the \textsc{XBee} module and with \textsc{ROS}\footnote{The decision to use a \textsc{XBee} module and Wifi for communication is explained in \cite{burri}. There it is also explained how \textsc{ROS} is used to process imagery. \textsc{ROS}. Detailed description about \textsc{ROS} can be found on \url{http://www.ros.org/wiki/}.}.
-
+whereas the used operation system should be compatible with the driver of the \textsc{XBee} module and with \textsc{ROS}\footnote{The decision to use a \textsc{XBee} module and Wi-Fi for communication is explained in \cite{burri}. There it is also explained how \textsc{ROS} is used to process imagery. Detailed description about \textsc{ROS}, the Robot Operating System, can be found on \url{http://www.ros.org/wiki/}.}.
 
 \section{Existing Solutions}
 \label{sec:existingSolutions}
 Existing HMI solutions were analyzed in order to find out, whether they would be convenient to adopt and whether they would fulfill the requirements on their own. 
 
-
 \subsection{Hardware}
 \label{sub:hardware}
 
-Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with operation systems not compatible with \textsc{ROS}\footnote{This held true when this Thesis was started and might be different nowadays as almost everything could be handled without ROS.}.
+Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with operation systems not compatible with \textsc{ROS}\footnote{This held true when this thesis was started and might be different nowadays as almost everything could be handled without ROS.}.
 
 \begin{figure}[h]		
 	\small{
@@ -41,7 +39,7 @@ Figure \ref{fig:devices taken into consideration} shows all devices which were t
 			\begin{center}Tablet \end{center}}
 			\hspace{0.05 \textwidth}
 			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{3dx_productimage}
-			\begin{center}3D Mouse \end{center}}			
+			\begin{center}3D mouse \end{center}}			
 			\vspace{0.005\textwidth}
 			\hspace{0.05\textwidth}			
 			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{qgo_sphere_cut}
@@ -56,7 +54,7 @@ Figure \ref{fig:devices taken into consideration} shows all devices which were t
 	\vspace{4.5mm}
 \end{figure}
 
-Table \ref{tab:requirements and expectations for hardware} shows the rating of the considered devices. It is visible that a solution in combination with a tablet had to be used, as only a tablet is able to fulfill the criteria for automatic controls and to run \textsc{ROS}. Although the Qgo Sphere\footnote{In  \cite{kammermann} the usage of the Qgo Sphere as an input device for a ballbot is discussed.} would be most intuitive to use with \textsc{Skye}, a 3D mouse (a space navigator from \textsc{3DConnection}) was chosen as a supplementary device to the tablet. Because of the fix-installed infrared sensors needed for the detection of the sphere's translational movements, the Qgo Sphere is not portable, which made it inconvenient to use for \textsc{Skye}. A joystick is not designed for 6DOF and is therefore much less intuitive in use as a 3D mouse. For the tablet a \textsc{Lenovo} X220 was chosen as it can be transformed to a common notebook. This allows easy postprocessing of any gathered data. Additionally, a \textsc{Futaba} 7C RC serves as a backup in case of any breakdown within the main HMI.
+Table \ref{tab:requirements and expectations for hardware} shows the rating of the considered devices. It is visible that a solution in combination with a tablet had to be used, as only a tablet is able to fulfill the criteria for automatic controls and to run \textsc{ROS}. Although the Qgo Sphere\footnote{In  \cite{kammermann} the usage of the Qgo Sphere as an input device for a ballbot is discussed.} would be most intuitive to use with \textsc{Skye}, a 3D mouse (a space navigator from \textsc{3DConnection}) was chosen as a supplementary device to the tablet. Because of the fix-installed infrared sensors needed for the detection of the sphere's translational movements, the Qgo Sphere is not portable, which made it inconvenient to use for \textsc{Skye}. A joystick is not designed for six DOF and is therefore much less intuitive in use as a 3D mouse. For the tablet a \textsc{Lenovo} X220 was chosen as it can be transformed to a common notebook. This allows easy postprocessing of any gathered data. Additionally, a \textsc{Futaba} 7C RC serves as a backup in case of any breakdown within the main HMI.
 
 
 \begin{table}[H]		% [H] indicates that the table should be right here.
@@ -90,20 +88,16 @@ Table \ref{tab:requirements and expectations for hardware} shows the rating of t
 
 
 \subsection{Software}
-\textit{QGroundControl, OpenPilot, Qt-Libraries} \\
+%\textit{QGroundControl, OpenPilot, Qt-Libraries} \\
 \textsc{Google} and \textsc{Apple} showed how intuitive a GUI can be in combination with a  touchscreen with their operating systems for smartphones. They offer the user unknown flexibility in adopting the GUI to his needs. However, out of \textsc{Windows}, \textsc{Ubuntu}, \textsc{Mac OS}, \textsc{iOS} and \textsc{Android}, \textsc{Ubuntu} was the only operating system which provides complete support for \textsc{ROS}. Therefore \textsc{Ubuntu 11.10} was chosen as the operating system for the tablet.\\
-As it was clear that there was no GUI ready to use unchanged for the HMI, open source software was analyzed in order to adopt it for \textsc{Skye}. Using \textsc{QGroundControl} (described in section \ref{subsec:qGroundControl}) was the best option. On the one hand it already offered the commonly used tools to control a UAV and on the other hand a good support in adopting it to the needs of \textsc{Skye} was granted as it was also developed at the \textsc{ETH}.
-
-
+As it was clear that there was no GUI ready to use unchanged for the HMI, open source software was analyzed in order to adopt it for \textsc{Skye}. Using \textsc{QGroundControl} (described in section \ref{subsec:qGroundControl}) was the best option. On the one hand it already offered the commonly used tools to control a UAV and on the other hand a good support in adopting it to the needs of \textsc{Skye} was granted as it was developed at the \textsc{ETH}.
 
 
 \section{Realization}
 \label{sec:realization}
 
-
-
 \subsection{Compact and Convenient Solution}
-Using a 3D mouse in combination with a tablet computer has a lot of advantages. Both devices can be put on a board with suspenders. Like this, the pilot has a compact, portable control unit, without any external hardware interconnected (compare figure \ref{fig:HMI_in_Action}). While the 3D mouse provides intuitive control of the 6DOF, the tablet with its GUI is used to filter and route the signals of the 3D Mouse or serves as a highly modular touch input device on its own. With \textsc{QGroundControl} running on it, It also enables the pilot to adjust the controller and to set waypoints, while during the whole flight the live view of \textsc{Skye} is displayed (More on that in section \ref{subsec:qGroundControl}). In case the tablet should crash, the RC can be used to bring down \textsc{Skye} safely.
+Using a 3D mouse in combination with a tablet computer has a lot of advantages. Both devices can be put on a board with suspenders. Like this, the pilot has a compact portable control unit, without any external hardware interconnected (compare figure \ref{fig:HMI_in_Action}). While the 3D mouse provides intuitive control of the six DOF, the tablet with its GUI is used to filter and route the signals of the 3D mouse or serves as a highly modular touch input device on its own. With \textsc{QGroundControl} running on it, it also enables the pilot to adjust the controller and to set waypoints, while during the whole flight the live view of \textsc{Skye} is displayed (More on that in section \ref{subsec:qGroundControl}). In case the tablet should crash, the RC can be used to bring down \textsc{Skye} safely to ground.
 
 \begin{figure}[H]
 	\begin{center}
@@ -117,13 +111,16 @@ Using a 3D mouse in combination with a tablet computer has a lot of advantages. 
 
 \subsection{QGroundControl}
 \label{subsec:qGroundControl}
-\textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
+%\textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
 
 The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets\footnote{Widgets are kind of subwindows of the application.}. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}. 
 \\
 %\textbf{HERE matthias would like to summarize the basic code structure of qgc.. so it can be refered to and from the \textsc{Mavlink} section} 
 %\\
-To allow full control of system \textsc{skye}, a derived subclass to handle system specific procedures had to be programmed. This included had to be done within compatibility to the \textsc{Mavlink} protocol (see section \ref{subsec:mavlink}). Precompiler commands have been used for compatibility with the original version. With the Qt specific signals/slots interface the \textsc{Skye} subclass has been connected with the communication link as well as the user interfaces. An event handler has been integrated to the software building on the 3DxWare API, the official development kit for the used 3D mouse.
+To allow full control of system \textsc{skye}, a derived subclass to handle system specific procedures had to be programmed. 
+This had to be done within compatibility to the messages defined in the \textsc{Mavlink} protocol (see section \ref{subsec:mavlink}). Precompiler commands have been used for cross-platform compatibility and \textsc{Skye} system specifications. 
+With the Qt specific signals/slots interface the \textsc{Skye} subclass has been connected with the communication link as well as the user interfaces. 
+An event handler has been integrated using the 3DxWare API, the official development kit for the used 3D mouse.
 
 \subsubsection{The Main Control Widget}
 With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed to choose between these options (see figure \ref{fig:qgc_skye_control} for its appearance). 
@@ -197,15 +194,17 @@ For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adop
 	\end{center}
 \end{figure}
 
-\textbf{A Picture of the DC/AC widget should be placed at least in the APENDIX.. Camera reconfiguration and battery info can be left away.}
+%\textbf{A Picture of the DC/AC widget should be placed at least in the APENDIX.. Camera reconfiguration and battery info can be left away.}
+
+Further on, widgets to adjust camera properties, displaying detailed battery info or to set Direct or Assisted Control to exact values via sliders have been added. Despite of the latter\footnote{The Direct/Assisted Control widget has been used to enable the system verifications in \cite{meiermueri} and \cite{weichart}.} they could not be used in practice. The Direct/Assisted Control widget is shown in figure \ref{fig:qgc_manual_control_widget}.
 
 \subsection{Mavlink}
 \label{subsec:mavlink}
-\textit{Summary of Protocal, adaptions and use for} \textsc{Skye} \\
-Mavlink (Micro Air Vehicle Communication Protocol) is a very lightway header-only message marshalling library for micro air vehicles\footnote{Official description from \url{http://qgroundcontrol.org/mavlink/start}}. It is a widely used protocol geared for transmission speed and safety. A mavlink packet consists of a 6 Byte prefix including start byte, payload length and sequence number as well as component, system and message ID. A two byte suffix checksum is used. The payload size is maximum 255 bytes. Many autopilots as well as cross-platform software packages are using Mavlink.
-A set of commonly used messages is provided. The protocol had to be extended for the convenient use with \textsc{Skye} (an example\footnote{The full xml file including the message definitions for \textsc{Skye} is in the appendix (listing \ref{app_xml}).} can of such a message definition is shown in listing \ref{xml_assisted_control}). This can be done by defining the additional messages in a xml script. The C-headers will be generated by the Mavlink Generator. The control commands, system telemetry as well as image live stream are transmitted using Mavlink protocol. For the transmission of waypoints, an extended waypoint protocol is provided. The waypoints set on the map widget and height profile (see section \ref{subsub:halfautomaticcontrol}) as well as the autopilot (\textit{PX4FMU}) are compatible to this protocol.
+%\textit{Summary of Protocal, adaptions and use for} \textsc{Skye} \\
+Mavlink (Micro Air Vehicle Communication Protocol) is a very lightway header-only message marshalling library for micro air vehicles\footnote{Official description from \url{http://qgroundcontrol.org/mavlink/start}}. It is a widely used protocol geared for transmission speed and safety. A mavlink packet consists of a six byte prefix including start byte, payload length and sequence number as well as component, system and message ID. A two byte suffix checksum is used. The payload size is maximum 255 bytes. Many autopilots as well as cross-platform software packages are using Mavlink.
+A set of commonly used messages is provided. The protocol had to be extended for the convenient use with \textsc{Skye} (an example\footnote{The full xml file including the message definitions for \textsc{Skye} is in the appendix (listing \ref{app_xml}).} of such a message definition is shown in listing \ref{xml_assisted_control}). This can be done by defining the additional messages in a xml script. The C-headers will be generated by the Mavlink Generator. The control commands, system telemetry as well as image live stream for \textsc{Skye} are transmitted using Mavlink protocol. For the transmission of waypoints, an extended waypoint protocol is provided by Mavlink. The waypoints set on the map widget and height profile (see section \ref{subsub:halfautomaticcontrol}) as well as the autopilot (\textit{PX4FMU}) are compatible to this protocol.
 
-\begin{lstlisting}[captionpos=b, caption="Mehr Caption", label=xml_assisted_control]
+\begin{lstlisting}[captionpos=b, caption=Sequence of skye.xml: Definition of the Assisted Control command Mavlink message. It consists of six 32 bit floating numbers for the input values and a 8 bit integer to indicate the target system's ID (the GUI could actually be connected to more than one UAV at the same time)., label=xml_assisted_control]
 <message id="155" name="SKYE_ASSISTED_CONTROL">
    <description>Control six degrees of freedom. Translational velocity in Inertial (earth) Frame. Use this manual control mode with the requested mode: 
 "MAV_MODE_ASSISTED_CONTROL_ARMED"</description>
