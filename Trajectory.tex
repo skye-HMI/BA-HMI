@@ -548,6 +548,7 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 %\end{figure}
 
 \subsection{Pure Pursuit Controller}
+\label{sub:pure_pursuit}
 Another commonly used controller to track paths is \textit{Pure Pursuit} \cite{snider}. This technique is mainly used for path tracking while having a constant tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point ${\bf \tilde{p}}(t_{cl}+\Delta T)$ is set on the trajectory in front\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} of the current closest position ${\bf \tilde{p}}(t_{cl})$.
 \begin{equation}
 {\bf \tilde{p}}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)
