@@ -119,11 +119,11 @@ Using a 3D mouse in combination with a tablet computer has a lot of advantages. 
 \label{subsec:qGroundControl}
 \textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
 
-The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}.
-
-\textbf{HERE matthias would like to summarize the basic code structure of qgc.. so it can be refered to and from the \textsc{Mavlink} section}
-
-
+The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets\footnote{Widgets are kind of subwindows of the application.}. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}. 
+\\
+%\textbf{HERE matthias would like to summarize the basic code structure of qgc.. so it can be refered to and from the \textsc{Mavlink} section} 
+%\\
+To allow full control of system \textsc{skye}, a derived subclass to handle system specific procedures had to be programmed. This included had to be done within compatibility to the \textsc{Mavlink} protocol (see section \ref{subsec:mavlink}). Precompiler commands have been used for compatibility with the original version. With the Qt specific signals/slots interface the \textsc{Skye} subclass has been connected with the communication link as well as the user interfaces. An event handler has been integrated to the software building on the 3DxWare API, the official development kit for the used 3D mouse.
 
 \subsubsection{The Main Control Widget}
 With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed to choose between these options (see figure \ref{fig:qgc_skye_control} for its appearance). 
@@ -165,6 +165,7 @@ The main device for the direct control mode is the 3D mouse which is connected b
 \end{figure}
 
 \subsubsection{Assisted Control}
+\label{subsub:assistedcontrol}
 Feeding velocities instead of a force and a moment makes the usage of the touchscreen beside the 3D mouse more reasonable. For this mode a combination of different widgets is used, shown in figure\footnote{This screenshot is a reproduced situation of the flight in ETH main building. Obviously, no GPS information were available then.} \ref{fig:qgc_manual_control}. The widgets can be scaled and positioned individually. As a default view for \textsc{Skye}, the shown arrangement of the Head-up-Display (HUD), map and main control widget is provided. If touch input is chosen, the HUD enables rotational touch inputs directly on the displayed live view. The map widget shows the position of \textsc{Skye} and allows to set translational inputs. Note that in a first approach these inputs were always interpreted in the camera frame as the state estimation was not yet running. Intuitively, this has to be transformed to inputs in the North-East-Down (NED) frame which has recently been tested on the system.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
@@ -185,6 +186,7 @@ Feeding velocities instead of a force and a moment makes the usage of the touchs
 
 
 \subsubsection{Half Automatic Control}
+\label{subsub:halfautomaticcontrol}
 For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}} was used to display the elevation. Once the waypoints are set a interpolating cubic spline is calculated and displayed (compare figure \ref{fig:qgc_automatic_control}). Out from the recent position of \textsc{Skye}, a velocity input is calculated using a \textit{Pure Pursuit} approach\footnote{In section \ref{sub:pure_pursuit} \textit{Pure Pursuit} is described how it was implemented in \textsc{Matlab}.} The part of the path that is already reached is displayed in blue. % The trace of the (simulated) motion is tracked with red dots.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
@@ -198,4 +200,21 @@ For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adop
 \textbf{A Picture of the DC/AC widget should be placed at least in the APENDIX.. Camera reconfiguration and battery info can be left away.}
 
 \subsection{Mavlink}
-\textit{Summary of Protocal, adaptions and use for} \textsc{Skye}
+\label{subsec:mavlink}
+\textit{Summary of Protocal, adaptions and use for} \textsc{Skye} \\
+Mavlink (Micro Air Vehicle Communication Protocol) is a very lightway header-only message marshalling library for micro air vehicles\footnote{Official description from \url{http://qgroundcontrol.org/mavlink/start}}. It is a widely used protocol geared for transmission speed and safety. A mavlink packet consists of a 6 Byte prefix including start byte, payload length and sequence number as well as component, system and message ID. A two byte suffix checksum is used. The payload size is maximum 255 bytes. Many autopilots as well as cross-platform software packages are using Mavlink.
+A set of commonly used messages is provided. The protocol had to be extended for the convenient use with \textsc{Skye} (an example\footnote{The full xml file including the message definitions for \textsc{Skye} is in the appendix (listing \ref{app_xml}).} can of such a message definition is shown in listing \ref{xml_assisted_control}). This can be done by defining the additional messages in a xml script. The C-headers will be generated by the Mavlink Generator. The control commands, system telemetry as well as image live stream are transmitted using Mavlink protocol. For the transmission of waypoints, an extended waypoint protocol is provided. The waypoints set on the map widget and height profile (see section \ref{subsub:halfautomaticcontrol}) as well as the autopilot (\textit{PX4FMU}) are compatible to this protocol.
+
+\begin{lstlisting}[captionpos=b, caption="Mehr Caption", label=xml_assisted_control]
+<message id="155" name="SKYE_ASSISTED_CONTROL">
+   <description>Control six degrees of freedom. Translational velocity in Inertial (earth) Frame. Use this manual control mode with the requested mode: 
+"MAV_MODE_ASSISTED_CONTROL_ARMED"</description>
+   <field type="uint8_t" name="target_system">System ID</field>
+   <field type="float" name="translation_lat">Translation (velocity) in Inertial Frame latitude, in m/sec</field>
+   <field type="float" name="translation_long">Translation (velocity) in Inertial Frame longitude, in m/sec</field>
+   <field type="float" name="translation_alt">Translation (velocity) in Inertial Frame altitude, in m/sec</field>
+   <field type="float" name="rotation_x">Roll (angular velocity), in rad/sec</field>
+   <field type="float" name="rotation_y">Pitch (angular velocity), in rad/sec</field>
+   <field type="float" name="rotation_z">Yaw (angular velocity), in rad/sec</field>
+</message>
+\end{lstlisting}
