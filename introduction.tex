@@ -1,3 +1,4 @@
+%!TEX root = Bericht.tex
 \chapter{Introduction}\label{sec:introduction}
 \graphicspath{{graphics/}{graphics/systems/}}
 
@@ -21,7 +22,7 @@ Project \textsc{Skye} then was a focus project started in autumn \num{2011} and 
 \section{System Overview}
 \label{sec:system overview}
 %\textit{Description of \textsc{Skye}. Application fields, technical description, equipment, realization..} \\
-\textsc{Skye} is a high agile unmanned aerial vehicle in form of a spherical blimp. It was developed to achieve a system to capture images for 3D reconstruction as well as to obtain entertainment functions (as airshows, human interaction etc.). As there exist already systems that fullfil these requirements\footnote{Mainly quadrotors, but also other UAV.} it was claimed to build a system that provides increased flight time and higher operating safety. \textsc{Skye} is the system that accomplishes these improvements. \\
+\textsc{Skye} is a high agile unmanned aerial vehicle in form of a spherical blimp. It was developed to capture images for 3D reconstruction as well as to obtain entertainment functions (as airshows, human interaction etc.). As there exist already systems that fullfil these requirements\footnote{Mainly quadrotors, but also other UAV.}, it was claimed to build a system that provides increased flight time and higher operating safety. \textsc{Skye} is the system that accomplishes these improvements. \\
 The two-layered spheric hull is filled with lighter-than-air gas helium. The gas is filled in with an overpressure of \SI{15}{\milli\bar} that ensures a stiff hull surface without the need of any rigid structure. Four identical motor units are placed tetrahedrally on the hull by Velcro. The \textit{AHM 23-10 EPP 1045} thrusters are pointing tangential to the sphere. Their orientation be changed to any tangential direction using a \textit{\textsc{Maxon} A-Max 16} motor for each unit. The center of gravity is approximately at the same position as the center of buoyancy. Further on, the gravitational force exceeds the buoyancy only for a minimum\footnote{So the system sinks slowly to ground if turned off.}.
 \begin{figure}[H]
     \centering
@@ -30,8 +31,8 @@ The two-layered spheric hull is filled with lighter-than-air gas helium. The gas
     \caption{CAD sketch of \textsc{Skye}. Red arrows indicate thrust and orientation of the motor units. Blue tetrahedron indicates symmetrical arrangement of them. }
     \label{fig:scene_trajectoryFollowing}
 \end{figure}
-Two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera constitute the the camera system. A solid state disk as well as the cameras are connected to a onboard \textit{Intel Atom} embedded computer. They are all together placed on a electronics platform which is detached to the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} Inertial Measurement Unit (IMU) controls the flight system. It is equipped with a barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
-The high symmetric system properties combined with the eight actuations enable to fully control the motion in space. The two redundant DOF are used for optimization (see \cite{schaffnervu}).  \\
+Two light weighted \textit{Bluefox} cameras as well as a high end \textit{Prosilica} high resolution camera constitute the the camera system. A solid state disk as well as the cameras are connected to a onboard \textit{Intel Atom} embedded computer. They are all together placed on a electronics platform which is attached to the hull. The computer runs a Linux distribution and can be linked to via a Wi-Fi module. A low level \textit{Cortex M4} processor within a \textit{PX4FMU} Inertial Measurement Unit (IMU) controls the flight system. It is equipped with a barometer, gyroscope, magnetometer, accelerometer and a GPS receiver. The control communication is realized with both a \textit{Lairtech Xbee} module and a \textit{Futaba Rasst 2.4GHz} receiver. \\
+The highly symmetric system properties combined with the eight actuatuators enable to fully control the motion in space. The two redundant DOF are used for optimization (see \cite{schaffnervu}).  \\
 Finally, a system is only as good as the user appreciates it. Therefore a optimal Human-Machine Interface (HMI) is inevitable to provide a useful system. The aim of this thesis is to realize such a HMI in an optimal way for project \textsc{Skye}.
 \section{Goals}
 \label{sec:goals}
@@ -44,16 +45,16 @@ Finally, a system is only as good as the user appreciates it. Therefore a optima
 %\end{itemize}
 %fun.. \\
 %}
-For this bachelor thesis, intuitive interfaces to control and observe the system \textsc{Skye} had to be developed. This includes the implementation of a Graphical User Interface (GUI) for a computer based Ground Station (GS) based on any existing solution. Further on, different manual control modes and suitable Human-Machine Interfaces must have been elaborated and implemented. Finally, automatic manoeuvres  (expressed by paths and trajectories) had to be generated considering simplified dynamic system constraints based on the results from a model elaborated in \cite{weichart}. These goals are summarized in table \ref{tab:goals}. \\
+For this bachelor thesis, intuitive interfaces to control and observe the system \textsc{Skye} had to be developed. This included the implementation of a Graphical User Interface (GUI) for a computer based Ground Station (GS) based on any existing solution. Further on, different manual control modes and suitable Human-Machine Interfaces must had to be elaborated and implemented. Finally, automatic manoeuvres  (realized with paths and trajectories) had to be generated considering simplified dynamic system constraints based on the results from a model elaborated in \cite{weichart}. These goals are summarized in table \ref{tab:goals}. \\
 
 \begin{table}[H]
 \begin{center}
  \begin{tabular}{ll}
  \hline
  Goal & Specification  \\ \hline \hline
- Control Modes 	& 	Intuitive Control for Manual for 6DOF Blimp \\
+ Control Modes 	& 	Intuitive Manual Control for 6DOF Blimp \\
  HMI			&	Suitable for Control Modes \\
- GUI         	& 	Provide System Info, Adapt Properties \\
+ GUI         	& 	Provide System Info, Adapted to its Properties \\
  Trajectories   & 	Automatic Maneuvers \\
  \hline
  \end{tabular}
@@ -66,7 +67,7 @@ For this bachelor thesis, intuitive interfaces to control and observe the system
 \section{Similar Systems and their HMI}
 \label{sec:similar systems}
 %\textit{About degrees of freedom, (non-)holonomic system control, car wheels, rezeros qgo sphere cite \cite{kammermann}.} \\
-The HMI (or control device) for a machine mainly depends on its number of control inputs and its level of automation. To control more control inputs, additional sticks or similar have to be provided. Automation of the system can simplify its control, but requests for emergency backups in case of automation fail. \\
+The HMI (or control device) for a machine mainly depends on its number of control inputs and its level of automation. To control more control inputs, additional sticks or similar things have to be provided. Automation of the system can simplify its control, but requests emergency backups in case of automation fail. \\
 The number of control inputs depends on the system's properties. This is shown in table \ref{tab:systems_hmi}\footnote{Pictures \copyright by their owners: \\ \textsc{AMZ} racing: \url{http://www.amz.ethz.ch/} \\ \textsc{Rezero}: \url{http://rezero.ethz.ch/} \\ \textsc{Arac}: \url{http://www.arac.ethz.ch/} \\ \textsc{arDrone}: \url{http://ardrone2.parrot.com/}}. A car can move in a plane. Because it is a nonholonomic system, its states can not be changed individually. Therefore the number of inputs by the driver (two: steering wheel and acceleration pedals) is below the actual degree of motion (x, y, yaw). Indeed, a two dimensional input leads to a very intuitive HMI.
 % no lateral motion is possible without longitudinal movements (the system has a nonholonomic constraint). So a steering wheel in combination with a gas and break pedal serve as HMI.
 For a ballbot or a legged robot each of the 3 degrees of motion can be steered individually. Therefore the HMI device can enable three inputs as it is provided for instance by a Qgo Sphere\footnote{See \cite{kammermann}, section \ref{sub:hardware} or \url{http://www.quasmo.ch/index.php/qgosphere} for more informations about Qgo Sphere.} or a gamepad. A quadrotor is comparable to the system \textsc{Skye}. Its static motion is limited to 4 degrees of freedom (x, y, z, yaw) and therefore a gamepad with two sticks or even a smartphone are suitable control devices. As \textsc{Skye} is (due to its mechanics and actuation symmetry) steerable using all degrees of freedom in the 3 dimensional space it requires a HMI with up to 6 control inputs.
