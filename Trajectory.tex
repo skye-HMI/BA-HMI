@@ -127,7 +127,7 @@ For the the trajectory planning for \textsc{Skye}, it was necessary to interpola
 The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
 
 
-There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints has high order polynomials tend to high oscillations.
+There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints as high order polynomials tend to high oscillations.
 
 
 
@@ -249,7 +249,7 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 %{\bf here static criteria?}
 
 \subsubsection{Geometrical appearance}
-Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to be omitted by setting waypoints more densely. As this would be cumbersome with the GUI described in \ref{cha:findHardSoftSolution}, cubic splines are most suitable. 
+Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to be omitted by setting waypoints more densely. As this would be cumbersome with the GUI described in chapter \ref{cha:findHardSoftSolution}, cubic splines are most suitable. 
 
 \begin{figure}[H]
 	\centering
@@ -808,5 +808,5 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between the average d
 The almost endless field of trajectory control represents the manifold needs for trajectories in different application fields. 
 %While the underlying spline theories have theirs roots in automobile industry XXXX \cite{deboor}, they can be adopted for any use.
 Even to control UAVs no throughout good or bad trajectory algorithms can be named. Theirs quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
-As for our case tight waypoint tracking was considered more than for instance time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the systems actuation saturations yield sufficient results. \\
-Dependent on the choice how the generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to non agile vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
+As for our case tight waypoint tracking was considered more than for instance time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the system's actuation saturations yield sufficient results. \\
+Dependent on the choice how the generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind, it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to non agile vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
