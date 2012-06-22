@@ -266,9 +266,9 @@ Beside the continuity and the dynamic properties again the geometrical appearanc
 \subsection{Boundary Conditions}
 \label{subsec:boundary conditions}
 
-If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots\footnote{Knots are the places where the polynomial pieces are connected.}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a$ has $p+1$ degrees of freedom. The polynomial for the second interval $b$ is given by
+If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots\footnote{Knots are the places where the polynomial pieces are connected.}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a_0^1$ has $p+1$ degrees of freedom. The polynomial for the second interval $a_1^p$ is given by
 \begin{equation*}
-a^{j}(u_1)=b^{j}(u_1),~j=0,...,p-1
+a_0^{p(j)}(u_1)=a_1^{p(j)}(u_1),~j=0,...,p-1
 \end{equation*}
 Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. The spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}.}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+1) = p-1$ constraints that still have to be imposed. As a constant time scaling is used\footnote{ See section \ref{subsec:motionLaw}. Also a non linear solution is described.} it is necessary to define:
 
@@ -297,36 +297,75 @@ Those boundary conditions are set for all dimensions.
 \label{subsec:implementation}
 As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
 
-While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
+\subsubsection{Spline Basis}
+The common known basis for a spline $p_x(u)$ of degree $p$ is the piecewise polynomial\footnote{A spline made of these piecewise polynomials is named to be of pp-form in \textsc{Matlab}} basis. There for each knot span $[u_j, u_{k+j})$ a polynomial $a_j^p$ of degree $p$ is defined. I.e. 
+\begin{equation}
+p_x(u)=a_j^p(u),~u \in [u_j,u_{j+1})
+\end{equation}
+Using piecewise polynomials the number of waypoints $n+1$ equals the number of knots $n_{knots+1}$.
 
-If ${\bf u}_B=\left[u_0,...u_{n_{knots}}\right]$ is the knot vector for the B-splines, the $m=n_{knots}-p-1$\footnote{For a derivation of this relationship, see \cite{biagiotti} or  \cite{haron}.}B-splines of degree $p$ for this knot vector are defined recursively using the Cox-de Boor recursion formula:
 
-\begin{align}
+\paragraph{Ex. 1:}
+Given a data set of four waypoints, i.e. $n+1=4$, with values of the x-coordinate of ${\bf x} = [1,2,3,3]$ and a knot vector of ${\bf u}=[0,2,3,5]$ received through one of the methods described in section \ref{subsec:parameterization}. For a interpolation with a linear spline, $p=1$, three polynomial pieces $a_j^1(u)=d_j+e_j,~j=0,1,2$ need to be found. For this example their coefficients are found to be: ${\bf d}=[\frac{1}{2},1,0]$ and ${\bf e}=[1,0,3]$. This procedure is shown in figure \ref{fig:ppSpline}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.8\textwidth]{graphics/ppSpline.eps}
+  \caption{Visualization of the common used piecewise polynomial basis to form the linearly interpolating spline of example Ex. 1}
+  \label{fig:ppSpline}
+\end{figure} 
+
+
+Another often used basis for a spline is the one of the basic splines, B-splines\footnote{A spline made of these B-splines is named to be of B-form in \textsc{Matlab}}. There, instead of of defining a polynomial of degree $p$ for each knot span, a linear combination of B-splines $B_j^p(u)$ of degree $p$ is taken to form $p_x(u)$.
+\begin{equation}
+p_x(u) = \sum_{j=0}^m {c_x}_jB_j^p(u), ~u_{min} \leq u \leq u_{max}
+\end{equation}
+
+ Wheras these B-splines are defined recursively using the Cox-de Boor recursion formula:
+ 
+ \begin{align}
 B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
 					0,&\text{otherwise}
 		\end{cases}\\
 B_j^p(u) &= \frac{u-u_j}{u_{j+p}-u_j}B_j^{p-1}(u)+\frac{u_{j+p+1}-u}{u_{j+p+1}-u_{j+1}}B_{j+1}^{p-1}(u), ~p>0
 \end{align}
 
-A linear combination of B-splines then finally forms the path, whereas ${\bf c_j}$ is also referred to as control polygon:
-
-\begin{equation}
-{\bf p}(u) = \sum_{j=0}^m {\bf c_j}B_j^p(u), ~u_{min} \leq u \leq u_{max}
-\end{equation}
+With this definition of B-splines the relation
  
-First the knot vector ${\bf u}$ calculated in \ref{subsec:parameterization} needs to be extended for the use with B-splines. For the quintic splines the following extension is used:
 \begin{equation}
-{\bf u}_B= \underbrace{ [u_0,\ldots,u_0}_{6},u_1, \ldots,u_{n-1},\underbrace{u_n,\ldots, u_n ]}_{6} 
-\end{equation}
-So the total number of knots is $n_{knots}+1 = n+11$ and therefore the number of the control polygon's points to be defined is $m+1=n_{knots}+1-5-1=n+5$ Given $n+1$ waypoints the 4 additional constraint on velocity and acceleration, stated in \ref{subsec:boundary conditions} are left
-
-For the quartic splines the knot vector is shifted in order to get a better result as proposed in \cite{engeln}:
-\begin{equation}
-{\bf u}_B= \underbrace{ [u_0,\ldots,u_0}_{5},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{5} 
+\label{n_knot-m-p-relation}
+n_{knot}=m+p+1
 \end{equation} 
-Doing the same calculation as for the quintic splines here again results in $m+1=n+5$ as well. This is why the mentioned four boundary conditions in \ref{subsec:boundary conditions} hold true.
 
-Once the knot vector ${\bf u}_B$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions in order to get the control polygon\footnote{In fact, choosing the polygon spanned by the waypoints as a control polygon, an approximation like the one displayed in \ref{fig:ApproxInterpol} results.},  here shown for $x$:
+is given. Because of this relation the knot vector needs to be extended. If $n+1=n_{knot}+1$ still held true only $m+1=n-p$ B-splines would result. They would not represent a basis to interpolate the $n+1$ waypoints with a spline of degree $p$ would not represent a basis. For intuition figure \ref{fig:BSpline} of example  Ex. 2 might help. There the same waypoints set as in figure \ref{fig:ppSpline} is used. Not extending the knot vector would result in only two B-splines of degree 1( $B_1^1$ and $B_2^1$ in the visualization) as equation \eqref{n_knot-m-p-relation} would result in $m=1$. These two B-Splines would not form a basis to linearly interpolate all four waypoints. \\
+Therefore it is proposed in \cite{biagiotti} to extend the knot vector ${\bf u}$ received with a method from section \ref{subsec:parameterization} in the following way:\\
+\\
+If the degree $p$ of the interpolating spline is odd:
+\begin{equation}
+{\bf u}_{extended}= \underbrace{ [u_0,\ldots,u_0}_{p+1},u_1, \ldots,u_{n-1},\underbrace{u_n,\ldots, u_n ]}_{p+1} 
+\end{equation}
+If the degree $p$ of the interpolating spline is even:
+\begin{equation}
+{\bf u}_{extended}= \underbrace{ [u_0,\ldots,u_0}_{p+1},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{p+1} 
+\end{equation} 
+Latter shifting of the knots is used reduce the oscillations spline of even degree usually have. And also enables to set symmetric boundary conditions as described in section \ref{subsec:boundary conditions}. The extended knots vector with the resulting B-splines finally will form a basis. For a prove \cite{dahmen} is recommended.
+
+\paragraph{Ex. 2:}
+Given the same waypoints as in example Ex. 1, ${\bf u}_{extended}$ is defined to be $[0,0,2,3,5,5]$. Over this knot vector the B-splines can be determined and and the coefficients\footnote{These coefficients are also said to span a control polygon.} ${c_x}_j$ are calculated to be ${\bf c}_x=[1,2,3,3]$.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.8\textwidth]{graphics/BSpline.eps}
+  \caption{Visualization of B-splines forming a basis for the linearly interpolating spline of Ex. 2}
+  \label{fig:BSpline}
+\end{figure} 
+
+\subsubsection{Realization}
+While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
+\\
+
+
+Once the extended knot vector ${\bf u}_extended$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions in order to get the coefficients ${\bf c}_j$,  here shown for $x$:
 \begin{equation}
 {\bf A}_{[m+1\times m+1] }{{\bf c}_x}_{[m+1\times 1]}={{\bf b}_x}_{[m+1 \times 1]}
 \end{equation}
@@ -373,6 +412,90 @@ and
    x_n
     \end{bmatrix}
 \end{equation*}
+
+
+
+
+
+%old version--------------------------------------
+%As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
+
+%While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
+%
+%If ${\bf u}_B=\left[u_0,...u_{n_{knots}}\right]$ is the knot vector for the B-splines, the $m=n_{knots}-p-1$\footnote{For a derivation of this relationship, see \cite{biagiotti} or  \cite{haron}.}B-splines of degree $p$ for this knot vector are defined recursively using the Cox-de Boor recursion formula:
+%
+%\begin{align}
+%B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
+%					0,&\text{otherwise}
+%		\end{cases}\\
+%B_j^p(u) &= \frac{u-u_j}{u_{j+p}-u_j}B_j^{p-1}(u)+\frac{u_{j+p+1}-u}{u_{j+p+1}-u_{j+1}}B_{j+1}^{p-1}(u), ~p>0
+%\end{align}
+%
+%A linear combination of B-splines then finally forms the path, whereas ${\bf c_j}$ is also referred to as control polygon:
+%
+%\begin{equation}
+%{\bf p}(u) = \sum_{j=0}^m {\bf c_j}B_j^p(u), ~u_{min} \leq u \leq u_{max}
+%\end{equation}
+% 
+%First the knot vector ${\bf u}$ calculated in \ref{subsec:parameterization} needs to be extended for the use with B-splines. For the quintic splines the following extension is used:
+%\begin{equation}
+%{\bf u}_B= \underbrace{ [u_0,\ldots,u_0}_{6},u_1, \ldots,u_{n-1},\underbrace{u_n,\ldots, u_n ]}_{6} 
+%\end{equation}
+%So the total number of knots is $n_{knots}+1 = n+11$ and therefore the number of the control polygon's points to be defined is $m+1=n_{knots}+1-5-1=n+5$ Given $n+1$ waypoints the 4 additional constraint on velocity and acceleration, stated in \ref{subsec:boundary conditions} are left
+%
+%For the quartic splines the knot vector is shifted in order to get a better result as proposed in \cite{engeln}:
+%\begin{equation}
+%{\bf u}_B= \underbrace{ [u_0,\ldots,u_0}_{5},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{5} 
+%\end{equation} 
+%Doing the same calculation as for the quintic splines here again results in $m+1=n+5$ as well. This is why the mentioned four boundary conditions in \ref{subsec:boundary conditions} hold true.
+%
+%Once the knot vector ${\bf u}_B$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions in order to get the control polygon\footnote{In fact, choosing the polygon spanned by the waypoints as a control polygon, an approximation like the one displayed in \ref{fig:ApproxInterpol} results.},  here shown for $x$:
+%\begin{equation}
+%{\bf A}_{[m+1\times m+1] }{{\bf c}_x}_{[m+1\times 1]}={{\bf b}_x}_{[m+1 \times 1]}
+%\end{equation}
+%where
+%
+%
+%\begin{equation*}
+%    {\bf c}_x = [ {c_x}_{0}, {c_x}_{1}, \ldots, {c_x}_{m-1}, {c_x}_{m}]
+%\end{equation*}
+%
+%and
+%
+%\begin{equation*}
+%{\bf A}=   \begin{bmatrix} % or pmatrix or bmatrix or Bmatrix or ...
+%      B_0^p(u_0)        & B_1^p(u_0)         & \ldots & B_m^p(u_0) \\
+%      B_0^{p(1)}(u_0) & B_1^{p(1)}(u_0) & \ldots & B_m^{p(1)}(u_0) \\
+%      B_0^{p(2)}(u_0) & B_1^{p(2)}(u_0) & \ldots & B_m^{p(2)}(u_0) \\
+%      B_0^p(u_1)         & B_1^p(u_1)         & \ldots & B_m^p(u_1) \\
+%      \vdots			&\vdots		     &            &\vdots \\
+%      B_0^p(u_{n-1})        & B_1^p(u_{n-1})         & \ldots & B_m^p(u_{n-1}) \\
+%      B_0^{p(2)}(u_n) & B_1^{p(2)}(u_n) & \ldots & B_m^{p(2)}(u_n) \\
+%      B_0^{p(1)}(u_n) & B_1^{p(1)}(u_n) & \ldots & B_m^{p(1)}(u_n) \\
+%      B_0^p(u_n)         & B_1^p(u_n)         & \ldots & B_m^p(u_n) \\
+%      
+%   \end{bmatrix},
+%   \quad 
+%   {\bf c_x} = \begin{bmatrix}
+%   {c_x}_0\\
+%   {c_x}_1\\
+%   \vdots \\
+%   {c_x}_{m-1}\\
+%   {c_x}_{m} 
+%    \end{bmatrix},
+%    \quad
+%   {\bf b_x} =  \begin{bmatrix}
+%   x_0\\
+%   {v_x}_0\\
+%   {a_x}_0\\
+%   x_1\\
+%   \vdots \\
+%   x_{n-1} \\
+%   {a_x}_n\\
+%   {v_x}_n\\
+%   x_n
+%    \end{bmatrix}
+%\end{equation*}
  
 
 
