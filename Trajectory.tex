@@ -24,19 +24,67 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{graphics/sampleNodeAgile}
   \end{minipage}
-  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represents the circumnavigation of any obstacle. It yields to high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvatures.}
+  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represent the circumnavigation of an obstacle. It yields to high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvatures.}
   \label{fig:sampleNodes}
 \end{figure}
 
+\section{Trajectories and performance metrics}
+\label{sec:definition}
+\subsection{Path vs. Trajectory}
+The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will also be referred to as the motion law as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
 
-Furthermore, to score and optimize the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$ we set up the following criteria. Criteria (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are referred to as \textit{static criteria} as they do not depend any simulation. The remaining ones (\textit{dynamic criteria}) then mainly depend on the used controller\footnote{For detailed description of the used notation consider section \ref{sec:definition}.}.
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/PathTrajectory.eps}
+  \caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
+  \label{fig:path_trajectory}
+\end{figure}
+
+
+In order to get the velocity and acceleration of the trajectory, the chain rule has to be applied to ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$:
+
+\begin{align}\label{vel_acc}
+{\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\dot{u}(t) \\
+{\bf \ddot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\ddot{u}(t)+\frac{d^{2} {\bf p}}{du^{2}}\dot{u}^{2}(t)
+\end{align}
+
+%{\bf \ddot{\tilde{p}}}(t)
+
+
+
+
+
+\subsection{Interpolation vs Approximation}
+If one wants to draw a path through a set of waypoints, we can distinguish between two cases. Firstly, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit the waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
+
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.9\textwidth]{graphics/ApproxInterpol.eps}
+  \caption{ Waypoints interpolation on the left and waypoints approximation on the right}
+  \label{fig:ApproxInterpol}
+\end{figure}
+
+For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. I.e.:
+\begin{equation}
+{\bf p}(u_k)\stackrel{!}{=}{\bf q}_k=\begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}
+\end{equation}
+
+The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
+
+
+To interpolate a given set of $n+1$ waypoints a polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the best option when interpolating many waypoints, as high order polynomials tend to have high oscillations.
+
+\subsection{Performance metrics}
+
+To score and optimize the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$ we set up the following performance metrics. The performance metrics (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are referred to as \textit{static criteria} as they do not depend on any simulation. The remaining ones (\textit{dynamic criteria}) mainly depend on the used controller\footnote{For detailed description of the used notation see section \ref{sec:definition}.}.
 \\
-Being $L_p$ the length of the path ${\bf p}(u)$ and $T_p$ the time of the trajectory $\tilde{\bf p}(t)$
+Let $L_p$ be the length of the path ${\bf p}(u)$ and $T_p$ the time to cover the trajectory $\tilde{\bf p}(t)$
 \begin{equation}
 L_p = \int_{u_{min}}^{u_{max}} d{\bf p} \qquad T_p = \int_{t_{min}}^{t_{max}} dt
 \label{eq:length_of_path}
 \end{equation}
-the criteria are:
+the performance metrics are defined as follows.
 
 \begin{enumerate}[i)] 
 \item Average deviation between actual path and chord (straight) connection between waypoints
@@ -82,52 +130,6 @@ J_6 = \| {\bf \tilde{p}}(t_{max}) - {\bf r}(t_{max}) \| \cdot L_p^{-1} \label{eq
 \end{enumerate}
 
 
-\section{Definition of Trajectories}
-\label{sec:definition}
-\subsection{Paths and Trajectories}
-The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will also be referred to as the motion law as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width = 0.9\textwidth]{graphics/PathTrajectory.eps}
-  \caption{Composition of a path ${\bf p}(u)$ and the motion law $u(t)$ forming the trajectory ${\bf \tilde{p}}(t)$}
-  \label{fig:path_trajectory}
-\end{figure}
-
-
-In order to get the velocity and acceleration of the trajectory, the chain rule has to be applied to ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$:
-
-\begin{align}\label{vel_acc}
-{\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\dot{u}(t) \\
-{\bf \ddot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\ddot{u}(t)+\frac{d^{2} {\bf p}}{du^{2}}\dot{u}^{2}(t)
-\end{align}
-
-%{\bf \ddot{\tilde{p}}}(t)
-
-
-
-
-
-\subsection{Interpolation and Approximation}
-If one wants to draw a path through a set of waypoints, we can distinguish between two cases. Firstly, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit the waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
-
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width = 0.9\textwidth]{graphics/ApproxInterpol.eps}
-  \caption{ Waypoint approximation on the left and waypoint interpolation on the right}
-  \label{fig:ApproxInterpol}
-\end{figure}
-
-For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. I.e.:
-\begin{equation}
-{\bf p}(u_k)\stackrel{!}{=}{\bf q}_k=\begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}
-\end{equation}
-
-The approximation of the waypoints could result in a collision with buildings as illustrated in \ref{fig:ApproxInterpol}.
-
-
-There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the better option for more than a few waypoints as high order polynomials tend to high oscillations.
 
 
 
@@ -135,7 +137,7 @@ There mainly exist two solution to interpolate a given set of $n+1$ waypoints. A
 \label{sec:splines}
 \subsection{Parameterization}
 \label{subsec:parameterization}
-Before actually a path can be drawn through a set of waypoints respectively a spline can be calculated, a value of the parameter $u$ needs to be assigned to all $n+1$ waypoints. I.e. a so called knot vector ${\bf u}$ composed of a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension.
+A so called knot vector ${\bf u}$ composed of a nondecreasing sequence of $u_0 < u_1 < ...< u_n$ must be found in order to calculate a spline for each dimension going through the $n+1$ waypoints.
 
 \begin{equation}
 %{\bf x}(u) =  \begin{bmatrix} p_x(u) \\ p_y(u) \\p_z(u) \end{bmatrix}
@@ -143,20 +145,20 @@ Before actually a path can be drawn through a set of waypoints respectively a sp
 \end{equation}
 
 
-In this section, the most common used techniques are analyzed\footnote{A vaster evaluation of different parameterizations can be found in \cite{haron}}. The choice of parameterization affects the geometrical properties of the path on the one hand and the velocity and acceleration of the trajectory on the other hand (compare equation \eqref{vel_acc}). Latter is especially of big impact if a proportional relation is used to describe the motion law, i.e. $u=\lambda t$ (compare section \ref{sec:motionLaw}).
+In this section, the most common used techniques are analyzed\footnote{A vaster evaluation of different parameterizations can be found in \cite{haron}}. The choice of parameterization affects the geometrical properties of the path on the one hand and the velocity and acceleration of the trajectory on the other hand (see equation \eqref{vel_acc}). The latter is especially of big impact if a proportional relation is used to describe the motion law, i.e. $u=\lambda t$ (see section \ref{sec:motionLaw}).
 
 \subsubsection{Uniform}
-This is the simplest way to define the knot vector $\bf u$. Here, basically the index number of the waypoints are assigned to $u$ if $c=1$. Therefore no meaningful interpretation can be made.
+This is the simplest way to define the knot vector $\bf u$. Here, the index number of the waypoints is assigned to $u$.
 \begin{equation*}
-u_k-u_{k-1}= c
+u_k-u_{k-1}= 1
 \end{equation*}
 \subsubsection{Chord length}
-In this method the chord length between the waypoints is calculated and then summed up and assigned to $u$. With $u=\lambda t$ this method can be interpreted to aim for a more or less constant velocity over the whole trajectory.
+In this method the chord length (the blue line in figure \ref{fig:arcLength} between the waypoints is calculated and then summed up and assigned to $u$. With $u=\lambda t$ this method can be interpreted to aim for a more or less constant velocity over the whole trajectory.
 \begin{equation*}
 u_k-u_{k-1}=\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|
 \end{equation*}
 \subsubsection{Arc length}
-The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
+The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated using arcs $B_a$ and $B_b$ (see the green arcs in figure \ref{fig:arcLength}) and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
 
 
 \begin{figure}[H]
@@ -264,11 +266,11 @@ Beside the continuity and the dynamic properties again the geometrical appearanc
 \subsection{Boundary Conditions}
 \label{subsec:boundary conditions}
 
-If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots\footnote{Knots are the places where the polynomial pieces are connected.}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a_0^1$ has $p+1$ degrees of freedom. The polynomial for the second interval $a_1^p$ is given by
+If $p_x(u)$ is a spline of degree $p$ and consists of $n_{knots+1}$ knots\footnote{Knots are the places where the polynomial pieces are connected.}, it has $p+n_{knots}$ degrees of freedom. The polynomial of the first interval $a_0^p(u)$ has $p+1$ degrees of freedom. The polynomial for the second interval $a_1^p(u)$ is given by
 \begin{equation*}
 a_0^{p(j)}(u_1)=a_1^{p(j)}(u_1),~j=0,...,p-1
 \end{equation*}
-Therefore $b$ will only provide one additional degree of freedom. This is also true for all the following intervals. The spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}.}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+1) = p-1$ constraints that still have to be imposed. As a constant time scaling is used\footnote{ See section \ref{subsec:motionLaw}. Also a non linear solution is described.} it is necessary to define:
+Therefore $a_1^p(u)$ will only provide one additional degree of freedom. This is also true for all the following intervals. The spline $p_x(u)$ has finally $p+n_{knots}$ degrees of freedom\footnote{For a more mathematical proof refer to \cite{dahmen}.}. Using piecewise polynomials the number of the waypoints $n+1$ is also the number of knots $n_{knots}+1$. Given the parameter $u$ for all the $n+1$ waypoints yields $p+n_{knots}-(n_{knots}+1) = p-1$ constraints that still have to be imposed. As a constant time scaling is used\footnote{ See section \ref{subsec:motionLaw}. Also a non linear solution is described.} it is necessary to define:
 
 \begin{equation*}
 \frac{dp_x(u)}{du} \Bigm|_{u=u_0} = \frac{dp_x(u)}{du} \Bigm|_{u=u_n}=0
@@ -286,14 +288,14 @@ For quintic splines two additional constraints can be set
 \frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_0} = \frac{d^2p_x(u)}{du^2} \Bigm|_{u=u_n}=0
 \end{equation*}
 
-such that also the acceleration at the start and at the end of the trajectory is zero (compare with equation\eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and the knots are shifted as described in section \ref{subsec:implementation}. \\
+such that also the acceleration at the start and at the end of the trajectory is zero (compare with equation \eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and the knots are shifted as described in section \ref{subsec:implementation}. \\
 Those boundary conditions are set for all dimensions.
 
 
 
 \subsection{Implementation}
 \label{subsec:implementation}
-As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
+As the implementation of the spline generation was not the goal of this bachelor thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
 
 \subsubsection{Spline Basis}
 The common known basis for a spline $p_x(u)$ of degree $p$ is the piecewise polynomial\footnote{A spline made of these piecewise polynomials is named to be of pp-form in \textsc{Matlab}} basis. There for each knot span $[u_j, u_{k+j})$ a polynomial $a_j^p$ of degree $p$ is defined. I.e. 
@@ -304,7 +306,7 @@ Using piecewise polynomials the number of waypoints $n+1$ equals the number of k
 
 
 \paragraph{Ex. 1:}
-Given a data set of four waypoints, i.e. $n+1=4$, with values of the x-coordinate of ${\bf x} = [1,2,3,3]$ and a knot vector of ${\bf u}=[0,2,3,5]$ received through one of the methods described in section \ref{subsec:parameterization}. For a interpolation with a linear spline, $p=1$, three polynomial pieces $a_j^1(u)=d_j+e_j,~j=0,1,2$ need to be found. For this example their coefficients are found to be: ${\bf d}=[\frac{1}{2},1,0]$ and ${\bf e}=[1,0,3]$. This procedure is shown in figure \ref{fig:ppSpline}
+Given a data set of four waypoints, i.e. $n+1=4$, with values of the x-coordinate of ${\bf x} = [1,2,3,3]$ and a knot vector of ${\bf u}=[0,2,3,5]$ received through one of the methods described in section \ref{subsec:parameterization}. For a interpolation with a linear spline, $p=1$, three polynomial pieces $a_j^1(u)=d_j+e_j,~j=0,1,2$ need to be found, such that continuity is granted. For this example their coefficients are found to be: ${\bf d}=[\frac{1}{2},1,0]$ and ${\bf e}=[1,0,3]$. The resulting spline is shown in figure \ref{fig:ppSpline}.
 
 \begin{figure}[H]
 	\centering
@@ -328,15 +330,15 @@ B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
 B_j^p(u) &= \frac{u-u_j}{u_{j+p}-u_j}B_j^{p-1}(u)+\frac{u_{j+p+1}-u}{u_{j+p+1}-u_{j+1}}B_{j+1}^{p-1}(u), ~p>0
 \end{align}
 
-With this definition of B-splines the relation
+With this definition of B-splines the the number $m+1$ of resulting B-splines is given by:
  
 \begin{equation}
 \label{n_knot-m-p-relation}
-n_{knot}=m+p+1
+m+1=n_{knot}-p
 \end{equation} 
 
-is given. Because of this relation the knot vector needs to be extended. If $n+1=n_{knot}+1$ still held true only $m+1=n-p$ B-splines would result. They would not represent a basis to interpolate the $n+1$ waypoints with a spline of degree $p$ would not represent a basis. For intuition figure \ref{fig:BSpline} of example  Ex. 2 might help. There the same waypoints set as in figure \ref{fig:ppSpline} is used. Not extending the knot vector would result in only two B-splines of degree 1( $B_1^1$ and $B_2^1$ in the visualization) as equation \eqref{n_knot-m-p-relation} would result in $m=1$. These two B-Splines would not form a basis to linearly interpolate all four waypoints. \\
-Therefore it is proposed in \cite{biagiotti} to extend the knot vector ${\bf u}$ received with a method from section \ref{subsec:parameterization} in the following way:\\
+If $n+1=n_{knot}+1$ still held true only $m+1=n-p$ B-splines would result. They would not represent a basis to interpolate the $n+1$ waypoints with a spline of degree $p$. For intuition figure \ref{fig:BSpline} of example  Ex. 2 might help. There the same waypoints set as in figure \ref{fig:ppSpline} is used. Not extending the knot vector would result in only two B-splines of degree 1 ($B_1^1$ and $B_2^1$ in the visualization) as equation \eqref{n_knot-m-p-relation} would result in $m=1$. These two B-Splines would not form a basis to linearly interpolate all four waypoints. \\
+In order to have a basis to interpolate $n+1$ waypoints with a spline of degree $p$, it is proposed in \cite{biagiotti} to extend the knot vector ${\bf u}$ in the following way:\\
 \\
 If the degree $p$ of the interpolating spline is odd:
 \begin{equation}
@@ -346,10 +348,10 @@ If the degree $p$ of the interpolating spline is even:
 \begin{equation}
 {\bf u}_{extended}= \underbrace{ [u_0,\ldots,u_0}_{p+1},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{p+1} 
 \end{equation} 
-Latter shifting of the knots is used reduce the oscillations spline of even degree usually have. And also enables to set symmetric boundary conditions as described in section \ref{subsec:boundary conditions}. The extended knots vector with the resulting B-splines finally will form a basis. For a prove \cite{dahmen} is recommended.
+Latter shifting of the knots is used reduce the oscillations spline of even degree usually have\footnote{These oscillations can be seen in \cite{doessegger} as there no shifting is used.} And also enables to set symmetric boundary conditions as described in section \ref{subsec:boundary conditions}. The extended knots vector with the resulting B-splines finally will form a basis. For a prove \cite{dahmen} is recommended.
 
 \paragraph{Ex. 2:}
-Given the same waypoints as in example Ex. 1, ${\bf u}_{extended}$ is defined to be $[0,0,2,3,5,5]$. Over this knot vector the B-splines can be determined and and the coefficients\footnote{These coefficients are also said to span a control polygon.} ${c_x}_j$ are calculated to be ${\bf c}_x=[1,2,3,3]$.
+Given the same waypoints as in example Ex. 1, ${\bf u}_{extended}$ is defined to be $[0,0,2,3,5,5]$. Over this knot vector the B-splines can be determined and and the coefficients\footnote{These coefficients are also said to span a control polygon.} ${c_x}_j$ are calculated to be ${\bf c}_x=[1,2,3,3]$ using equation \eqref{eq:linearSysofEq}.
 
 \begin{figure}[H]
 	\centering
@@ -365,6 +367,7 @@ While for the cubic splines the piecewise polynomial approach from \cite{engeln}
 
 Once the extended knot vector ${\bf u}_extended$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions in order to get the coefficients ${\bf c}_j$,  here shown for $x$:
 \begin{equation}
+\label{eq:linearSysofEq}
 {\bf A}_{[m+1\times m+1] }{{\bf c}_x}_{[m+1\times 1]}={{\bf b}_x}_{[m+1 \times 1]}
 \end{equation}
 where
@@ -416,7 +419,7 @@ and
 
 
 %old version--------------------------------------
-%As the implementation of the spline generation was not the goal of this Bsc. Thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
+%As the implementation of the spline generation was not the goal of this bachelor's thesis it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
 
 %While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
 %
