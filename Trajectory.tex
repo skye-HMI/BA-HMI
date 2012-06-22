@@ -24,7 +24,7 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{graphics/sampleNodeAgile}
   \end{minipage}
-  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represent the circumnavigation of an obstacle. It yields to high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvatures.}
+  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represent the circumnavigation of an obstacle. It has a constantly high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvatures.}
   \label{fig:sampleNodes}
 \end{figure}
 
@@ -174,7 +174,7 @@ u_k-u_{k-1}=\frac{B_a+B_b}{2}
 \end{equation*}
 
 \subsubsection{Centripetal}
-This method was first proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
+This method was proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
 \begin{equation*}
 u_k-u_{k-1}=\sqrt{\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|}
 \end{equation*}
@@ -192,9 +192,9 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
-Since those overshoots are intolerable, a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two variants seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to fit best our needs.
+Since those overshoots are intolerable, a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two variants seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to bet fit our needs.
 \\
-Beside the geometrical appearance due to the different distributions the dynamic properties are also of big interest, especially if a constant time scaling is used as described in section \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
+Beside the geometrical appearance due to the different distributions, the dynamic properties\footnote{In \cite{mellinger} e.g. they optimize the $u$ values to obtain the time optimal trajectory.} are also of big interest, especially if a constant time scaling is used as described in section \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
 
 \begin{figure}[H]
 	\centering
@@ -203,7 +203,7 @@ Beside the geometrical appearance due to the different distributions the dynamic
   \label{fig:para road vel acc}
 \end{figure}
 
-In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (compare table \ref{tab:results_parameterization_road_cubic} for the values of cubic spline or section \ref{subsec:parameterization_degree}) but over all criteria centripetal yields the best result.
+In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (see table \ref{tab:results_parameterization_road_cubic} for the values of cubic spline or section \ref{subsec:parameterization_degree}) but over all criteria centripetal yields the best result.
 
 
 \begin{table}[h]
@@ -227,7 +227,7 @@ In figure \ref{fig:para road vel acc} the effect of the different distributions 
 \subsection{Spline Degree}
 
 \subsubsection{Continuity}
-As soon as we talk of splines the question about the spline order arises, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used then already the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk whereas quartic are still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
+When selecting a spline, the spline's order shall also be chosen, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used, the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk whereas quartic are still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
 
 \begin{figure}[H]
 	\centering
@@ -238,7 +238,7 @@ As soon as we talk of splines the question about the spline order arises, i.e. o
 
 
 
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed. This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (i.e. continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system would under ideal  able to handle all the resulting inputs of cubic, quartic and quintic splines.
  
 \begin{figure}[H]
 	\centering
@@ -256,7 +256,7 @@ Beside the continuity and the dynamic properties again the geometrical appearanc
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/DegreeCentripetal_road_agile.eps}
-  \caption{The comparison of the cubic:green, quartic:cyan and quintic:magenta splines with a centripetal parameterization of the waypoints}
+  \caption{The comparison of the cubic (green), quartic (cyan) and quintic (magenta) splines with a centripetal parameterization of the waypoints}
   \label{fig:degreeCentripetal}
 \end{figure} 
 
@@ -291,7 +291,7 @@ For quintic splines two additional constraints can be set
 \end{equation*}
 
 such that also the acceleration at the start and at the end of the trajectory is zero (compare with equation \eqref{vel_acc}). For quartic splines also two additional constraints can be set if B-splines are used and the knots are shifted as described in section \ref{subsec:implementation}. \\
-Those boundary conditions are set for all dimensions.
+These boundary conditions are set for all dimensions.
 
 
 
@@ -510,7 +510,7 @@ and
 \label{sec:motionLaw}
 \subsection{System Constraints}
 \label{subsec:systemConstraints}
-In order to plan a feasible trajectory one has to know the capabilities of the system. Here, just a basic derivation for maximum velocity and the maximum accelerations is given, for more details refer to \cite{weichart}, \cite{schaffnervu}. \\
+In order to plan a feasible trajectory one has to know the capabilities of the system. Here, just a basic derivation for the maximum velocity and the maximum accelerations is given, for more details refer to \cite{weichart}, \cite{schaffnervu}. \\
 
 The maximum feasible acceleration in any direction is calculated to be:
 
@@ -518,7 +518,7 @@ The maximum feasible acceleration in any direction is calculated to be:
   \left|a_{max} \right| =  \frac{\| {\bf F_{res, w}}\|}{m_{tot}} = \SI{0.96}{\meter\per\square\second}
 \end{equation}
 
-Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated under full load in the worst direction and $m_{tot}$ is the sum of the masses of the helium, the virtual mass and the mass of the system itself.\\
+Whereas the $F_{res,w}$ is the force resulting from all four thrusters operated under full load in the worst direction and $m_{tot}$ is the sum of the mass of the helium, the virtual\footnote{I.e. the air that is moved along when \textsc{Skye} accelerates. For more details refer to \cite{weichart}.}  mass and the mass of the system itself.\\
 
 
 The maximum feasible velocity in any direction is calculated to be:
@@ -527,7 +527,7 @@ The maximum feasible velocity in any direction is calculated to be:
 \left|v_{max} \right| = \sqrt{\frac{\|{\bf F_{res,w}} \|}{\frac{1}{2}c_d \rho \pi r^2}}=\SI{2.9}{\meter\per\second}
 \end{equation}
 
-which is nothing but $ \|{\bf F}_{res,min} \| = \|{\bf F}_{dray} \| $.\\
+which is nothing but $ \|{\bf F}_{res,min} \| = \|{\bf F}_{drag} \| $.\\
 
 For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
 
@@ -545,7 +545,7 @@ Knowing the system constraints the motion law $u=u(t)$ can be defined. There are
 
 \begin{itemize}
 \item $u(t)$ must be monotonically increasing.
-\item $u(t)$ must have a  continuity such that the composition ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$ has the requested parametric continuity.
+\item $u(t)$ must have a certain order of continuity such that the composition ${\bf \tilde{p}}(t)=({\bf p}\circ u)(t)$ has the requested parametric continuity.
 \item $u(t)$ must be designed such that the trajectory ${\bf \tilde{p}}(t)$ meets the system constraints.
 \end{itemize}
 
@@ -562,7 +562,7 @@ The most obvious solution is the one of a constant time scaling in which a const
 u(t) = \lambda t
 \end{equation}
 
-In this case, $u(t)$ is monotonically increasing. And since $u(t)$ is continuous in the first derivative and for all higher derivative equal to zero, the continuity of ${\bf \tilde{p}}(t)$ only depends on on geometrical continuity of ${\bf p}(u)$ for the acceleration and higher derivatives of time.
+In this case, $u(t)$ is monotonically increasing. And since $u(t)$ is continuous in the first derivative and for all higher derivative equal to zero, the continuity of ${\bf \tilde{p}}(t)$ only depends on the geometrical continuity of ${\bf p}(u)$ for the acceleration and higher derivatives of time.
 
 \begin{align}
 {\bf \dot{\tilde{p}}}(t) &= \frac{d {\bf p}}{du}\lambda \\
