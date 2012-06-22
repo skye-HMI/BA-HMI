@@ -11,13 +11,6 @@
 \chapter{Trajectories}
 \label{cha:appendix}
 
-\section{Parameterizations}
-\subsection{Arc Length Distribution}
-\label{subsec:arcLengthDistribution}
-TO DO
-\subsection{Effect of different Parameterizations with cubic, quartic and quintic splines}
-\label{subsec:parameterization_degree}
-
 \begin{figure}[H]
   \begin{minipage}[t]{0.9\textwidth}
     \includegraphics[width = \textwidth]{graphics/Parameterization345_road_agile.eps}
@@ -42,8 +35,55 @@ TO DO
   \label{fig:parameterization_cqq}
 \end{figure}
 
-\section{Control Results}
-\label{sec:app_trajectory_control_results}
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{lll|rrrr}
+ \hline
+ Cubic \textit{Road} & & unit & Uniform & Chord length & Arc length & Centripetal \\ \hline \hline
+ Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 3.859 & 4.477 & 4.903 & 3.650 \\
+ Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.025 & 0.022 & 0.020 & 0.024 \\
+ Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.042 & 0.164 & 0.176 & 0.071 \\
+ % CAN IT BE THAT MAXIMUM ACCELERATION IS ABOVE 0.96 ???
+ %Max. Acceleration &   & $[\si{\meter\per\square\second}]$ &  0.141 & 1.351 & 1.586 & 0.411 \\
+ Time      &   & $[\si{\second}]$ &  388.5 & 322.2 & 334.4 & 340.3 \\
+ \hline
+ \end{tabular}
+ \caption{Comparison of the parametrizations. Static criteria are listed for cubic trajectories using the \textit{road} waypoints.}\vspace{1ex}
+ \label{tab:app_results_parameterization_road_cubic}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+ \begin{tabular}{lll|rrrr}
+ \hline
+ Cubic \textit{Road} & & unit & Uniform & Chord length & Arc length & Centripetal \\ \hline \hline
+ Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 4.043 & 8.452 & 10.963 & 4.774 \\
+ Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.050 & 0.036 & 0.032 & 0.047 \\
+ Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.062 & 0.449 & 0.506 & 0.139 \\
+ Time      &   & $[\si{\second}]$ &  399.5 & 417.3 & 470.6 & 376.4 \\
+ \hline
+ \end{tabular}
+ \caption{Comparison of the parametrizations. Static criteria are listed for quartic trajectories using the \textit{road} waypoints. \textit{Same table than table \ref{tab:results_parameterization_road_quartic}, placed here for completeness}}\vspace{1ex}
+ \label{tab:app_results_parameterization_road_quartic}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+ \begin{tabular}{lll|rrrr}
+ \hline
+ Cubic \textit{Road} & & unit & Uniform & Chord length & Arc length & Centripetal \\ \hline \hline
+ Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 4.612 & 11.067 & 14.415 & 5.926 \\
+ Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.036 & 0.035 & 0.033 & 0.035 \\
+ Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.041 & 0.337 & 0.441 & 0.077 \\
+ Time      &   & $[\si{\second}]$ & 407.5 & 448.4 & 526.5 & 377.5 \\
+ \hline
+ \end{tabular}
+ \caption{Comparison of the parametrizations. Static criteria are listed for quintic trajectories using the \textit{road} waypoints.}\vspace{1ex}
+ \label{tab:app_results_parameterization_road_quintic}
+\end{center}
+\end{table}
 
 \begin{figure}[H]
   \begin{minipage}[t]{0.32\textwidth}
@@ -129,8 +169,6 @@ TO DO
   \label{fig:results_wind_disturbance}
 \end{figure}
 
-
-
 \begin{figure}[H]
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings_wc/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0}
@@ -173,7 +211,7 @@ TO DO
   \label{fig:results_model_uncertainties}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_Parametrization_AllCircuits}
   \end{minipage}
@@ -184,10 +222,6 @@ TO DO
   \caption{Correlation between average deviation and average acceleration for all waypoints (see figure \ref{fig:correlation_invdev_acc} for \textit{road} only). {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
   \label{fig:correlation_invdev_acc_all_circuits}
 \end{figure}
-
-\subsection{Varying Trajectory Constraints}
-\label{sub:app_varying_sys_constraints}
-Repetitively simulations with different scaled time parametrization (i.e. varying system constraint's safety factor $S$ from \numrange{0.8}{1.6}) were conducted\footnote{\textit{Agile} waypoints, centripetal parametrization, cubic splines, cross track error controller, no wind disturbance.}. Figure \ref{fig:app_sys_constr} illustrates the different trajectories and the corresponding traces.
 
 \begin{figure}[H]
   \centering
@@ -246,23 +280,8 @@ Repetitively simulations with different scaled time parametrization (i.e. varyin
 \end{figure}
 
 
-
-\subsection{Increasing the Path's Curvature}
-\label{sub:app_increasing_curvature}
-And here follows a subsection with constraint comparisons of a helix with smaller radius.
-\\
-TO DO
-\\
- %\cleardoublepage
-
-
-%\chapter{Nochmals irgendwas}\label{sec:nochirgendwas}
-
-%Bla bla \dots
-
- %\cleardoublepage
-\section{Mavlink Protocol}
-\label{sec:app_mavlink_protocol}
+\chapter{Mavlink Protocol}
+\label{cha:app_mavlink_protocol}
 
 \begin{lstlisting}[captionpos=b, caption="Definition of \textsc{Skye} specific Mavlink messages", label=app_xml]
 <?xml version='1.0'?>
