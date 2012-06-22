@@ -206,21 +206,19 @@ Beside the geometrical appearance due to the different distributions, the dynami
 In figure \ref{fig:para road vel acc} the effect of the different distributions on the velocity and acceleration resulting from a constant time scaling can clearly be seen with quartic splines. The chord length as well as the arc length distribution keep the velocity more or less constant but start oscillating at the end of the track. For cubic splines the situation is slightly different (see table \ref{tab:results_parameterization_road_cubic} for the values of cubic spline or section \ref{subsec:parameterization_degree}) but over all criteria centripetal yields the best result.
 
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{lll|rrrr}
  \hline
  Cubic \textit{Road} & & unit & Uniform & Chord length & Arc length & Centripetal \\ \hline \hline
- Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 3.859 & 4.477 & 4.903 & 3.650 \\
- Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.025 & 0.022 & 0.020 & 0.024 \\
- Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.042 & 0.164 & 0.176 & 0.071 \\
- % CAN IT BE THAT MAXIMUM ACCELERATION IS ABOVE 0.96 ???
- %Max. Acceleration &   & $[\si{\meter\per\square\second}]$ &  0.141 & 1.351 & 1.586 & 0.411 \\
- Time      &   & $[\si{\second}]$ &  388.5 & 322.2 & 334.4 & 340.3 \\
+ Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 4.043 & 8.452 & 10.963 & 4.774 \\
+ Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.050 & 0.036 & 0.032 & 0.047 \\
+ Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.062 & 0.449 & 0.506 & 0.139 \\
+ Time      &   & $[\si{\second}]$ &  399.5 & 417.3 & 470.6 & 376.4 \\
  \hline
  \end{tabular}
- \caption{Comparison of the parametrizations. Static criteria are listed for cubic trajectories using the \textit{road} waypoints.}\vspace{1ex}
- \label{tab:results_parameterization_road_cubic}
+ \caption{Comparison of the parametrizations. Static criteria are listed for quartic trajectories using the \textit{road} waypoints.}\vspace{1ex}
+ \label{tab:results_parameterization_road_quartic}
 \end{center}
 \end{table}
 
