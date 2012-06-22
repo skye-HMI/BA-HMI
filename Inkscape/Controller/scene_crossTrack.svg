@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="scene_trajectoryFollowing.pdf">
+   sodipodi:docname="scene_crossTrack.svg">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -30,9 +30,9 @@
      inkscape:current-layer="g12460"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="744"
-     inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <defs
      id="defs4">
@@ -235,7 +235,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -335,7 +335,7 @@
          sodipodi:cy="561.91577"
          sodipodi:rx="1.1607143"
          sodipodi:ry="1.1607143"
-         d="m 180.17857,561.91577 a 1.1607143,1.1607143 0 1 1 -2.32143,0 1.1607143,1.1607143 0 1 1 2.32143,0 z"
+         d="m 180.17857,561.91577 c 0,0.64105 -0.51967,1.16072 -1.16072,1.16072 -0.64104,0 -1.16071,-0.51967 -1.16071,-1.16072 0,-0.64104 0.51967,-1.16071 1.16071,-1.16071 0.64105,0 1.16072,0.51967 1.16072,1.16071 z"
          transform="matrix(2.4749285,0,0,2.3769854,707.58541,-1081.1303)" />
       <g
          id="g3570"
@@ -505,8 +505,13 @@
          sodipodi:cy="561.91577"
          sodipodi:rx="1.1607143"
          sodipodi:ry="1.1607143"
-         d="m 180.17857,561.91577 a 1.1607143,1.1607143 0 1 1 -2.32143,0 1.1607143,1.1607143 0 1 1 2.32143,0 z"
+         d="m 180.17857,561.91577 c 0,0.64105 -0.51967,1.16072 -1.16072,1.16072 -0.64104,0 -1.16071,-0.51967 -1.16071,-1.16072 0,-0.64104 0.51967,-1.16071 1.16071,-1.16071 0.64105,0 1.16072,0.51967 1.16072,1.16071 z"
          transform="matrix(1.5829943,0,0,1.5203487,859.18601,-608.52163)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3070"
+         d="m 1151.6297,302.12737 -2.5657,-97.74452"
+         style="fill:none;stroke:#000000;stroke-width:1.83126569px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
   </g>
 </svg>

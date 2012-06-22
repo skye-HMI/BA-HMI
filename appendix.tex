@@ -169,7 +169,7 @@ TO DO
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings_wc/figure_3D_agile_SplineDegree3_crossTrack_Disturbance_0}
   \end{minipage}
-  \caption{Trajectory tracking with wrong system constraints (+20\%). {\bf Top}: \textit{Trajectory following} control forces the system to reach the end within the given constraints. As trajectory demands too high performance, tracking gets bad. {\bf Center}: \textit{Pure pursuit} control is more robust to the wrong conditioned trajectory and tracking is quite accurate. In comparison to the ideal case it only makes 86-90\% of the track within $T_p$. {\bf Bottom}: \textit{Cross track error} control is accurate and makes 87-93\% of the track within $T_p$.}
+  \caption{Trajectory tracking with wrong system constraints ($S=0.8$). {\bf Top}: \textit{Trajectory following} control forces the system to reach the end within the given constraints. As trajectory demands too high performance, tracking gets bad. {\bf Center}: \textit{Pure pursuit} control is more robust to the wrong conditioned trajectory and tracking is quite accurate. In comparison to the ideal case it only makes 86-90\% of the track within $T_p$. {\bf Bottom}: \textit{Cross track error} control is accurate and makes 87-93\% of the track within $T_p$.}
   \label{fig:results_model_uncertainties}
 \end{figure}
 
@@ -181,7 +181,7 @@ TO DO
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_SplineDegree_AllCircuits}
   \end{minipage}
-  \caption{Correlation between average deviation and average acceleration in the simulation}
+  \caption{Correlation between average deviation and average acceleration for all waypoints (see figure \ref{fig:correlation_invdev_acc} for \textit{road} only). {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
   \label{fig:correlation_invdev_acc_all_circuits}
 \end{figure}
 
@@ -242,7 +242,7 @@ Repetitively simulations with different scaled time parametrization (i.e. varyin
   \\ $S=1.6$
   \end{minipage} \\
   \label{fig:app_sys_constr}
-  \caption{Trajectory (blue), trace (green), $(\cdot)_{lim}=(\cdot)_{max}/S$ (dashed bold) and $(\cdot)_{max}$ (dashed)}
+  \caption{Influence of model accuracy on trajectory controller dynamics. Example using \textit{cross track} controller on \textit{agile} trajectory. For high safety factors ($S=1.6$) the system follows the requested dynamic of the trajectory. For safety factors $S\leq 1$ the maximum dynamics given by the system constraints in \cite{weichart} cannot be reached. Trajectory (blue), trace (green), $(\cdot)_{lim}=(\cdot)_{max}/S$ (dashed bold) and $(\cdot)_{max}$ (dashed)}
 \end{figure}
 
 
