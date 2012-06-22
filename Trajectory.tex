@@ -641,7 +641,7 @@ d_{n-1} &= \frac{27 \tilde{d}^3 + 54 \lambda \tilde{d}^2 t_{n-1} + 27 \lambda^2 
 t_n &= \frac{-3 \tilde{d} - \lambda t_{n-1} + 3 u_n}{2 \lambda}
 \end{align*}
 
-\pagebreak
+%\pagebreak
 \section{Controller Implementation}
 \label{sec:controllerImplementation}
 A trajectory controller and two commonly used path tracking controllers\footnote{\cite{snider} provides a good overview over various approaches.} are tested to follow the defined trajectories. The \textit{trajectory following} controller supplies the system's position controller, described in \cite{meiermueri}, with a feed forward reference signal. Although it delivers good results for the ideal case, the tracking gets worse for the non perfect model case. The \textit{pure pursuit} controller, which is based on a lookahead point as well as the \textit{cross track error} controller dynamically react on model uncertainties and yield therefore more robust and accurate path tracking results.
@@ -809,8 +809,8 @@ The idea of the \textit{cross track error} controller is to directly reduce the 
 \section{Results}
 \label{sec:results}
 
-A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as for the case of wind disturbances and model uncertainties\footnote{Note, that for all cases perfect measurement feedback was used, i.e. the simulation does not include measurement noise.}. Furthermore the correlation between different parameters is shown. Further results can be found in the appendix (\ref{sec:app_trajectory_control_results}). 
-The occurring accelerations ($J_5$) as well as the percentage of reached trajectory $J_6$ remain nearly the same for all shown results.
+A model of system \textsc{Skye} has been elaborated in \cite{weichart} and was available as \textsc{Matlab Simulink} model to test the controller performance. The controllers described above were tested within the experimental design notified in section \ref{sec:experimental design}. If not mentioned explicitly, the shown trajectories are designed using cubic splines and centripetal parametrization. The results are presented for perfect model estimation as well as for the case of wind disturbances and model uncertainties\footnote{Note, that for all cases perfect measurement feedback was used, i.e. the simulation does not include measurement noise.}. Furthermore the correlation between different parameters is shown. Further results can be found in the appendix (\ref{cha:appendix}). 
+The occurring accelerations ($J_5$) as well as the percentage of reached trajectory ($J_6$) remain nearly the same for all shown results.
 
 \subsection{Perfect Model Estimation}
 \label{sub:results_perfect_model}
@@ -844,8 +844,17 @@ The three trajectory controllers were tested with the given waypoint samples. Fi
 \subsection{Wind Disturbance}
 \label{sub:results_wind_disturbance}
 
-The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes. To enable to eventually see the effect of the upcoming wind, the disturbance is added 10 seconds after the simulation's start\footnote{The simulation lengths are about \SI{340}{\second} (\textit{road}), \SI{65}{\second} (\textit{helix}) and \SI{80}{\second} (\textit{road}) respectively.}. \\
-Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. The resulting performance values are listed in table \ref{tab:results_wind_disturbance}. While \textit{pure pursuit} and \textit{cross track error} control still result in small deviation\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation has grown to a considerable big scale for \textit{trajectory following}. \textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectory following} reaches the end of the trajectory almost exact within the given time $T_p$, the path tracking based trajectory controllers are slower and will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$. \\
+The same simulations have been conducted with wind disturbance. Wind forces based on a constant wind velocity of \SI{1}{\meter\per\second} in positive x-direction have been added to the scenes\footnote{The maximum relative velocity of the system is about \SI{2.4}{\meter\per\second}.}. To enable to eventually see the effect of the upcoming wind, the disturbance is added 10 seconds after the simulation's start\footnote{The simulation lengths are about \SI{340}{\second} (\textit{road}), \SI{65}{\second} (\textit{helix}) and \SI{80}{\second} (\textit{road}) respectively.}. \\
+Figure \ref{fig:results_wind_disturbance} shows the tracking reached by the three controllers. The resulting performance values are listed in table \ref{tab:results_wind_disturbance}. While \textit{pure pursuit} and \textit{cross track error} control still result in small deviation\footnote{They are still about factor 20 smaller than the characteristic size of \textsc{Skye}.} the deviation has grown to a considerable big scale for \textit{trajectory following} as it can be seen in figure \ref{fig:result_wind_trajfoll}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphics/trackings/figure_3D_helix_SplineDegree3_trajectoryFollowing_Disturbance_1.eps}
+	\caption{Result of tracking \textit{agile} waypoints using \textit{trajectory following} controller with wind disturbance}
+	\label{fig:result_wind_trajfoll}
+\end{figure}
+
+\textit{Cross track error} control slightly scores better than \textit{pure pursuit}. Again, the accelerations are similar for all controllers. While \textit{trajectory following} reaches the end of the trajectory almost exact within the given time $T_p$, the path tracking based trajectory controllers are slower and will remain at \SIrange{86}{96}{\percent} of the trajectories length $L_p$ at the time $T_p$. \\
 Compared to the results of perfect modelling (section \ref{sub:results_perfect_model}), the deviations when using \textit{trajectory following} get worse by factor \numrange{10}{200} and by the two accurate controllers \numrange{5}{10} times. The accelerations are comparable to the ideal case.
 
 \begin{table}[h]
@@ -942,13 +951,7 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between the average d
 
 The almost endless field of trajectory control represents the manifold needs for trajectories in different application fields. 
 %While the underlying spline theories have theirs roots in automobile industry XXXX \cite{deboor}, they can be adopted for any use.
-<<<<<<< HEAD
 Even to control UAVs no throughout good or bad trajectory algorithms can be named. Their quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
 As for our case tight waypoint tracking was considered more than for instance time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples.
 For sake of simplicity, even a linear time parametrization considering the system's actuation saturations can be used to yield sufficient results. \\
 Dependent on the choice how to generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to nonholonomic vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
-=======
-Even to control UAVs no throughout good or bad trajectory algorithms can be named. Theirs quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
-As for our case tight waypoint tracking was considered more than for instance time minimization or smoothness, cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples. For sake of simplicity, a linear time parametrization considering the system's actuation saturations yield sufficient results. \\
-Dependent on the choice how the generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind, it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to non agile vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
->>>>>>> 23367736763d7bb5c30dd92925078206f967bad5
