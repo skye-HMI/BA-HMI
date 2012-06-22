@@ -321,7 +321,7 @@ Another often used basis for a spline is the one of the basic splines, B-splines
 p_x(u) = \sum_{j=0}^m {c_x}_jB_j^p(u), ~u_{min} \leq u \leq u_{max}
 \end{equation}
 
- Wheras these B-splines are defined recursively using the Cox-de Boor recursion formula:
+Whereas these B-splines are defined recursively using the Cox-de Boor recursion formula:
  
  \begin{align}
 B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
@@ -329,6 +329,15 @@ B_j^0(u) &= \begin{cases} 1,&\text{if}~ u_j \leq u < u_{j+1}\\
 		\end{cases}\\
 B_j^p(u) &= \frac{u-u_j}{u_{j+p}-u_j}B_j^{p-1}(u)+\frac{u_{j+p+1}-u}{u_{j+p+1}-u_{j+1}}B_{j+1}^{p-1}(u), ~p>0
 \end{align}
+
+The shapes of the first three degrees of B-splines with a not equally distributed knots are shown in figure \ref{fig:BSplines_definition}.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width = 0.8\textwidth]{graphics/BSplineBasis.eps}
+  \caption{B-splines bases up to degree $p=2$. The number of bases is reduced by increasing its order. The knot vector $u=[0,2,3,5]$ is the same as used in Ex. 1.}
+  \label{fig:BSplines_definition}
+\end{figure} 
 
 With this definition of B-splines the the number $m+1$ of resulting B-splines is given by:
  
