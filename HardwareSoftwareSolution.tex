@@ -113,7 +113,7 @@ Using a 3D mouse in combination with a tablet computer has a lot of advantages. 
 \label{subsec:qGroundControl}
 %\textit{Adaptions in QGroundControl, 3dMouse, Touchscreen, Splines and Trajectory Controller \\ Only how it looks like and how to use. All ``important'' widgets are shown in detail. Implementation of 3dMouse and Touchscreen are not described further.picture of touch in action, mail final presentation}
 
-The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets\footnote{Widgets are kind of subwindows of the application.}. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The full automatic control mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}. 
+The GUI \textsc{QGroundControl} for controlling unmanned vehicles was initially developed for \textsc{Pixhawk}\footnote{For more information on this project, see \url{https://pixhawk.ethz.ch/}.}, a vision based UAV project at the informatics department of \textsc{ETH}. It is a complete open source project based on Qt, which is a cross-platform-framework for GUIs written in \verb!C++!. For this thesis, the complete \textsc{QGroundControl} source code was taken and adopted for the needs of project \textsc{Skye}. This varied from adding single lines to develop complete new additional widgets\footnote{Widgets are kind of subwindows of the application.}. These widgets are described below. Inspiration and know-how was taken from \cite{blanchette} and nice tutorials and samples on \url{http://qt.nokia.com/}. In the following it is explained, how the control modes, defined in chapter \ref{cha:DifferentControlModes}, were realized with the chosen devices and with the GUI \textsc{QGroundControl}\footnote{The \textit{full automatic control} mode was only simulated in \textsc{Matlab} and therefore no support of the GUI exists.}. 
 \\
 %\textbf{HERE matthias would like to summarize the basic code structure of qgc.. so it can be refered to and from the \textsc{Mavlink} section} 
 %\\
@@ -123,9 +123,9 @@ With the Qt specific signals/slots interface the \textsc{Skye} subclass has been
 An event handler has been integrated using the 3DxWare API, the official development kit for the used 3D mouse.
 
 \subsubsection{The Main Control Widget}
-With five different control modes (Test Phase, Direct Control (DC), Assisted Control (AC), Half Automatic Control (HAC), Full Automatic Control (FAC)) and three different input option (3D Mouse, Touchscreen, Keyboard), a main control widget was needed to choose between these options (see figure \ref{fig:qgc_skye_control} for its appearance). 
+With five different control modes (\textit{test phase}, \textit{direct control} (DC), \textit{assisted control} (AC), \textit{half automatic control} (HAC), \textit{full automatic control} (FAC)) and three different input option (3D mouse, touchscreen, keyboard), a main control widget was needed to choose between these options (see figure \ref{fig:qgc_skye_control} for its appearance). 
 %With it the pilot can choose the control mode\footnote{As the Test Phase is not a usual control mode, its widget has to be opened in the menu bar.} and the input option.
-The Test Phase mode is not meant to be used in flight and has therefore be activated via the menu bar.
+The \textit{test phase} mode is not meant to be used in flight and has therefore be activated via the menu bar.
 The two sliders visible in figure \ref{fig:qgc_skye_control} allow to adjust the input scaling for translations and rotations respectively. Indoor flights need usually smaller but more accurate inputs, while outdoors more power is needed. The colored arm/disarm button is used to (de-)activate the actuators. At the same time it serves as an emergency button.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
@@ -144,19 +144,19 @@ In order to test \textsc{Skye}'s four actuators before flight and in the develop
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.7\textwidth]{qgc_test_phase}
-		\caption{The test phase widget }  
+		\caption{The \textit{test phase} widget }  
 		\label{figure:qgc_test_phase}
 	\end{center}
 \end{figure}
 
 
 \subsubsection{Direct Control}
-The main device for the direct control mode is the 3D mouse which is connected by USB to the tablet. To use its input signals in  \textsc{QGroundControl}, a interface had to be written. With the two knobs on the device (hardly visible in figure \ref{fig:3D_mouse}) the pilot is able to (de-)activate translational or rotational inputs. This allows a very precise control.
+The main device for the \textit{direct control} mode is the 3D mouse which is connected by USB to the tablet. To use its input signals in  \textsc{QGroundControl}, a interface had to be written. With the two knobs on the device (hardly visible in figure \ref{fig:3D_mouse}) the pilot is able to (de-)activate translational or rotational inputs. This allows a very precise control.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{3dx_productimage}
-		\caption{The 3D mouse used for the direct control }  
+		\caption{The 3D mouse used for the \textit{direct control}}  
 		\label{fig:3D_mouse}
 	\end{center}
 \end{figure}
@@ -196,14 +196,17 @@ For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adop
 
 %\textbf{A Picture of the DC/AC widget should be placed at least in the APENDIX.. Camera reconfiguration and battery info can be left away.}
 
-Further on, widgets to adjust camera properties, displaying detailed battery info or to set Direct or Assisted Control to exact values via sliders have been added. Despite of the latter\footnote{The Direct/Assisted Control widget has been used to enable the system verifications in \cite{meiermueri} and \cite{weichart}.} they could not be used in practice. The Direct/Assisted Control widget is shown in figure \ref{fig:qgc_manual_control_widget}.
+Further on, widgets to adjust camera properties, displaying detailed battery info or to set \textit{direct} or \textit{assisted control} to exact values via sliders have been added. Despite of the latter\footnote{The \textit{direct} and \textit{assisted control} widget has been used to enable the system verifications in \cite{meiermueri} and \cite{weichart}.} they could not be used in practice. The \textit{direct} and \textit{assisted control} widget is shown in figure \ref{fig:qgc_manual_control_widget}.
 
 \subsection{Mavlink}
 \label{subsec:mavlink}
 %\textit{Summary of Protocal, adaptions and use for} \textsc{Skye} \\
 Mavlink (Micro Air Vehicle Communication Protocol) is a very lightway header-only message marshalling library for micro air vehicles\footnote{Official description from \url{http://qgroundcontrol.org/mavlink/start}}. It is a widely used protocol geared for transmission speed and safety. A mavlink packet consists of a six byte prefix including start byte, payload length and sequence number as well as component, system and message ID. A two byte suffix checksum is used. The payload size is maximum 255 bytes. Many autopilots as well as cross-platform software packages are using Mavlink.
-A set of commonly used messages is provided. The protocol had to be extended for the convenient use with \textsc{Skye} (an example\footnote{The full xml file including the message definitions for \textsc{Skye} is in the appendix (listing \ref{app_xml}).} of such a message definition is shown in listing \ref{xml_assisted_control}). This can be done by defining the additional messages in a xml script. The C-headers will be generated by the Mavlink Generator. The control commands, system telemetry as well as image live stream for \textsc{Skye} are transmitted using Mavlink protocol. For the transmission of waypoints, an extended waypoint protocol is provided by Mavlink. The waypoints set on the map widget and height profile (see section \ref{subsub:halfautomaticcontrol}) as well as the autopilot (\textit{PX4FMU}) are compatible to this protocol.
+A set of commonly used messages is provided. The protocol had to be extended for the convenient use with \textsc{Skye} (an example
+%\footnote{The full xml file including the message definitions for \textsc{Skye} is in the appendix (listing \ref{app_xml}).}
+ of such a message definition is shown in listing \ref{xml_assisted_control}). This can be done by defining the additional messages in a xml script. The C-headers will be generated by the Mavlink Generator. The control commands, system telemetry as well as image live stream for \textsc{Skye} are transmitted using Mavlink protocol. For the transmission of waypoints, an extended waypoint protocol is provided by Mavlink. The waypoints set on the map widget and height profile (see section \ref{subsub:halfautomaticcontrol}) as well as the autopilot (\textit{PX4FMU}) are compatible to this protocol.
 
+\begin{figure}
 \begin{lstlisting}[captionpos=b, caption=Sequence of skye.xml: Definition of the Assisted Control command Mavlink message. It consists of six 32 bit floating numbers for the input values and a 8 bit integer to indicate the target system's ID (the GUI could actually be connected to more than one UAV at the same time)., label=xml_assisted_control]
 <message id="155" name="SKYE_ASSISTED_CONTROL">
    <description>Control six degrees of freedom. Translational velocity in Inertial (earth) Frame. Use this manual control mode with the requested mode: 
@@ -217,3 +220,4 @@ A set of commonly used messages is provided. The protocol had to be extended for
    <field type="float" name="rotation_z">Yaw (angular velocity), in rad/sec</field>
 </message>
 \end{lstlisting}
+\end{figure}
