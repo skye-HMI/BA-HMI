@@ -189,7 +189,7 @@ All those four methods were tested on our three sample waypoints defined in \ref
 \begin{figure}[H]
 	\centering
     \includegraphics[width = 0.9\textwidth]{graphics/Parameterizations4_road_agile.eps}
-  \caption{The different parameterizations shown with quartic splines: Uniform (black), Chord length (blue), Arc length (green), Centripetal (red).}
+  \caption{The different parameterizations shown with quartic splines: Uniform (black), chord length (blue), arc length (green), centripetal (red).}
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
@@ -211,7 +211,7 @@ In figure \ref{fig:para road vel acc} or table \ref{tab:results_parameterization
 \begin{center}
  \begin{tabular}{lll|rrrr}
  \hline
- Cubic \textit{Road} & & unit & Uniform & Chord length & Arc length & Centripetal \\ \hline \hline
+ Cubic \textit{Road} & & Unit & Uniform & Chord Length & Arc Length & Centripetal \\ \hline \hline
  Av. Deviation  & $J_1$ & $[\si{\meter}]$    & 4.043 & 8.452 & 10.963 & 4.774 \\
  Av. Curvature & $J_2$ & $[\si{\per\meter}]$ & 0.050 & 0.036 & 0.032 & 0.047 \\
  Av. Acceleration  & $J_3$ & $[\si{\meter\per\square\second}]$ &  0.062 & 0.449 & 0.506 & 0.139 \\
@@ -671,7 +671,7 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller/controller_trajectoryFollowing.pdf_tex}
-    \caption{Trajectory following controller. The reference input for the closed loop position controller is a function of the current time $t$ only.}
+    \caption{Trajectory Following Controller Scheme. The reference input for the closed loop position controller is a function of the current time $t$ only.}
     \label{fig:trajectoryfollowing}
 \end{figure}
 
@@ -693,7 +693,7 @@ The controller scheme is shown in figure \ref{fig:trajectoryfollowing}.
 
 \subsection{Pure Pursuit Controller}
 \label{sub:pure_pursuit}
-Another commonly used controller to track paths is \textit{Pure Pursuit} \cite{snider}. This technique is mainly used for path tracking while having a constant tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point ${\bf \tilde{p}}(t_{cl}+\Delta T)$ is set on the trajectory in front\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} of the current closest position ${\bf \tilde{p}}(t_{cl})$.
+Another commonly used controller to track paths is \textit{pure pursuit} \cite{snider}. This technique is mainly used for path tracking while having a constant tangential velocity. The idea of using a lookahead point was adapted for trajectory control. To do that, the lookahead point ${\bf \tilde{p}}(t_{cl}+\Delta T)$ is set on the trajectory in front\footnote{$\Delta T = \SI{1}{second}$ proofed to be reasonable for all considered conditions.} of the current closest position ${\bf \tilde{p}}(t_{cl})$.
 \begin{equation}
 {\bf \tilde{p}}(t_{cl}+\Delta T) = {\bf \tilde{p}}(t_{cl}) + \Delta T \cdot {\bf\dot{ \tilde{p}}}(t_{cl}) + \frac{1}{2} \Delta T^2 \cdot {\bf\ddot{ \tilde{p}}}(t_{cl}) + \mathcal{O}(\Delta T^3)
 \end{equation}
@@ -709,7 +709,7 @@ Figure \ref{fig:scene_purePursuit} represents the controller's functionality. Th
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/controller/scene_purePursuit.pdf_tex}
-    \caption{Pure pursuit. The reference velocity is given by the difference between the actual position and a lookahead point defined by the trajectory's closest point shifted by $\Delta T$ ahead.}
+    \caption{Pure Pursuit. The reference velocity is given by the difference between the actual position and a lookahead point defined by the trajectory's closest point shifted by $\Delta T$ ahead.}
     \label{fig:scene_purePursuit}
 \end{figure}
 
@@ -717,7 +717,7 @@ Figure \ref{fig:scene_purePursuit} represents the controller's functionality. Th
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller/controller_purePursuit.pdf_tex}
-    \caption{Pure pursuit controller. The position feedback is closed by defining the lookahead point depending on the closest point of the trajectory.}
+    \caption{Pure Pursuit Controller Scheme. The position feedback is closed by defining the lookahead point depending on the closest point of the trajectory.}
     \label{fig:purePursuit}
 \end{figure}
 
@@ -754,14 +754,14 @@ Figure \ref{fig:scene_purePursuit} represents the controller's functionality. Th
 %\end{figure}
 
 \subsection{Cross Track Error Controller}
-The idea of the \textit{cross track error} controller is to directly reduce the cross track distance. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of considering the trajectory's current time, here, the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
+The idea of the \textit{cross track error} controller is to directly reduce the cross track error distance\footnote{The distance normal to the path. Compare figure \ref{fig:scene_crossTrack}.}. This practise is also used in navy \cite{williams} or for wheeled robots \cite{deluca}. The actual operation is very similar to the one in \textit{trajectory following}, but instead of considering the trajectory's current time, here, the reference input time is defined by the closest point of the trajectory. Afterwards, the same position controller as mentioned above is used to track the reference state. Figure \ref{fig:scene_crossTrack} illustrates the choise of the reference input for the controller. The control scheme is shown in figure \ref{fig:crossTrack}.
 
 %$\left[ \begin{array}{c} {\bf \tilde{p}}(t) \\ {\bf \dot{\tilde{p}}}(t) \\ {\bf \ddot{\tilde{p}}}(t) \end{array} \right]$
 \begin{figure}[H]
     \centering
     \def\svgwidth{0.5\columnwidth}
     \input{graphics/controller/scene_crossTrack.pdf_tex}
-    \caption{Cross track error. The reference point is the nearest point on the trajectory.}
+    \caption{Cross Track Error. The reference point is the nearest point on the trajectory.}
     \label{fig:scene_crossTrack}
 \end{figure}
 
@@ -770,7 +770,7 @@ The idea of the \textit{cross track error} controller is to directly reduce the 
     \centering
     \def\svgwidth{\columnwidth}
     \input{graphics/controller/controller_crossTrack.pdf_tex}
-    \caption{Cross track error controller. The value of the trajectories time stamp $t_{cl}$ of the closest point is generally not equal the current time $t$.}
+    \caption{Cross Track Error Controller Scheme. The value of the trajectories time stamp $t_{cl}$ of the closest point is generally not equal the current time $t$.}
     \label{fig:crossTrack}
 \end{figure}
 
