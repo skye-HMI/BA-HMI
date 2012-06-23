@@ -27,18 +27,18 @@ Existing HMI solutions were analyzed in order to find out, whether they would be
 \subsection{Hardware}
 \label{sub:hardware}
 
-Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with operation systems not compatible with \textsc{ROS}\footnote{This held true when this thesis was started and might be different nowadays as almost everything could be handled without ROS.}.
+Figure \ref{fig:devices taken into consideration} shows all devices which were taken into closer consideration. The gamepad option was drapped as it would offer the same possibilities as RC does with the drawback of not being a stand alone device. Smartphones could not be used as they run with operation systems not compatible with \textsc{ROS}.
 
 \begin{figure}[h]		
 	\small{
 		\begin{center}
-			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.23\textwidth]{futaba_7C_radio}
+			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{futaba_7C_radio_encircled}
 			\begin{center}RC \end{center}}
 			\hspace{0.05\textwidth}
-			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{x220t_hero}
+			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{x220t_hero_encircled}
 			\begin{center}Tablet \end{center}}
 			\hspace{0.05 \textwidth}
-			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{3dx_productimage}
+			\parbox[b]{0.28\textwidth}{\includegraphics[width=0.28\textwidth]{3dx_productimage_encircled}
 			\begin{center}3D mouse \end{center}}			
 			\vspace{0.005\textwidth}
 			\hspace{0.05\textwidth}			
@@ -47,7 +47,7 @@ Figure \ref{fig:devices taken into consideration} shows all devices which were t
 			\hspace{0.05\textwidth}
 			\parbox[b]{0.25\textwidth}{\includegraphics[width=0.25\textwidth]{Logitech-Freedom-Cordless-Joystick}
 			\begin{center}Joystick \end{center}}
-			\caption[Different devices taken into consideration]{Different devices taken into consideration}
+			\caption{The considered devices whereas the tablet with attached 3D mouse finally was chosen. The RC serves as a backup.}
 			\label{fig:devices taken into consideration}	
 		\end{center}
 	}			
@@ -184,7 +184,7 @@ Feeding velocities instead of a force and a moment makes the usage of the touchs
 
 \subsubsection{Half Automatic Control}
 \label{subsub:halfautomaticcontrol}
-For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}} was used to display the elevation. Once the waypoints are set a interpolating cubic spline is calculated and displayed (compare figure \ref{fig:qgc_automatic_control}). Out from the recent position of \textsc{Skye}, a velocity input is calculated using a \textit{Pure Pursuit} approach\footnote{In section \ref{sub:pure_pursuit} \textit{Pure Pursuit} is described how it was implemented in \textsc{Matlab}.} The part of the path that is already reached is displayed in blue. % The trace of the (simulated) motion is tracked with red dots.
+For this mode a trajectory is needed. Therefore \textsc{QGroundControl} was adopted to generate it. After setting the waypoints on Google Maps, the user can adjust the their height over ground. In order to properly display the elevation, the Google Elevation API\footnote{\url{https://developers.google.com/maps/documentation/elevation/}}was used. Once the waypoints are set an interpolating cubic spline is calculated and displayed (see figure \ref{fig:qgc_automatic_control}). Out from the recent position of \textsc{Skye}, a velocity input is calculated using a \textit{Pure Pursuit} approach\footnote{In section \ref{sub:pure_pursuit} \textit{Pure Pursuit} is described how it was implemented in \textsc{Matlab}.} The part of the path that is already reached is displayed in blue. The methods for waypoint interpolation and trajectory generation are describe in more detail in chapter \ref{cha:trajectory}.% The trace of the (simulated) motion is tracked with red dots.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
