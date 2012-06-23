@@ -6,7 +6,8 @@
 %\textbf{\textit{About the need of different modes, the requirements of image capturing and an overview of the realized modes}} \\
 
 As mentioned in section \ref{sec:system overview}, one of \textsc{Skye}'s unique properties are the decoupled six DOF in space. This means, the system has the possibility to turn around an arbitrary axis while moving in any direction. This ability has to be used to fulfill the operation tasks in an optimal way. 
-However, an intuitive handling for the pilot has to be granted in any way. \\ 
+However, the increased control possibility complicates the pilot's tasks. Therefore it has to be regarded especially to keep the control intuitive.
+%However, an intuitive handling for the pilot has to be granted in any way. \\ 
 The first approach is to provide a manual control mode that allows the pilot to directly control the six DOF. A detailed description will be given in section \ref{sec:manualControlModes}. \\ 
 In contrast to the unrestricted control possibilities for manual control, a more autonomous control would allow the pilot to focus on a specific motion, e.g. the orientation of the camera. Therefore, a part of the six DOF motion of \textit{Skye} is automated\footnote{The prototype designed for this project does not include any environment detections. Therefore, \textit{autonomous} control with obstacle detection will not yet be possible.}. In section \ref{sec:automaticControlModes} this is described in more detail. Furthermore, a basic \textit{test phase} control mode lets the operator directly access the eight actuators individually. Table \ref{tab:control_modes} gives an overview of the control modes. Those actual realization is presented in chapter \ref{cha:findHardSoftSolution}.
 
@@ -95,7 +96,7 @@ If a user interface for less than six DOF is used, e.g. a remote controller\foot
 %\textit{Half Automatic Control and Full Automatic Control}
 
 \subsubsection{Half Automatic Control}
-When scanning an object for 3D reconstruction, it is often known in advance where the pictures should be taken from. Therefore, a waypoint based controlling would be desirable. The \textit{half automatic control} mode allows to define a set of $n+1$ waypoints $\{{\bf q}_0, {\bf q}_1, \cdots, {\bf q}_n\}$ for the system's position. The rotational degrees of freedom $\{\omega_x^C, \omega_y^C, \omega_z^C\}$ remain manually controllable. This allows to adjust the camera's orientation while automatically following the path generated through the waypoints. For convenient use, it is important that the user can reduce the translational velocity on the path for instance if an additional view out from the current position is demanded.
+When scanning an object for 3D reconstruction, it is often known in advance where the pictures should be taken from. Therefore, a waypoint based controlling would be desirable. The \textit{half automatic control} mode allows to define a set of $n+1$ waypoints $\{{\bf q}_0, {\bf q}_1, \cdots, {\bf q}_n\}$ for the system's position. The rotational degrees of freedom $\{\omega_x^C, \omega_y^C, \omega_z^C\}$ remain manually controllable. This allows to adjust the camera's orientation while automatically following the path generated through the waypoints.% For convenient use, it is important that the user can reduce the translational velocity on the path for instance if an additional view out from the current position is demanded.
 
 \begin{figure}[H] % [H] steht dafür, dass das Bild genau hier im Text sein soll.
 	\begin{center}
