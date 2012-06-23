@@ -160,18 +160,19 @@ u_k-u_{k-1}=\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x
 \subsubsection{Arc length}
 The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated using arcs $B_a$ and $B_b$ (see the green arcs in figure \ref{fig:arcLength}) and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
 
+\begin{equation*}
+u_k-u_{k-1}=\frac{B_a+B_b}{2}
+\end{equation*}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width = 0.9\textwidth]{graphics/arcLength.eps}
-  \caption{The arc length is estimated using the segments of two circles.}
+  \caption{The arc length is estimated using the segments, $B_a$ and $B_b$ of two circles where as the chord length is the straight connection.}
   \label{fig:arcLength}
 \end{figure}
 
 
-\begin{equation*}
-u_k-u_{k-1}=\frac{B_a+B_b}{2}
-\end{equation*}
+
 
 \subsubsection{Centripetal}
 This method was proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
@@ -188,7 +189,7 @@ All those four methods were tested on our three sample waypoints defined in \ref
 \begin{figure}[H]
 	\centering
     \includegraphics[width = 0.9\textwidth]{graphics/Parameterizations4_road_agile.eps}
-  \caption{The different parameterizations shown with quartic splines; Uniform: black, Chord length: blue, Arc length: green, Centripetal: red}
+  \caption{The different parameterizations shown with quartic splines: Uniform (black), Chord length (blue), Arc length (green), Centripetal (red).}
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
@@ -230,7 +231,7 @@ When selecting a spline, the spline's order shall also be chosen, i.e. of what d
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/continuity.eps}
-  \caption{The different degrees of continuity for cubic (green), quartic (cyan) and quintic( magenta) splines.}
+  \caption{The different degrees of continuity for cubic (green), quartic (cyan) and quintic (magenta) splines.}
   \label{fig:continuity}
 \end{figure}
 
