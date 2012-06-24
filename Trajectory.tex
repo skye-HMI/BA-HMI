@@ -237,12 +237,12 @@ When selecting a spline, the spline's order shall also be chosen, i.e. of what d
 
 
 
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (i.e. continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system would under ideal  able to handle all the resulting inputs of cubic, quartic and quintic splines.
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (i.e. continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
  
 \begin{figure}[H]
 	\centering
     \includegraphics[width = \textwidth]{graphics/forces.eps}
-  \caption{The comparison of the forces output of the propulsion dynamics with the forces input resulting from the different degrees of splines; input (blue), output: cubic (green), quartic (cyan) and quintic (magenta).}
+  \caption{The comparison of the forces output of the propulsion system with the forces input resulting from the different degrees of splines; input (blue), output: cubic (green), quartic (cyan) and quintic (magenta) for the \textit{agile} waypoints.}
 \label{fig:forces}
 \end{figure} 
 
