@@ -152,12 +152,12 @@ This is the simplest way to define the knot vector $\bf u$. Here, the index numb
 \begin{equation*}
 u_k-u_{k-1}= 1
 \end{equation*}
-\subsubsection{Chord length}
+\subsubsection{Chord Length}
 In this method the chord length (the blue line in figure \ref{fig:arcLength} between the waypoints is calculated and then summed up and assigned to $u$. With $u=\lambda t$ this method can be interpreted to aim for a more or less constant velocity over the whole trajectory.
 \begin{equation*}
 u_k-u_{k-1}=\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|
 \end{equation*}
-\subsubsection{Arc length}
+\subsubsection{Arc Length}
 The arc length method is an improved version of the chord length distribution in order to reach a constant velocity. Here instead of taking the chord length between two waypoints, the arc length is estimated using arcs $B_a$ and $B_b$ (see the green arcs in figure \ref{fig:arcLength}) and summed up. %The algorithm\footnote{The algorithm was taken from \cite{engeln} and implemented in \textsc{Matlab}.} for that can be found in \ref{subsec:arcLengthDistribution}.
 
 \begin{equation*}
@@ -237,9 +237,7 @@ When selecting a spline, the spline's order shall also be chosen, i.e. of what d
   \label{fig:continuity}
 \end{figure}
 
-
-
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
+For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster to the requested direction. Therefore the trajectory should not ask for a step input for the orientation of the thrusters, which is respected by using cubic splines or splines of higher degree (see figure \ref{fig:qc_rpm}). However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor have to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As it can be seen from figure \ref{fig:forces}, the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
  
 \begin{figure}[H]
 	\centering
@@ -251,8 +249,8 @@ When selecting a spline, the spline's order shall also be chosen, i.e. of what d
 %The small deviations between the input and the output forces are a result of interpolation, done in the propulsion system \cite{schaffnervu}, and are not a result of an inadequate input. However, BLABLA.....see deviations, but much faster dynamics therefore neglectable.
 %{\bf here static criteria?}
 
-\subsubsection{Geometrical appearance}
-Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots which would need to be omitted by setting waypoints more densely. As this would be cumbersome with the GUI described in chapter \ref{cha:findHardSoftSolution}, cubic splines are most suitable. 
+\subsubsection{Geometrical Appearance}
+Beside the continuity and the dynamic properties again the geometrical appearance needs to be considered in order to choose the best degree of splines for \textsc{Skye}. As shown in figure \ref{fig:degreeCentripetal}, the cubic splines are most suitable to use with a not so dense set of waypoints. Quartic and qubic splines have higher overshoots, which would need to be omitted by setting waypoints more densely. As this would be cumbersome with the GUI described in chapter \ref{cha:findHardSoftSolution}, cubic splines are most suitable. 
 
 \begin{figure}[H]
 	\centering
@@ -298,14 +296,16 @@ These boundary conditions are set for all dimensions.
 
 \subsection{Implementation}
 \label{subsec:implementation}
-As the implementation of the spline generation was not the goal of this bachelor thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox. Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
+As the implementation of the spline generation was not the goal of this bachelor thesis, it was decided to use \textsc{Matlab}'s Curve Fitting Toolbox.
+Yet it soon became evident that in order to correctly set boundary conditions for quartic and quintic splines and to get a thorough understanding, it was best to program the algorithms and only use the toolbox to make calculations with the generated splines.\\
 
 \subsubsection{Spline Basis}
-The common known basis for a spline $p_x(u)$ of degree $p$ is the piecewise polynomial\footnote{A spline made of these piecewise polynomials is named to be of pp-form in \textsc{Matlab}} basis. There for each knot span $[u_j, u_{k+j})$ a polynomial $a_j^p$ of degree $p$ is defined. I.e. 
+The common known basis for a spline $p_x(u)$ of degree $p$ is the piecewise polynomial\footnote{A spline made of these piecewise polynomials is in \textsc{Matlab} named to be of pp-form.} basis.
+For each knot span $[u_j, u_{k+j})$ a polynomial $a_j^p$ of degree $p$ is defined. 
 \begin{equation}
 p_x(u)=a_j^p(u),~u \in [u_j,u_{j+1})
 \end{equation}
-Using piecewise polynomials the number of waypoints $n+1$ equals the number of knots $n_{knots+1}$.
+Using piecewise polynomials, the number of waypoints $n+1$ equals the number of knots $n_{knots+1}$.
 
 
 \paragraph{Ex. 1:}
@@ -319,7 +319,7 @@ Given a data set of four waypoints, i.e. $n+1=4$, with values of the x-coordinat
 \end{figure} 
 
 
-Another often used basis for a spline is the one of the basic splines, B-splines\footnote{A spline made of these B-splines is named to be of B-form in \textsc{Matlab}}. There, instead of of defining a polynomial of degree $p$ for each knot span, a linear combination of B-splines $B_j^p(u)$ of degree $p$ is taken to form $p_x(u)$.
+Another often used basis for a spline is the one of the basic splines (B-splines\footnote{A spline made of these B-splines is in \textsc{Matlab} named to be of B-form.}). Instead of defining a polynomial of degree $p$ for each knot span, a linear combination of B-splines $B_j^p(u)$ of degree $p$ is taken to form $p_x(u)$.
 \begin{equation}
 p_x(u) = \sum_{j=0}^m {c_x}_jB_j^p(u), ~u_{min} \leq u \leq u_{max}
 \end{equation}
@@ -342,14 +342,14 @@ The shapes of the first three degrees of B-splines with a not equally distribute
   \label{fig:BSplines_definition}
 \end{figure} 
 
-With this definition of B-splines the the number $m+1$ of resulting B-splines is given by:
+With this definition of B-splines, the number $m+1$ of resulting B-splines is given by:
  
 \begin{equation}
 \label{n_knot-m-p-relation}
 m+1=n_{knot}-p
 \end{equation} 
 
-If $n+1=n_{knot}+1$ still held true only $m+1=n-p$ B-splines would result. They would not represent a basis to interpolate the $n+1$ waypoints with a spline of degree $p$. For intuition figure \ref{fig:BSpline} of example  Ex. 2 might help. There the same waypoints set as in figure \ref{fig:ppSpline} is used. Not extending the knot vector would result in only two B-splines of degree 1 ($B_1^1$ and $B_2^1$ in the visualization) as equation \eqref{n_knot-m-p-relation} would result in $m=1$. These two B-Splines would not form a basis to linearly interpolate all four waypoints. \\
+If $n+1=n_{knot}+1$ still held true, only $m+1=n-p$ B-splines would result. They would not represent a basis to interpolate the $n+1$ waypoints with a spline of degree $p$. For intuition figure \ref{fig:BSpline} of example  Ex. 2 might help. There the same waypoints set as in figure \ref{fig:ppSpline} is used. Not extending the knot vector would result in only two B-splines of degree 1 ($B_1^1$ and $B_2^1$ in the visualization) as equation \eqref{n_knot-m-p-relation} would result in $m=1$. These two B-Splines would not form a basis to linearly interpolate all four waypoints. \\
 In order to have a basis to interpolate $n+1$ waypoints with a spline of degree $p$, it is proposed in \cite{biagiotti} to extend the knot vector ${\bf u}$ in the following way:\\
 \\
 If the degree $p$ of the interpolating spline is odd:
@@ -360,7 +360,7 @@ If the degree $p$ of the interpolating spline is even:
 \begin{equation}
 {\bf u}_{extended}= \underbrace{ [u_0,\ldots,u_0}_{p+1},(u_0+u_1)/2, \ldots, (u_{k-1}-u_k)/2, \ldots,(u_{n-1}+u_n)/2,\underbrace{u_n,\ldots, u_n ]}_{p+1} 
 \end{equation} 
-Latter shifting of the knots is used reduce the oscillations spline of even degree usually have\footnote{These oscillations can be seen in \cite{doessegger} as there no shifting is used.} And also enables to set symmetric boundary conditions as described in section \ref{subsec:boundary conditions}. The extended knots vector with the resulting B-splines finally will form a basis. For a prove \cite{dahmen} is recommended.
+Latter shifting of the knots is used to reduce the oscillations that splines of even degree usually have\footnote{These oscillations can be seen in \cite{doessegger} as there no shifting is used.} and also enables to set symmetric boundary conditions as described in section \ref{subsec:boundary conditions}. The extended knots vector with the resulting B-splines finally will form a basis. For a prove \cite{dahmen} is recommended.
 
 \paragraph{Ex. 2:}
 Given the same waypoints as in example Ex. 1, ${\bf u}_{extended}$ is defined to be $[0,0,2,3,5,5]$. Over this knot vector the B-splines can be determined and and the coefficients\footnote{These coefficients are also said to span a control polygon.} ${c_x}_j$ are calculated to be ${\bf c}_x=[1,2,3,3]$ using equation \eqref{eq:linearSysofEq}.
@@ -373,11 +373,10 @@ Given the same waypoints as in example Ex. 1, ${\bf u}_{extended}$ is defined to
 \end{figure} 
 
 \subsubsection{Realization}
-While for the cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were chosen as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
+While for cubic splines the piecewise polynomial approach from \cite{engeln} was chosen, B-splines were taken as a basis for the quartic and quintic splines and the proposed C-Code in \cite{biagiotti} was implemented in \textsc{Matlab} to get the B-splines.\\
 \\
 
-
-Once the extended knot vector ${\bf u}_extended$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equation for all dimensions in order to get the coefficients ${\bf c}_j$,  here shown for $x$:
+Once the extended knot vector ${\bf u}_{extended}$ is defined and the boundary conditions are set, the only thing left is to solve the following linear system of equations for all dimensions in order to get the coefficients ${\bf c}_j$,  here shown for $x$:
 \begin{equation}
 \label{eq:linearSysofEq}
 {\bf A}_{[m+1\times m+1] }{{\bf c}_x}_{[m+1\times 1]}={{\bf b}_x}_{[m+1 \times 1]}
@@ -539,7 +538,7 @@ The maximum feasible velocity in any direction is calculated to be:
 
 which is nothing but $ \|{\bf F}_{res,min} \| = \|{\bf F}_{drag} \| $.\\
 
-For trajectories for position and orientation the maximal feasible angular acceleration is also important. It is calculated to be:
+For trajectories for position and orientation, the maximal feasible angular acceleration is also important. It is calculated to be:
 
 \begin{equation}
 \left|\Psi_{max} \right| =  \frac{\| {\bf M_{res,w}}\|}{\left| \lambda_{max, J_{B}} \right|} = \SI{2.06}{\radian\per\square\second}
@@ -588,7 +587,7 @@ The last constraint on $u(t)$ is met by choosing $\lambda$ as follows:
 
 where $S$ is a security factor, e.g. for model uncertainties.\footnote{In our case $S$ would also to be used to consider additional manual angular velocities that are superpositioned.}  \\
 \\
-This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization from \cite{doessegger}. The resulting velocity and acceleration for the \textit{road} trajectory generated with cubic splines is visible in figure \ref{fig:constantTimeScaling3cp_road}. It is clear that for this path, the maximum velocity will be the limiting factor as it has a lot of lang straight lines.
+This approach of the constant time scaling is shown in figure \ref{fig:constantTimeScaling}, using an adopted visualization from \cite{doessegger}. The resulting velocity and acceleration for the \textit{road} trajectory generated with cubic splines is visible in figure \ref{fig:constantTimeScaling3cp_road}. It is clear that for this path, the maximum velocity will be the limiting factor as it has a lot of long straight lines.
 
 \begin{figure}[H]
 	\centering
@@ -611,7 +610,7 @@ We use cubic time parametrizations for the intervals $u_0$ to $u_1$ and $u_{n-1}
     \label{fig:non_linear_time}
 \end{figure}
 
-Like that $\ddot{\tilde{{\bf p}}}(t_0)$ and $\ddot{\tilde{{\bf p}}}(t_n)$ can be set to zero if 
+Like that, $\ddot{\tilde{{\bf p}}}(t_0)$ and $\ddot{\tilde{{\bf p}}}(t_n)$ can be set to zero if 
 \begin{equation*}
 \dot{u}(t_0)=\dot{u}(t_n)=\frac{d{\bf p}}{du}\Bigm|_{u=u_0}=\frac{d{\bf p}}{du}\Bigm|_{u=u_n}=0
 \end{equation*}
@@ -895,7 +894,7 @@ Compared to the results of perfect modelling (section \ref{sub:results_perfect_m
 \subsection{Model Uncertainties}
 \label{sub:results_model_uncertainties}
 
-The simulations were repeated by designing the trajectories by system constraints with a safety factor reduced to less than one, i.e. to \num{0.8}. Therefore, the trajectory overestimates the system's actuation possibilities. \\
+The simulations were repeated by designing the trajectories by using system constraints with a safety factor reduced to less than one, i.e. to \num{0.8}. Therefore, the trajectory overestimates the system's actuation possibilities. \\
 The tracking of all controllers is shown in figure \ref{fig:results_model_uncertainties}. The numerical results are listed in table \ref{tab:results_model_uncertainties}. The deviation of \textit{trajectory following} control is considerable larger than of the two other ones. \textit{Pure pursuit} even tops the \textit{cross track error} results in this case. The average accelerations are slightly higher when using \textit{trajectory following}.
 %Contrary to the \textit{trajectory following} which heads to the actual end of the trajectory by $T_p$, \textit{pure pursuit} and \textit{cross track error} will lead to \SIrange{86}{93}{\percent} of the circuit's length.
 \\
@@ -927,7 +926,7 @@ In comparison to the ideal case, the deviations of the accurate controllers get 
 \subsection{Data Correlation}
 Within the gathered data of the tracking with ideal conditions (section \ref{sub:results_perfect_model}) and considering all introduced parametrizations and spline degrees from section \ref{sec:splines} a data set of 108 items was analyzed for correlation\footnote{The additional cases with non perfect modelling ($3\cdot 108$ items with wind and/or model uncertainties) will not be shown. Indeed, the correlations cannot be seen there explicitly.}. Some correlating results could be observed. \\
 Figure \ref{fig:correlation_time_acc} shows the relation between the given time $T_p$ for the trajectory and the average acceleration $J_5$ occurring on the system. The result is trivial, as the less time is given to follow the waypoints, the higher gets the acceleration. The dependence on the used parametrization is different for the different waypoints, whereas higher spline degrees (quartic and quintic) yield to slightly smaller time $T_p$ and acceleration $J_5$ than lower degree (cubic) consequently. Although, these differences are very small. \\
-In figure \ref{fig:correlation_invdev_acc} the correlation between the average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are similar but much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic which are nearly the same.
+In figure \ref{fig:correlation_invdev_acc} the correlation between the average deviation $J_4$ and the average acceleration $J_5$ occurring on the system are shown for the \textit{road} waypoints\footnote{Figure \ref{fig:correlation_invdev_acc_all_circuits} includes all waypoint samples. The correlations are similar but much more disturbed.}. As expected, higher accelerations correlates with higher deviations. Cubic splines yield to worse performance than quartic and quintic, which are nearly the same.
 \\ Note that cubic splines are restricted to \num{4} boundary conditions and therefore start and end with accelerations unequal zero. 
 
 \begin{figure}[H]
@@ -950,7 +949,7 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between the average d
   \begin{minipage}[t]{0.48\textwidth}
     \includegraphics[width = \textwidth]{correlation/Control_Correlation_InvDev_Acc_SplineDegree}
   \end{minipage}
-  \caption{Correlation between deviation between trajectory and trace. Data points from \textit{road} waypoints. {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
+  \caption{Correlation between average path deviation and average accelerations. Data points from \textit{road} waypoints. {\bf Left}: Different waypoint parametrizations uniform (black), chord length (blue), arc length (green) and centripetal (red). {\bf Right}: Different spline degrees cubic (green), quartic (cyan) and quintic (magenta).}
   \label{fig:correlation_invdev_acc}
 \end{figure}
 
@@ -965,4 +964,4 @@ The almost endless field of trajectory control represents the manifold needs for
 Even to control UAVs no throughout good or bad trajectory algorithms can be named. Their quality rather has to be rethought for any specific use. Therefore, as for every optimization problem, it is fundamental to properly define rating criteria before thinking of any trajectories. \\
 For \textsc{Skye} tight waypoint tracking was considered more important than for instance time minimization or smoothness. Therefore cubic splines based on centripetal parametrized waypoints result in good performance for most considerable waypoint samples.
 For sake of simplicity, even a linear time parametrization considering the system's actuation saturations can be used to yield sufficient results. \\
-Independent on the choice how to generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to nonholonomic vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
+Independent on the choice how to generate the trajectories, proper controllers influence the actual performance of the system in case of non perfect modelling. As the presented trajectory algorithms cannot consider e.g. current environmental conditions as wind, it is recommended to use time-variant trajectory controllers\footnote{We do not use the name \textit{path tracking} as using time parametrized trajectories allow to strictly obtain system constraints. Path tracking is mainly restricted to nonholonomic vehicles cruising at constant speed as boats \cite{williams}, planes or wheeled systems \cite{deluca}, \cite{snider}.} to maintain best possible trajectory tracking.
