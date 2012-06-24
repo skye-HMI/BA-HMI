@@ -87,6 +87,14 @@
 \end{table}
 
 \begin{figure}[H]
+    \includegraphics[width = \textwidth]{graphics/qc_rpm_third_agile2.eps}
+  \caption{The resulting controller output of the angles (solid) and revolutions (dashed) for each motor platform during the first third of the \textit{agile} trajectory;  cubic (green), quartic (cyan) and quintic (magenta) splines - It shows that also the cubic spline does not ask for a step input for one of the angles. - Furthermore it is apparent that the angles only change quickly if the revolutions are low, i.e. for a number of revolutions per minute equal to zero step inputs for the angles might occur for cubic, quartic and quintic splines. For more details of the propulsion dynamics, see \cite{schaffnervu}.}
+  \label{fig:qc_rpm}
+\end{figure}
+
+
+
+\begin{figure}[H]
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{trackings/figure_3D_road_SplineDegree3_trajectoryFollowing_Disturbance_0.eps}
   \end{minipage}
