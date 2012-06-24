@@ -726,3 +726,33 @@
 %     </messages>
 %</mavlink>
 %\end{lstlisting}
+\chapter{Six-Dimensional Path}
+\label{cha:appendix_orientation}
+
+Generally, ${\bf p}(u)$ is a six-dimensional function which not only describes the position of \textsc{Skye}, but also its attitude.
+
+\begin{equation}
+{\bf p}(u) =[x,y,z,\phi, \theta, \psi] ^T
+\end{equation}
+
+$\phi, \theta, \psi$ are e.g. the Roll-Pitch-Yaw angles with describe the rotation from the inertial frame to the camera frame.
+
+As \textsc{Skye} has the unique property of six decoupled DOF, its position and its attitude can be defined independently\footnote{The word independently must be used with caution in this context, as for the motion law the attitude and the position must be analyzed together in order to get a feasible trajectory}.
+
+In the \textit{full automatic} control mode, described in section \ref{sec:automaticControlModes}, it is proposed to define \textsc{Skye}'s orientation with the camera target point.
+
+\textbf{visualization here!!!!!! von Notizen}
+\textbf{Formeln fuer theta und psi}
+
+Having only one waypoint, the orientation along the path could be described by the infinite times differentiable functions elaborated above. However, as a further development would be to have multiple camera target points along the path, again a spline approach was chosen. The pitch angle $\theta$ and the yaw angle $\psi$ were calculated for several discrete points of the path. Then these discrete points were interpolated using a spline. As this was neither analyzed further nor simulated with the system model, no recommendation for the spline degree can be made. However, it is assumed that cubic splines would suffice.
+In figure \textbf{here} the three analyzed tracks with possible target points are shown using cubic spline for the orientation.
+
+
+
+As only two angles are defined by aiming at a point in the 3D-space, the roll angle $\phi$ was set to zero in the elaborate   \textsc{Matlab} simulation\footnote{This is insofar reasonable as most picture skye shoots, e.g. for a 3D reconstruction, are not taken from straight above, but rather from the side. Therefore, a roll angle of $\phi=0$ ensures a horizontal horizon in the picture.}.
+
+
+
+
+
+
