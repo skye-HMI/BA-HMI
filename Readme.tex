@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\begin{document}
+
+\textbf{Content} of DVD for bachelor thesis \textit{Human-Machine Interface for Operating a Blimp} \\
+
+\paragraph{Report}
+\begin{verbatim}
+iiiiiiiiiiiiiii.pdf
+\end{verbatim}
+
+\paragraph{Presentation}
+\begin{verbatim}
+iiiiiiiiiiiiiii.pps
+\end{verbatim}
+
+\paragraph{Videos}
+\begin{verbatim}
+QGC_Touch_Spinning.mp4
+QGC_Trajectory_Control.mp4
+Skye_Performance.mp4
+\end{verbatim}
+
+\paragraph{Source Code}
+\begin{itemize}
+\item[$\clubsuit$] Matlab Simulation \\
+In blablaadsfasdf/5\_trajectories, splines and trajectory algorithms can be started by 
+\begin{verbatim}
+main_motion_law.m
+main_splineBC.m
+main_splineDeg.m
+main_splinePara.m
+\end{verbatim}
+In balabsdfasdf, the trajectory control simulations can be started by
+\begin{verbatim}
+main_trajectory_simulation.m
+\end{verbatim}
+Type \begin{scriptsize}help main\_trajectory\_simulation\end{scriptsize} to get further help. \\
+The results of the simulations are stored in BASDASDJA/evaluation.xlsx
+
+\item[$\clubsuit$] QGroundControl \\
+The source code is tested to compile on Windows 7, Mac OS X and Ubuntu 12.04 (LTS) with Qt version 4.7. \\ Follow the instruction on \url{http://qgroundcontrol.org/dev/build_source} to build the source.
+\item[$\clubsuit$] Mavlink \\
+The \textsc{Skye} specific \textsc{Mavlink} message definitions can be found in
+\begin{verbatim}
+qgroundcontrol/thirdParty/mavlink/message_definition/skye.xml
+qgroundcontrol/mavlink/include/v1.0/skye/... .h
+\end{verbatim}
+
+\end{itemize}
+
+
+\end{document}
