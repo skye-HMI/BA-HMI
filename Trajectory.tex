@@ -3,14 +3,14 @@
 
 \chapter{Trajectory Planning}
 \label{cha:trajectory}
-For the two most advanced modes, i.e. the \textit{half automatic} and the \textit{full automatic} mode described in chapter \ref{cha:DifferentControlModes}, trajectories had to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
+For the two most advanced modes, i.e. the \textit{half automatic} and the \textit{full automatic} mode described in chapter \ref{cha:DifferentControlModes}, trajectories have to be generated. In this chapter the best trajectories for \textsc{Skye} are elaborated and tested with suitable trajectory controllers. Performance results based on a \textsc{Matlab} simulation are shown.
 
 %\subsection{Our Approach}
 %From the GUI it was given that the goal trajectory would be a multipoint-interpolating %trajectory. The user is able to define waypoints on a map which afterwards should be %connected with a reasonable and realizable trajectory. Beside interpolating trajectories %there exist also approximating trajectories but they were not taken into consideration, since %usually the user wants skye fly directly through a waypoint.
 
 \section{Experimental Design}
 \label{sec:experimental design}
-The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms had therefore to be alike these situations. All the results in this chapter belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. The first waypoints e.g. could be used to capture images of the university building. Generally spoken, they represent standard situations for the applications mentioned before. Indeed, to verify the conclusions, sometimes a wider set of waypoints had to be considered. 
+The main application fields of the system \textsc{Skye} are image capturing and agile performance demonstrations. The waypoints used to test the trajectory algorithms have therefore to be alike these situations. All the results in this chapter belong to the three sample waypoints shown in figure \ref{fig:sampleNodes}. The first waypoints e.g. could be used to capture images of the university building. Generally spoken, they represent standard situations for the applications mentioned before. Indeed, to verify the conclusions, sometimes a wider set of waypoints had to be considered. 
 
 \begin{figure}[h]
   \begin{minipage}[t]{0.32\textwidth}
@@ -24,11 +24,11 @@ The main application fields of the system \textsc{Skye} are image capturing and 
   \begin{minipage}[t]{0.32\textwidth}
     \includegraphics[width = \textwidth]{graphics/sampleNodeAgile}
   \end{minipage}
-  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represent the circumnavigation of an obstacle. It has a constantly high curvatures of the track. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvatures.}
+  \caption{The experimental environment based on three samples. {\bf Left:} The \textit{road} waypoints represent the need of low overshoots to not touch obstacles beside the streets. Its long straight ways enable high velocities. {\bf Center:} The \textit{helix} waypoints represent the circumnavigation of an obstacle with constantly high curvature. {\bf Right:} The \textit{agile} waypoints include both straight sections as well as high curvature.}
   \label{fig:sampleNodes}
 \end{figure}
 
-\section{Trajectories and performance metrics}
+\section{Trajectories and Performance Metrics}
 \label{sec:definition}
 \subsection{Path vs. Trajectory}
 The main difference between a path $ {\bf p}(u)$ and a trajectory $ {\bf \tilde{p}}(t)$ is that only the latter includes time, i.e. considers the dynamics. A path is only defined as the way to go from point a to point b. Therefore it only has geometrical properties. In order to generate a trajectory, a time needs to be assigned to each point on the path. This is done with a function $u=u(t)$ that connects the parameter $u$ of the geometrical path with the time. In the following this function $u=u(t)$ will also be referred to as the motion law as in \cite{snider}. The composition of the $u=u(t)$ and the geometrical path ${\bf p}(u)$ finally forms the trajectory ${\bf \tilde{p}}(t)$. This concept is shown in figure \ref{fig:path_trajectory}.
@@ -54,7 +54,7 @@ In order to get the velocity and acceleration of the trajectory, the chain rule 
 
 
 
-\subsection{Interpolation vs Approximation}
+\subsection{Interpolation vs. Approximation}
 If one wants to draw a path through a set of waypoints, we can distinguish between two cases. Firstly, the path can pass through all waypoints no matter how many bends it will have. Secondly, the path tries to best fit the waypoint set, i.e. a function of a  certain order is adopted to best fit the waypoints. This can be done with different methods, e.g with least-squares. The first approach is called interpolation whereas the second approach is called approximation. Depending on the choice, different curves with different properties are formed (see figure \ref{fig:ApproxInterpol}).  
 
 
@@ -65,7 +65,7 @@ If one wants to draw a path through a set of waypoints, we can distinguish betwe
   \label{fig:ApproxInterpol}
 \end{figure}
 
-For the the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. I.e.:
+For the trajectory planning for \textsc{Skye}, it was necessary to interpolate the waypoints. This is due to the GUI used (see section \ref{sec:realization}). There, only a small amount of waypoints is set and the pilot expects \textsc{Skye} to pass through all of them and not to take any shortcut. I.e.:
 \begin{equation}
 {\bf p}(u_k)\stackrel{!}{=}{\bf q}_k=\begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}
 \end{equation}
@@ -75,7 +75,7 @@ The approximation of the waypoints could result in a collision with buildings as
 
 To interpolate a given set of $n+1$ waypoints a polynomial (of order $\ge n+1$) from $\varPi_{>n}$ or else a set of polynomials of lower order, defined over a certain interval, can be used. This set of low-order polynomials then forms a spline. As impressively shown in \cite{dahmen}, splines are the best option when interpolating many waypoints, as high order polynomials tend to have high oscillations.
 
-\subsection{Performance metrics}
+\subsection{Performance Metrics}
 
 To score and optimize the generated trajectories $\tilde{p}(t)$ and the resulting trace of the system $r(t)$ we set up the following performance metrics. The performance metrics (\ref{item:static_deviation}) to (\ref{item:static_acceleration}) are referred to as \textit{static criteria} as they do not depend on any simulation. The remaining ones (\textit{dynamic criteria}) mainly depend on the used controller\footnote{For detailed description of the used notation see section \ref{sec:definition}.}.
 \\
@@ -175,7 +175,7 @@ u_k-u_{k-1}=\frac{B_a+B_b}{2}
 
 
 \subsubsection{Centripetal}
-This method was proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
+This method was proposed in \cite{lee}. Here the root of the chord length is used. The motivation for this method is, that the larger the angular change from $\textnormal{waypoint}_{n-1}$ to $\textnormal{waypoint}_n$, the more centripetal force is accepted. A justification for this statement can be found in \cite{doessegger} and \cite{lee}.
 \begin{equation*}
 u_k-u_{k-1}=\sqrt{\left \| \begin{bmatrix}x_k\\y_k\\z_k \end{bmatrix}-\begin{bmatrix}x_{k-1}\\y_{k-1}\\z_{k-1} \end{bmatrix}\right \|}
 \end{equation*}
@@ -193,9 +193,11 @@ All those four methods were tested on our three sample waypoints defined in \ref
   \label{fig:parameterizations4_road_agile}
 \end{figure}
 
-Since those overshoots are intolerable, a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two variants seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to bet fit our needs.
+Since those overshoots are intolerable, a uniform or centripetal distribution has to be chosen. Although in our sample waypoints the two variants seem to be quite similar, the uniform distribution sometimes leads to  loops or cusps as shown in \cite{lee} and \cite{haron}. This occurs, if the chord distance between the waypoints suddenly changes a lot as the uniform distribution is completely independent of the waypoint set. Therefore the centripetal distribution was chosen to best fit our needs.
 \\
-Beside the geometrical appearance due to the different distributions, the dynamic properties\footnote{In \cite{mellinger} e.g. they optimize the $u$ values to obtain the time optimal trajectory.} are also of big interest, especially if a constant time scaling is used as described in section \ref{subsec:motionLaw}. Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness. However, if the waypoints were set in a closer succession the geometrical properties would not be that important anymore and the decision should be rethought.
+Beside the geometrical appearance due to the different distributions, the dynamic properties\footnote{In \cite{mellinger} e.g. they optimize the $u$ values to obtain the time optimal trajectory.} are also of big interest, especially if a constant time scaling is used as described in section \ref{subsec:motionLaw}.
+Here, as the centripetal distribution is already chosen due to its geometrical properties, this is only shown for reasons of completeness.
+However, if the waypoints were set in a closer succession, the geometrical properties would not be that important anymore and the decision should be rethought.
 
 \begin{figure}[H]
 	\centering
@@ -226,7 +228,7 @@ In figure \ref{fig:para road vel acc} or table \ref{tab:results_parameterization
 \subsection{Spline Degree}
 
 \subsubsection{Continuity}
-When selecting a spline, the spline's order shall also be chosen, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used, the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk whereas quartic are still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
+When selecting a spline, the spline's order shall also be chosen, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used, the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory, the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk, whereas quartic are still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
 
 \begin{figure}[H]
 	\centering
@@ -237,7 +239,7 @@ When selecting a spline, the spline's order shall also be chosen, i.e. of what d
 
 
 
- For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (i.e. continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
+ For \textsc{Skye} it was intuitively clear that at least cubic splines had to be used, i.e. a parametric continuity of $C^2$ was needed (continuity in acceleration). This is due to its propulsion system, which is briefly described in section \ref{sec:system overview} and in detail in \cite{schaffnervu}. The orientation of the thrusters cannot be changed immediately, i.e. the positioning motor needs time to turn the thruster in the requested direction. Therefore the trajectory should not ask for a step input for the orientation of thruster which is respected by using cubic splines or splines of higher degree. However, in order to find out whether even the dynamics of the thrusters or further dynamics of the positioning motor had to be considered, the whole propulsion system was fed with forces calculated from the accelerations $F_x=m_{tot}a_x$. As can be seen from figure \ref{fig:forces} the propulsion system is able to handle all the resulting inputs of cubic, quartic and quintic splines.
  
 \begin{figure}[H]
 	\centering
