@@ -226,7 +226,7 @@ In figure \ref{fig:para road vel acc} or table \ref{tab:results_parameterization
 \end{table}
 
 \subsection{Spline Degree}
-
+\label{sub:spline_degree}
 \subsubsection{Continuity}
 When selecting a spline, the spline's order shall also be chosen, i.e. of what degree are the polynomials which make up the spline curve. If polynomials of degree one are used, the first derivative of the curve will not be continuous anymore. We say that this curve has a geometrical continuity of $G^0$. In the case of a trajectory, the geometrical continuity of the path will directly have an influence on the continuity of the motion as can be seen from the equations \eqref{vel_acc} or in figure \ref{fig:continuity}. E. g. with a motion law of $u=\lambda t$, cubic splines are discontinuous in the jerk, whereas quartic are still continuous and quintic splines would be continuous up to the snap, i.e. ${\bf \tilde{p}}(t)$ would have a parametric continuity of $C^4$ . 
 
@@ -953,7 +953,15 @@ In figure \ref{fig:correlation_invdev_acc} the correlation between the average d
   \label{fig:correlation_invdev_acc}
 \end{figure}
 
-\pagebreak
+\section{Remarks}
+To actually implement trajectory following on a real system, some further considerations have to be done. Especially measurement noise (that was not considered in this thesis) and its influence to the system's behaviour have to be analysed. Some remarks about that as well as the case of too low continuity of a trajectory are found below.
+
+\paragraph{Lack of Continuity}
+As discussed in section \ref{sub:spline_degree}, no accurate control will be possible if the dynamic continuity of the trajectory is not high enough to consider the system dynamics. Further, discontinuous system inputs will occur which would have to be treated specially to omit exceptions on the implemented system. A simulation of when using ``linear splines'' is shown in figure \ref{fig:app_linear}.
+
+\paragraph{Measurement Noise}
+Precise state estimation is the cornerstone of any controller implementation. As sensors will never deliver perfect system states, the integration of measurement uncertainties should be considered already in simulation. Figure \ref{fig:app_trajfoll_noise} and \ref{fig:app_crossTrack} show the effect of additive white Gaussian noise for the position and velocity feedback.
+
 \section{Discussion}
 \label{sec:discussion}
 

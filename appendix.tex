@@ -88,7 +88,7 @@
 
 \begin{figure}
     \includegraphics[width = \textwidth]{graphics/qc_rpm_third_agile2.eps}
-  \caption{The resulting controller output of the angles (solid) and revolutions (dashed) for each motor unit during the first third of the \textit{agile} trajectory;  cubic (green), quartic (cyan) and quintic (magenta) splines - It shows that also the cubic spline does not ask for a step input for one of the angles. Furthermore it is apparent that the angles only change quickly if the revolutions are low, i.e. for a number of revolutions per minute equal to zero step inputs for the angles might occur for cubic, quartic and quintic and any higher order splines. For more details of the propulsion dynamics, see \cite{schaffnervu}.}
+  \caption{The resulting controller output of the angles (solid) and revolutions (dashed) for each motor unit during the first third of the \textit{agile} trajectory;  cubic (green), quartic (cyan) and quintic (magenta) splines - It shows that also the cubic spline does not ask for a step input for none of the angles. Furthermore it is apparent that the angles only change quickly if the revolutions of the thrusters are low, i.e. for a number of revolutions per minute equal to zero step inputs for the angles might occur for cubic, quartic and quintic and any higher order splines. For more details of the propulsion dynamics, see \cite{schaffnervu}.}
   \label{fig:qc_rpm}
 \end{figure}
 
@@ -285,6 +285,7 @@
   \label{fig:app_sys_constr}
   \caption{Influence of model accuracy on trajectory controller dynamics. Example using \textit{cross track error} controller on \textit{agile} trajectory. For high safety factors ($S=1.6$) the system follows the requested dynamic of the trajectory. For safety factors $S\leq 1$ the maximum dynamics given by the system constraints in \cite{weichart} cannot be reached. Trajectory (blue), trace (green), $(\cdot)_{lim}=(\cdot)_{max}/S$ (dashed red) and $(\cdot)_{max}$ (dashed black)}
 \end{figure}
+
 
 
 %\chapter{Mavlink Protocol}
