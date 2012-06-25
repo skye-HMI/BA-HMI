@@ -88,7 +88,7 @@
 
 \begin{figure}
     \includegraphics[width = \textwidth]{graphics/qc_rpm_third_agile2.eps}
-  \caption{The resulting controller output of the angles (solid) and revolutions (dashed) for each motor unit during the first third of the \textit{agile} trajectory;  cubic (green), quartic (cyan) and quintic (magenta) splines - It shows that also the cubic spline does not ask for a step input for one of the angles. Furthermore it is apparent that the angles only change quickly if the revolutions are low, i.e. for a number of revolutions per minute equal to zero step inputs for the angles might occur for cubic, quartic and quintic and any higher order splines. For more details of the propulsion dynamics, see \cite{schaffnervu}.}
+  \caption{The resulting controller output of the angles (solid) and revolutions (dashed) for each motor unit during the first third of the \textit{agile} trajectory;  cubic (green), quartic (cyan) and quintic (magenta) splines - It shows that also the cubic spline does not ask for a step input for none of the angles. Furthermore it is apparent that the angles only change quickly if the revolutions of the thrusters are low, i.e. for a number of revolutions per minute equal to zero step inputs for the angles might occur for cubic, quartic and quintic and any higher order splines. For more details of the propulsion dynamics, see \cite{schaffnervu}.}
   \label{fig:qc_rpm}
 \end{figure}
 
@@ -284,6 +284,124 @@
   \end{minipage} \\
   \label{fig:app_sys_constr}
   \caption{Influence of model accuracy on trajectory controller dynamics. Example using \textit{cross track error} controller on \textit{agile} trajectory. For high safety factors ($S=1.6$) the system follows the requested dynamic of the trajectory. For safety factors $S\leq 1$ the maximum dynamics given by the system constraints in \cite{weichart} cannot be reached. Trajectory (blue), trace (green), $(\cdot)_{lim}=(\cdot)_{max}/S$ (dashed red) and $(\cdot)_{max}$ (dashed black)}
+\end{figure}
+
+
+\begin{figure}
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_helix_SplineDegree1_trajectoryFollowing_Disturbance_0.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_agile_SplineDegree1_trajectoryFollowing_Disturbance_0.eps}
+  \end{minipage}
+  \vspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_helix_SplineDegree1_purePursuit_Disturbance_0.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_agile_SplineDegree1_purePursuit_Disturbance_0.eps}
+  \end{minipage}
+  \vspace{5pt}
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_helix_SplineDegree1_crossTrack_Disturbance_0.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \includegraphics[width = \textwidth]{trackings_lin/figure_3D_agile_SplineDegree1_crossTrack_Disturbance_0.eps}
+  \end{minipage}
+  \caption{{\bf Top}: \textit{Trajectory following}; {\bf Center}: \textit{Pure pursuit}; {\bf Bottom}: \textit{Cross track error}; Tracking results of trajectories with $C^0$ continuity. The system is not able to follow the velocity discontinuities that occur at the waypoints. Note that the motion law described in \ref{sec:motionLaw} would not allow this trajectory because of the acceleration constraint.}
+  \label{fig:app_linear}
+\end{figure}
+
+
+\begin{figure}
+  \centering
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0_2.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0_2.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0.1}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0.2}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0_8.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_34_agile_splineDegree3_trajectoryFollowing_disturbance_0_noise_0_8.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0.4}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0.8}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  \label{fig:app_noise_trajfoll}
+  \caption{Tracking results with additive white Gaussian noise using \textit{trajectory following} control. Both tracking (left) and dynamic, i.e. absolute velocity and acceleration (right) of the system behaviour are shown. Red line indicates system constraints (see fig \ref{fig:app_sys_constr}). Considerable deviations only occur when applying very strong noise.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0_2.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0_2.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0.1}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0.2}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  
+  \begin{minipage}[t]{\textwidth}
+  \centering
+  	\begin{minipage}[t]{0.40\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_3D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0_8.eps}
+  	\end{minipage}
+  	\begin{minipage}[t]{0.56\textwidth}
+    	\centering
+    	\includegraphics[width = \textwidth]{trackings_noise/figure_1D_sim_178_agile_splineDegree3_crossTrack_disturbance_0_noise_0_8.eps}
+  	\end{minipage} \\
+  	Additive measurement noise $\sigma^2_{vel}=\SI{0.4}{\meter\per\second}$ and $\sigma^2_{pos}=\SI{0.8}{\meter}$ 
+  \end{minipage}\\ \hspace{5pt}
+  \label{fig:app_noise_crossTrack}
+  \caption{Same situations as in \ref{fig:app_noise_trajfoll} using \textit{cross track error} control. To keep deviation low, temporal synchrony is neglected.}
 \end{figure}
 
 
